@@ -4,7 +4,7 @@ This is the official issue tracker of the blackbuntu pentesting distribution, yo
 The actual version name code is [**blackbuntu-18.04-revive-0.1-alpha-amd64**](https://mega.nz/?fbclid=IwAR3fChEIwOKqDlHMMFfioUO56nM0h2FL9rBfozebJqTxipZfwLOH15IXli4#!JRNSBAYS!vhLIclM4bVbiCdNw_pdUqjfVtSZLbykl3mE4ksrDx-w)
 
 # Installation
-The process of a hard installation must be done if you are an expert in cubersecurity, otherwise, we hignly recommand to install the blackbuntu pentesting ditribution in [virtualbox](https://www.virtualbox.org/) with **4096 Mo of memory** and **160 Go of VDI disk space**, all the rest by default.
+The process of a hard installation must be done if you are an expert in cybersecurity, otherwise, we hignly recommand to install the blackbuntu pentesting ditribution in [virtualbox](https://www.virtualbox.org/) with **4096 Mo of memory** and **160 Go of VDI disk space**, all the rest by default.
 
 # Disclaimer
 Blackbuntu is a Linux distribution made for penetration testing, it is made by cybersecurity experts to let you understand how to secure your information systems with a blackhat point of view. It means it is used to only secure information systems not for piracy. You have to use it in this sense otherwise we are not responsible for any other use. 
