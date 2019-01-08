@@ -1,4 +1,4 @@
-# About the Blackbuntu Linux repository
+# About the blackbuntu repository
 This is the official issue tracker of the blackbuntu pentesting distribution, you can ask your question by just creating an issue.
 
 The actual version name code is [**blackbuntu-18.04-revive-0.1-alpha-amd64**](https://mega.nz/?fbclid=IwAR3fChEIwOKqDlHMMFfioUO56nM0h2FL9rBfozebJqTxipZfwLOH15IXli4#!JRNSBAYS!vhLIclM4bVbiCdNw_pdUqjfVtSZLbykl3mE4ksrDx-w)
