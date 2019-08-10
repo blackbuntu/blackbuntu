@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/fileopen.png</file>
+        <file>icons/projectopen.png</file>
+        <file>icons/projectnew.png</file>
+        <file>icons/projectsave.png</file>
+        <file>icons/pause-attack.png</file>
+        <file>icons/start-attack.png</file>
+        <file>icons/help.png</file>
+        <file>icons/homepage.png</file>
+        <file>icons/quit.png</file>
+        <file>icons/johnny.png</file>
+        <file>icons/tab_passwords.png</file>
+        <file>icons/tab_options.png</file>
+        <file>icons/tab_settings.png</file>
+        <file>icons/tab_statistics.png</file>
+        <file>icons/tab_benchmark.png</file>
+        <file>icons/tab_log.png</file>
+        <file>icons/tab_output.png</file>
+        <file>../translations/johnny_fr.qm</file>
+        <file>icons/trash.png</file>
+        <file>icons/guess.png</file>
+        <file>icons/export.png</file>
+        <file>icons/johnny_128.png</file>
+    </qresource>
+</RCC>
