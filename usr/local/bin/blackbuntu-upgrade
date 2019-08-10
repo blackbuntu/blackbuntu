@@ -1,0 +1,759 @@
+#!/bin/bash
+#
+# [Package]: blackbuntu-upgrade
+# [Release]: Blackbuntu 18.04 Revive v1.0 Alpha
+# [Website]: https://blackbuntu.org
+# [Version]: Revive v1.0 Alpha
+# [License]: http://www.gnu.org/licenses/gpl-3.0.html
+# 
+# Ascii Art : https://www.askapache.com/online-tools/figlet-ascii/
+
+#######################
+## ----------------- ##
+## DEFINE PARAMETERS ##
+## ----------------- ##
+#######################
+
+## Colour output
+## -------------
+TEXT_ERROR="\033[01;31m"	# Issues/Errors
+TEXT_ENDED="\033[01;32m"	# Success
+TEXT_ALERT="\033[01;33m"	# Warnings/Information
+TEXT_TITLE="\033[01;34m"	# Heading
+TEXT_RESET="\033[00m"		# Normal
+
+######################
+## ---------------- ##
+## DEFINE FUNCTIONS ##
+## ---------------- ##
+######################
+
+## Display Header
+## --------------
+function set_banner
+{
+	clear
+	echo -e "${TEXT_ERROR}   _     _            _    _                 _           ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}  | |   | |          | |  | |               | |          ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}  | |__ | | __ _  ___| | _| |__  _   _ _ __ | |_ _   _   ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}  | '_ \| |/ _' |/ __| |/ / '_ \| | | | '_ \| __| | | |  ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}  | |_) | | (_| | (__|   <| |_) | |_| | | | | |_| |_| |  ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}  |_'__/|_|\__'_|\___|_|\_\_'__/ \__'_|_| |_|\__|\__'_|  ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}                                                         ${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}                                        Blackbuntu v1.1  ${TEXT_RESET}"         
+	echo
+	echo -e "${TEXT_ENDED} [i] [Package]: blackbuntu-upgrade${TEXT_RESET}"
+	echo -e "${TEXT_ENDED} [i] [Website]: https://blackbuntu.org${TEXT_RESET}"
+
+  	echo
+  	sleep 3s
+}
+
+## Error file not found
+## --------------------
+function set_notice_404
+{
+	cd ~/
+	echo -e "${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Remote file not found (Error 404)${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
+	exit 1
+}
+
+## Error DNS issues
+## ----------------
+function set_notice_dns
+{
+	cd ~/
+	echo -e "${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues${TEXT_RESET}"
+	echo -e "${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
+	exit 1
+}
+
+## Error Notice
+## ------------
+function set_notice_error
+{
+	cd ~/
+	echo -e "${TEXT_ERROR}[!] ${1^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+## System Package Handler
+## ----------------------
+function set_system_handler
+{
+	sudo apt -y update && sudo apt -y upgrade && sudo apt -y dist-upgrade
+	sudo apt -y remove && sudo apt -y autoremove
+	sudo apt -y clean && sudo apt -y autoclean
+	stage_output "System updated / upgraded and cleaned successfully"
+}
+
+## Check if provided username exist
+## --------------------------------
+function check_username
+{
+	if id "$1" >/dev/null 2>&1; then
+	    sleep 1s
+	else
+		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system${TEXT_RESET}"
+		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} Quitting ...${TEXT_RESET}"
+		echo -e "\n"
+		exit 1
+	fi
+}
+
+## Check Internet status
+## ---------------------
+function check_internet
+{
+	for i in {1..10};
+	do 
+		ping -c 1 -W ${i} www.google.com &>/dev/null && break; 
+	done
+	
+	if [[ "$?" -ne 0 ]]; 
+	then
+		set_notice_dns
+	fi
+
+	stage_output "Internet connection detected"
+}
+
+## Return stage title
+## ------------------
+function stage_title
+{
+	echo -e "\n${TEXT_TITLE}[+]${TEXT_RESET} (${1}/${2}) ${TEXT_TITLE}${3^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+## Return stage output
+## -------------------
+function stage_output
+{
+	cd ~/
+	echo -e "${TEXT_ENDED}[i] ${1^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+################
+## ---------- ##
+## START BASH ##
+## ---------- ##
+################
+
+## Display Header
+## --------------
+set_banner
+
+## Get Username
+## ------------
+read -p " Please enter your username : " USERNAME
+echo
+
+## Stage counter start
+## -------------------
+STAGE=0
+TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
+clear
+
+#####################################
+## ------------------------------- ##
+## CHECK USER LEVEL AND PERMISSION ##
+## ------------------------------- ##
+#####################################
+
+## Checking Username
+## -----------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Checking Username"
+check_username $USERNAME
+stage_output "Username checked successfully"
+
+## Switch to Root
+## --------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Switch to Root"
+sudo ls -la /tmp/ >/dev/null 2>&1
+stage_output "Switched to Root successfully"
+
+#############################
+## ----------------------- ##
+## INSTALL NATIVE PACKAGES ##
+## ----------------------- ##
+#############################
+
+## Wine
+## -----
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Wine"
+if [ ! -f "/etc/blackbuntu/installed/wine.txt" ];
+then
+	sleep 1s
+	sudo apt -y update && sudo apt -y upgrade
+	sudo apt -y install wine-stable winetricks
+	sudo dpkg --add-architecture i386 && sudo apt -y update && sudo apt -y install wine32
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/freetype.git
+	cd /tmp/freetype/
+	sudo ./configure >/dev/null 2>&1
+	sudo make >/dev/null 2>&1
+	sudo make install >/dev/null 2>&1
+	cd /tmp/
+	sudo rm -rf /tmp/freetype*
+	sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/wine.txt >/dev/null 2>&1
+fi
+stage_output "Wine installed successfully"
+
+## MySQL Client and Server
+## -----------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install MySQL Client and Server"
+if [ ! -f "/etc/blackbuntu/installed/mysql.txt" ];
+then
+	sleep 1s
+	sudo apt -y install mysql-server mysql-client
+	sudo mysql_secure_installation
+	sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/mysql.txt >/dev/null 2>&1
+fi
+stage_output "MySQL Client and Server installed successfully"
+
+## PHPMyAdmin
+## ----------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install PHPMyAdmin"
+if [ ! -f "/etc/blackbuntu/installed/phpmyadmin.txt" ];
+then
+	sleep 1s
+	sudo apt -y install phpmyadmin
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/phpmyadmin.git
+	sudo mv /etc/phpmyadmin/apache.conf /etc/phpmyadmin/apache.backup
+	sudo mv /tmp/phpmyadmin/apache.conf /etc/phpmyadmin/
+	sudo systemctl restart apache2
+	sudo rm -rf /usr/share/phpmyadmin/setup
+	sudo systemctl restart apache2
+	sudo rm -rf /tmp/phpmyadmin/
+	sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/phpmyadmin.txt >/dev/null 2>&1
+fi
+stage_output "PHPMyAdmin installed successfully"
+
+## Android SDK
+## -----------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Android SDK"
+if [ ! -f "/etc/blackbuntu/installed/android-sdk.txt" ];
+then
+	sleep 1s
+	sudo apt -y install android-sdk
+	sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/android-sdk.txt >/dev/null 2>&1
+fi
+stage_output "Android SDK installed successfully"
+
+## Arduino
+## -------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Arduino"
+if [ ! -f "/etc/blackbuntu/installed/arduino.txt" ];
+then
+	sleep 1s
+	sudo apt -y install arduino
+	sudo rm -f /usr/share/applications/arduino.desktop
+	sudo wget -q -O /usr/share/applications/bbu-arduino.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-arduino.desktop
+	if [ -f "/usr/share/applications/bbu-arduino.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/arduino.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Arduino installed successfully"
+
+#############################
+## ----------------------- ##
+## INSTALL REMOTE PACKAGES ##
+## ----------------------- ##
+#############################
+
+## Arachni
+## http://www.arachni-scanner.com
+## ------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Arachni"
+if [ ! -f "/etc/blackbuntu/installed/arachni.txt" ];
+then
+	sleep 1s
+	sudo wget -O /tmp/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
+	if [ -f "/tmp/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz" ];
+	then
+		cd /tmp/
+		sudo tar -xvf /tmp/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz >/dev/null 2>&1
+		sudo mv /tmp/arachni-1.5.1-0.5.12/ /opt/pentest/webapps-analysis/arachni/
+		sudo chmod +x /opt/pentest/webapps-analysis/arachni/bin/arachni*
+		sudo touch /usr/local/bin/arachni
+		sudo chmod +x /usr/local/bin/arachni
+		sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/arachni >/dev/null 2>&1
+		sudo echo 'clear' | sudo tee -a /usr/local/bin/arachni >/dev/null 2>&1
+		sudo echo 'cd /opt/pentest/webapps-analysis/arachni/bin/' | sudo tee -a /usr/local/bin/arachni >/dev/null 2>&1
+		sudo echo 'sudo ./arachni $@' | sudo tee -a /usr/local/bin/arachni >/dev/null 2>&1
+		sudo wget -q -O /usr/share/applications/bbu-arachni.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-arachni.desktop
+		if [ -f "/usr/share/applications/bbu-arachni.desktop" ];
+		then
+			sudo rm -rf /tmp/arachni*
+			sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/arachni.txt >/dev/null 2>&1
+		fi
+	fi
+fi
+stage_output "Arachni installed successfully"
+
+## CrackMapExec
+## https://github.com/byt3bl33d3r/CrackMapExec
+## -------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install CrackMapExec"
+if [ ! -f "/etc/blackbuntu/installed/crackmapexec.txt" ];
+then
+	sleep 1s
+	sudo -H pip install crackmapexec --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-crackmapexec.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-crackmapexec.desktop
+	if [ -f "/usr/share/applications/bbu-crackmapexec.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/crackmapexec.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "CrackMapExec installed successfully"
+
+## Exploit-DB
+## https://github.com/offensive-security/exploitdb
+## -----------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Exploit-DB"
+if [ ! -f "/etc/blackbuntu/installed/exploitdb.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/exploitdb.git
+	sudo mv /tmp/exploitdb/ /opt/pentest/information-gathering/
+	sudo chmod +x /opt/pentest/information-gathering/exploitdb/searchsploit
+	sudo touch /usr/local/bin/searchsploit
+	sudo chmod +x /usr/local/bin/searchsploit
+	sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/searchsploit >/dev/null 2>&1
+	sudo echo 'clear' | sudo tee -a /usr/local/bin/searchsploit >/dev/null 2>&1
+	sudo echo 'cd /opt/pentest/information-gathering/exploitdb/' | sudo tee -a /usr/local/bin/searchsploit >/dev/null 2>&1
+	sudo echo './searchsploit $@' | sudo tee -a /usr/local/bin/searchsploit >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-exploitdb.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-exploitdb.desktop
+	if [ -f "/usr/share/applications/bbu-exploitdb.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/exploitdb.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Exploit-DB installed successfully"
+
+## Dnschef
+## http://thesprawl.org/projects/dnschef/
+## --------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Dnschef"
+if [ ! -f "/etc/blackbuntu/installed/dnschef.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/dnschef.git
+	sudo mv /tmp/dnschef/ /opt/pentest/sniffing-spoofing/
+	cd /opt/pentest/sniffing-spoofing/dnschef/
+	sudo -H pip install dnslib --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/sniffing-spoofing/dnschef/dnschef.py
+	sudo ln -s /opt/pentest/sniffing-spoofing/dnschef/dnschef.py /usr/bin/dnschef
+	sudo wget -q -O /usr/share/applications/bbu-dnschef.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-dnschef.desktop
+	if [ -f "/usr/share/applications/bbu-dnschef.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/dnschef.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Dnschef installed successfully"
+
+## Droopescan
+## https://github.com/droope/droopescan
+## ------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Droopescan"
+if [ ! -f "/etc/blackbuntu/installed/droopescan.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/droopescan.git
+	sudo mv /tmp/droopescan/ /opt/pentest/webapps-analysis/
+	cd /opt/pentest/webapps-analysis/droopescan/
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/webapps-analysis/droopescan/droopescan
+	sudo ln -s /opt/pentest/webapps-analysis/droopescan/droopescan /usr/bin/droopescan
+	sudo wget -q -O /usr/share/applications/bbu-droopescan.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-droopescan.desktop
+	if [ -f "/usr/share/applications/bbu-droopescan.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/droopescan.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Droopescan installed successfully"
+
+## Golismero
+## https://github.com/golismero/golismero
+## --------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Golismero"
+if [ ! -f "/etc/blackbuntu/installed/golismero.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/golismero.git
+	sudo mv /tmp/golismero/ /opt/pentest/information-gathering/
+	cd /opt/pentest/information-gathering/golismero/
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo -H pip install -r requirements_unix.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/information-gathering/golismero/golismero.py
+	sudo ln -s /opt/pentest/information-gathering/golismero/golismero.py /usr/bin/golismero
+	sudo wget -q -O /usr/share/applications/bbu-golismero.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-golismero.desktop
+	if [ -f "/usr/share/applications/bbu-golismero.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/golismero.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Golismero installed successfully"
+
+## InSpy
+## https://github.com/gojhonny/InSpy
+## ---------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install InSpy"
+if [ ! -f "/etc/blackbuntu/installed/inspy.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/inspy.git
+	sudo mv /tmp/inspy/ /opt/pentest/information-gathering/
+	cd /opt/pentest/information-gathering/inspy/
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/information-gathering/inspy/inspy.py
+	sudo ln -s /opt/pentest/information-gathering/inspy/inspy.py /usr/bin/inspy
+	sudo wget -q -O /usr/share/applications/bbu-inspy.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-inspy.desktop
+	if [ -f "/usr/share/applications/bbu-inspy.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/inspy.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "InSpy installed successfully"
+
+## Jexboss
+## https://github.com/joaomatosf/jexboss
+## -------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Jexboss"
+if [ ! -f "/etc/blackbuntu/installed/jexboss.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/jexboss.git
+	sudo mv /tmp/jexboss/ /opt/pentest/exploitation/
+	sudo -H pip install -r requires.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/exploitation/jexboss/jexboss.py
+	sudo touch /usr/local/bin/jexboss
+	sudo chmod +x /usr/local/bin/jexboss
+	sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/jexboss >/dev/null 2>&1
+	sudo echo 'clear' | sudo tee -a /usr/local/bin/jexboss >/dev/null 2>&1
+	sudo echo 'cd /opt/pentest/exploitation/jexboss/' | sudo tee -a /usr/local/bin/jexboss >/dev/null 2>&1
+	sudo echo 'sudo python jexboss.py $@' | sudo tee -a /usr/local/bin/jexboss >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-jexboss.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-jexboss.desktop
+	if [ -f "/usr/share/applications/bbu-jexboss.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/jexboss.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Jexboss installed successfully"
+
+## Maltego
+## https://www.paterva.com/web7/
+## -----------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Maltego"
+if [ ! -f "/etc/blackbuntu/installed/maltego-teeth.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/maltego-teeth.git
+	sudo dpkg -i /tmp/maltego-teeth/src/Maltego.v4.1.13.11516.deb >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-maltego-teeth.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-maltego-teeth.desktop
+	if [ -f "/usr/share/applications/bbu-maltego-teeth.desktop" ];
+	then
+		sudo rm -rf /tmp/maltego-teeth/		
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/maltego-teeth.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Maltego installed successfully"
+
+## MITM-Framework
+## https://github.com/CiuffysHub/MITMf
+## -----------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install MITM-Framework"
+if [ ! -f "/etc/blackbuntu/installed/mitmf.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/mitmf.git
+	sudo mv /tmp/mitmf/ /opt/pentest/sniffing-spoofing/
+	cd /opt/pentest/sniffing-spoofing/mitmf/
+	sudo git submodule init >/dev/null 2>&1
+	sudo git submodule update --recursive >/dev/null 2>&1
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/sniffing-spoofing/mitmf/mitmf.py
+	sudo ln -s /opt/pentest/sniffing-spoofing/mitmf/mitmf.py /usr/bin/mitmf
+	sudo wget -q -O /usr/share/applications/bbu-mitmf.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-mitmf.desktop
+	if [ -f "/usr/share/applications/bbu-mitmf.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/mitmf.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "MITM-Framework installed successfully"
+
+## Pagodo
+## https://github.com/opsdisk/pagodo
+## ---------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Pagodo"
+if [ ! -f "/etc/blackbuntu/installed/pagodo.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/pagodo.git
+	sudo mv /tmp/pagodo/ /opt/pentest/information-gathering/
+	cd /opt/pentest/information-gathering/pagodo/
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/information-gathering/pagodo/pagodo.py
+	sudo ln -s /opt/pentest/information-gathering/pagodo/pagodo.py /usr/bin/pagodo
+	sudo wget -q -O /usr/share/applications/bbu-pagodo.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-pagodo.desktop
+	if [ -f "/usr/share/applications/bbu-pagodo.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/pagodo.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Pagodo installed successfully"
+
+## PowerShell
+## https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-powershell-core-on-linux?view=powershell-6#ubuntu-1804
+## -----------------------------------------------------------------------------------------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install PowerShell"
+if [ ! -f "/etc/blackbuntu/installed/powershell.txt" ];
+then
+	sleep 1s
+	sudo wget -q -O /tmp/packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+	if [ -f "/tmp/packages-microsoft-prod.deb" ];
+	then
+		cd /tmp/
+		sudo dpkg -i packages-microsoft-prod.deb
+		sudo apt -y update && sudo apt -y install powershell
+		sudo touch /etc/blackbuntu/installed/powershell.txt
+		sudo rm -f /tmp/packages-microsoft-prod.deb
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/powershell.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "PowerShell installed successfully"
+
+## Routersploit
+## https://github.com/threat9/routersploit
+## ---------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Routersploit"
+if [ ! -f "/etc/blackbuntu/installed/routersploit.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/routersploit.git
+	sudo mv /tmp/routersploit/ /opt/pentest/exploitation/
+	cd /opt/pentest/exploitation/routersploit/
+	sudo -H python3 -m pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/exploitation/routersploit/rsf.py
+	sudo touch /usr/local/bin/routersploit
+	sudo chmod +x /usr/local/bin/routersploit
+	sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/routersploit >/dev/null 2>&1
+	sudo echo 'clear' | sudo tee -a /usr/local/bin/routersploit >/dev/null 2>&1
+	sudo echo 'cd /opt/pentest/exploitation/routersploit/' | sudo tee -a /usr/local/bin/routersploit >/dev/null 2>&1
+	sudo echo 'sudo python3 rsf.py $@' | sudo tee -a /usr/local/bin/routersploit >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-routersploit.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-routersploit.desktop
+	if [ -f "/usr/share/applications/bbu-routersploit.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/routersploit.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Routersploit installed successfully"
+
+## Install Setoolkit
+## https://github.com/trustedsec/social-engineer-toolkit
+## -----------------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Setoolkit"
+if [ ! -f "/etc/blackbuntu/installed/setoolkit.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/setoolkit.git
+	sudo mv /tmp/setoolkit/ /opt/pentest/social-engineering/
+	sudo python /opt/pentest/social-engineering/setoolkit/setup.py install >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/social-engineering/setoolkit/seautomate
+	sudo chmod +x /opt/pentest/social-engineering/setoolkit/seproxy
+	sudo chmod +x /opt/pentest/social-engineering/setoolkit/setoolkit
+	sudo chmod +x /opt/pentest/social-engineering/setoolkit/seupdate
+	sudo touch /usr/local/bin/setoolkit
+	sudo chmod +x /usr/local/bin/setoolkit
+	sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/setoolkit >/dev/null 2>&1
+	sudo echo 'clear' | sudo tee -a /usr/local/bin/setoolkit >/dev/null 2>&1
+	sudo echo 'cd /opt/pentest/social-engineering/setoolkit/' | sudo tee -a /usr/local/bin/setoolkit >/dev/null 2>&1
+	sudo echo 'sudo /opt/pentest/social-engineering/setoolkit/setoolkit' | sudo tee -a /usr/local/bin/setoolkit >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-setoolkit.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-setoolkit.desktop
+	if [ -f "/usr/share/applications/bbu-setoolkit.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/setoolkit.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Setoolkit installed successfully"
+
+## Shodan
+## https://github.com/achillean/shodan-python
+## ------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Shodan"
+if [ ! -f "/etc/blackbuntu/installed/shodan.txt" ];
+then
+	sleep 1s
+	sudo -H pip install shodan --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-shodan.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-shodan.desktop
+	if [ -f "/usr/share/applications/bbu-shodan.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/shodan.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Shodan installed successfully"
+
+## Sslyze
+## https://github.com/altjx/ipwn
+## -----------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Sslyze"
+if [ ! -f "/etc/blackbuntu/installed/sslyze.txt" ];
+then
+	sleep 1s
+	sudo -H pip install setuptools --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo -H pip install sslyze --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-sslyze.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-sslyze.desktop
+	if [ -f "/usr/share/applications/bbu-sslyze.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/sslyze.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Sslyze installed successfully"
+
+## Sublist3r
+## https://github.com/aboul3la/Sublist3r
+## -------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install Sublist3r"
+if [ ! -f "/etc/blackbuntu/installed/sublist3r.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/sublist3r.git
+	sudo mv /tmp/sublist3r/ /opt/pentest/information-gathering/
+	cd /opt/pentest/information-gathering/sublist3r/
+	sudo -H pip install -r requirements.txt --no-cache-dir --disable-pip-version-check >/dev/null 2>&1
+	sudo chmod +x /opt/pentest/information-gathering/sublist3r/sublist3r.py
+	sudo ln -s /opt/pentest/information-gathering/sublist3r/sublist3r.py /usr/bin/sublist3r
+	sudo wget -q -O /usr/share/applications/bbu-sublist3r.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-sublist3r.desktop
+	if [ -f "/usr/share/applications/bbu-sublist3r.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/sublist3r.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "Sublist3r installed successfully"
+
+## WS-Attacker
+## https://sourceforge.net/projects/ws-attacker/
+## ---------------------------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Install WS-Attacker"
+if [ ! -f "/etc/blackbuntu/installed/ws-attacker.txt" ];
+then
+	sleep 1s
+	cd /tmp/
+	sudo git clone https://git.blackbuntu.org/blackbuntu/ws-attacker.git
+	sudo mv /tmp/ws-attacker/ /opt/pentest/webapps-analysis/
+	sudo chmod +x /opt/pentest/webapps-analysis/ws-attacker/ws-attacker.jar
+	sudo touch /usr/local/bin/ws-attacker
+	sudo chmod +x /usr/local/bin/ws-attacker
+	sudo echo '#!/bin/bash' | sudo tee -a /usr/local/bin/ws-attacker >/dev/null 2>&1
+	sudo echo 'clear' | sudo tee -a /usr/local/bin/ws-attacker >/dev/null 2>&1
+	sudo echo 'cd /opt/pentest/webapps-analysis/ws-attacker/' | sudo tee -a /usr/local/bin/ws-attacker >/dev/null 2>&1
+	sudo echo 'sudo /usr/bin/java -jar /opt/pentest/webapps-analysis/ws-attacker/ws-attacker.jar' | sudo tee -a /usr/local/bin/ws-attacker >/dev/null 2>&1
+	sudo wget -q -O /usr/share/applications/bbu-ws-attacker.desktop https://git.blackbuntu.org/blackbuntu/applications/raw/branch/master/update/bbu-ws-attacker.desktop
+	if [ -f "/usr/share/applications/bbu-ws-attacker.desktop" ];
+	then
+		sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/ws-attacker.txt >/dev/null 2>&1
+	fi
+fi
+stage_output "WS-Attacker installed successfully"
+
+## Configure Gnome Theme
+## ---------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Configure Gnome Theme"
+if [ ! -f "/etc/blackbuntu/installed/gnome-configure.txt" ];
+then
+	sleep 1s
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Cracking_Tools/ apps "['bbu-acccheck.desktop', 'bbu-brutespray.desktop', 'bbu-cachedump.desktop', 'bbu-cewl.desktop', 'bbu-cmospwd.desktop', 'bbu-crackmapexec.desktop', 'bbu-credcrack.desktop', 'bbu-crowbar.desktop', 'bbu-crunch.desktop', 'bbu-findmyhash.desktop', 'bbu-gpp-decrypt.desktop', 'bbu-hashcat.desktop', 'bbu-hashid.desktop', 'bbu-hashtag.desktop', 'bbu-hydra.desktop', 'bbu-john.desktop', 'bbu-johnny.desktop', 'bbu-lsadump.desktop', 'bbu-mimipenguin.desktop', 'bbu-multiforcer.desktop', 'bbu-ncrack.desktop', 'bbu-ophcrack.desktop', 'bbu-patator.desktop', 'bbu-pwdump.desktop', 'bbu-rcrack.desktop', 'bbu-rsmangler.desktop', 'bbu-truecrack.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Exploitation_Tools/ apps "['bbu-armitage.desktop', 'bbu-bd-factory.desktop', 'bbu-beef.desktop', 'bbu-cisco-exploiter.desktop', 'bbu-clusterd.desktop', 'bbu-commix.desktop', 'bbu-empire.desktop', 'bbu-exe2hex.desktop', 'bbu-getsploit.desktop', 'bbu-jexboss.desktop', 'bbu-libenom.desktop', 'bbu-linux-xsuggest.desktop', 'bbu-metasploit.desktop', 'bbu-msfpc.desktop', 'bbu-pocsuite.desktop', 'bbu-routersploit.desktop', 'bbu-sharpmeter.desktop', 'bbu-shellnoob.desktop', 'bbu-unicorn.desktop', 'bbu-vfeed.desktop', 'bbu-websploit.desktop', 'bbu-windows-xsuggest.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Digital_Forensics/ apps "['bbu-autopsy.desktop', 'bbu-binwalk.desktop', 'bbu-chntpw.desktop', 'bbu-dc3dd.desktop', 'bbu-ddrescue.desktop', 'bbu-dumpzilla.desktop', 'bbu-extundelete.desktop', 'bbu-foremost.desktop', 'bbu-galleta.desktop', 'bbu-guymager.desktop', 'bbu-pdf-parser.desktop', 'bbu-pdfid.desktop', 'bbu-pdgmail.desktop', 'bbu-peepdf.desktop', 'bbu-scalpel.desktop', 'bbu-volatility.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Hardwares_Tools/ apps "['bbu-apktool.desktop', 'bbu-arduino.desktop', 'bbu-dex2jar.desktop', 'bbu-rom-decoder.desktop', 'bbu-u3-pwn.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Information_Gathering/ apps "['bbu-arp-scan.desktop', 'bbu-automater.desktop', 'bbu-bing-ip2hosts.desktop', 'bbu-braa.desktop', 'bbu-cookie-cadger.desktop', 'bbu-dmitry.desktop', 'bbu-dnmap-client.desktop', 'bbu-dnmap-server.desktop', 'bbu-dnsenum.desktop', 'bbu-dnsmap.desktop', 'bbu-dnsrecon.desktop', 'bbu-dnstracer.desktop', 'bbu-dnswalk.desktop', 'bbu-dotdotpwn.desktop', 'bbu-enumiax.desktop', 'bbu-enum4linux.desktop', 'bbu-exploitdb.desktop', 'bbu-fierce.desktop', 'bbu-gnmap.desktop', 'bbu-golismero.desktop', 'bbu-goofile.desktop', 'bbu-inspy.desktop', 'bbu-intrace.desktop', 'bbu-ipscan.desktop', 'bbu-ismtp.desktop', 'bbu-iwebaudit.desktop', 'bbu-knock.desktop', 'bbu-lbd.desktop', 'bbu-linenum.desktop', 'bbu-masscan.desktop', 'bbu-maltego-teeth.desktop', 'bbu-miranda.desktop', 'bbu-nikto.desktop', 'bbu-nmap.desktop', 'bbu-nullinux.desktop', 'bbu-pagodo.desktop', 'bbu-p0f.desktop', 'bbu-recon-ng.desktop', 'bbu-smbspider.desktop', 'bbu-smtp-user-enum.desktop', 'bbu-sslcaudit.desktop', 'bbu-sslsplit.desktop', 'bbu-shodan.desktop', 'bbu-sslyze.desktop', 'bbu-sublist3r.desktop', 'bbu-traceroute.desktop', 'bbu-twofi.desktop', 'bbu-whois.desktop', 'bbu-wol-e.desktop', 'bbu-zenmap.desktop', 'bbu-zenmap-root.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Networking_Tools/ apps "['bbu-ardt.desktop', 'bbu-cymothoa.desktop', 'bbu-cryptcat.desktop', 'bbu-det.desktop', 'bbu-dns2tcpd.desktop', 'bbu-dns2tcpc.desktop', 'bbu-ipcalc.desktop', 'bbu-intersect.desktop', 'bbu-lans.desktop', 'bbu-lft.desktop', 'bbu-macchanger.desktop', 'bbu-medusa.desktop', 'bbu-nbtscan.desktop', 'bbu-net-creds.desktop', 'bbu-netcat.desktop', 'bbu-netwox.desktop', 'bbu-nishang.desktop', 'bbu-ntopng.desktop', 'bbu-openconnect.desktop', 'bbu-openvpn.desktop', 'bbu-powersploit.desktop', 'bbu-pwnat.desktop', 'bbu-proxychains.desktop', 'bbu-ptunnel.desktop', 'bbu-reverser.desktop', 'bbu-sbd.desktop', 'bbu-sipcalc.desktop', 'bbu-socat.desktop', 'bbu-ssh-audit.desktop', 'bbu-tcpdump.desktop', 'bbu-tcpick.desktop', 'bbu-tcpreplay.desktop', 'bbu-webshells.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Reporting_Tools/ apps "['bbu-cherrytree.desktop', 'bbu-dos2unix.desktop', 'bbu-keepnote.desktop', 'bbu-magictree.desktop', 'bbu-metagoofil.desktop', 'bbu-nipper.desktop', 'bbu-pipal.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Reverse_Engineering/ apps "['bbu-androarsc.desktop', 'bbu-androaxml.desktop', 'bbu-androdis.desktop', 'bbu-edb-debugger.desktop', 'bbu-javasnoop.desktop', 'bbu-radare2.desktop', 'bbu-valgrind.desktop', 'bbu-yara.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Sniffing_Spoofing/ apps "['bbu-dsniff.desktop', 'bbu-dnschef.desktop', 'bbu-ettercap.desktop', 'bbu-lnav.desktop', 'bbu-mitmdump.desktop', 'bbu-mitmf.desktop', 'bbu-mitmproxy.desktop', 'bbu-mitmweb.desktop', 'bbu-morpheus.desktop', 'bbu-ohrwurm.desktop', 'bbu-responder.desktop', 'bbu-sniffjoke.desktop', 'bbu-svcrack.desktop', 'bbu-svcrash.desktop', 'bbu-svmap.desktop', 'bbu-svreport.desktop', 'bbu-svwar.desktop', 'bbu-webscarab.desktop', 'bbu-wireshark.desktop', 'bbu-xspy.desktop', 'bbu-zaproxy.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Social_Engineering/ apps "['bbu-blackeye.desktop', 'bbu-credsniper.desktop', 'bbu-gophish.desktop', 'bbu-httrack.desktop', 'bbu-setoolkit.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Stress_Testing/ apps "['bbu-dhcpig.desktop', 'bbu-hping3.desktop', 'bbu-iaxflood.desktop', 'bbu-mdk3.desktop', 'bbu-reaver.desktop', 'bbu-rtpflood.desktop', 'bbu-slowhttptest.desktop', 'bbu-t50.desktop', 'bbu-termineter.desktop', 'bbu-thc-ssl-dos.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Utilities_Tools/ apps "['bbu-coldwar.desktop', 'bbu-dedsploit.desktop', 'bbu-dnsftp.desktop', 'bbu-dnsinject.desktop', 'bbu-dnsreverser.desktop', 'bbu-dracnmap.desktop', 'bbu-hammer.desktop', 'bbu-ratdecoders.desktop', 'bbu-ridenum.desktop', 'bbu-subbrute.desktop', 'bbu-torphantom.desktop', 'bbu-webtrace.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Vulnerabilities_Analysis/ apps "['bbu-bed.desktop', 'bbu-doona.desktop', 'bbu-inguma.desktop', 'bbu-jsql-injection.desktop', 'bbu-lynis.desktop', 'bbu-oscanner.desktop', 'bbu-sfuzz.desktop', 'bbu-sidguess.desktop', 'bbu-sqlmap.desktop', 'bbu-sslscan.desktop', 'bbu-tnscmd10g.desktop', 'bbu-unix-privesc.desktop', 'bbu-yersinia.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Webapps_Analysis/ apps "['bbu-arachni.desktop', 'bbu-burpsuite.desktop', 'bbu-cmsmap.desktop', 'bbu-deblaze.desktop', 'bbu-dirb.desktop', 'bbu-dirbuster.desktop', 'bbu-droopescan.desktop', 'bbu-fimap.desktop', 'bbu-grabber.desktop', 'bbu-hurl.desktop', 'bbu-joomscan.desktop', 'bbu-lfi-freak.desktop', 'bbu-plecost.desktop', 'bbu-skipfish.desktop', 'bbu-sniper.desktop', 'bbu-struts-scanner.desktop', 'bbu-tilde-enum.desktop', 'bbu-ua-tester.desktop', 'bbu-vega.desktop', 'bbu-wfuzz.desktop', 'bbu-wpscan.desktop', 'bbu-ws-attacker.desktop']"
+	gsettings set org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/Wireless_Attacks/ apps "['bbu-aircrack-ng.desktop', 'bbu-blueranger.desktop', 'bbu-cowpatty.desktop', 'bbu-crackle.desktop', 'bbu-eapmd5pass.desktop', 'bbu-fluxion.desktop', 'bbu-hostapd.desktop', 'bbu-kismet.desktop', 'bbu-linset.desktop', 'bbu-pixiewps.desktop', 'bbu-pyrit.desktop', 'bbu-wifi-honey.desktop', 'bbu-wifijammer.desktop', 'bbu-wifiphisher.desktop', 'bbu-wifite.desktop', 'bbu-wifresti.desktop', 'bbu-wps-breaker.desktop']"
+	sudo date +"%Y%m%d%H%M%S" | sudo tee /etc/blackbuntu/installed/gnome-configure.txt >/dev/null 2>&1
+fi
+stage_output "Gnome Theme configured successfully"
+
+## Correct Conky Version
+## ---------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Correct Conky Version"
+sudo wget -q -O /tmp/conky-sample.conf https://git.blackbuntu.org/blackbuntu/skel/raw/branch/master/config/conky/conky-sample.conf
+if [ -f "/tmp/conky-sample.conf" ];
+then
+	sudo sed -i 's/\*\*VERSION\*\*/v1\.0\.1/g' /tmp/conky-sample.conf
+	sudo rm -f /home/$USERNAME/.config/conky/conky.conf
+	sudo mv /tmp/conky-sample.conf /home/$USERNAME/.config/conky/conky.conf
+fi
+stage_output "Conky Version corrected successfully"
+
+## Correct Folders Permissions
+## ---------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Correct Folders Permissions"
+sudo chown -R $USERNAME:$USERNAME /opt/pentest/
+sudo chown -R $USERNAME:$USERNAME /var/www
+stage_output "Folders Permissions corrected successfully"
+
+## Correct BlackBuntu-Version
+## --------------------------
+(( STAGE++ ))
+stage_title $STAGE $TOTAL "Correct BlackBuntu Version"
+sudo rm -f /etc/blackbuntu/version/version.txt
+sudo echo "1.0.1" | sudo tee /etc/blackbuntu/version/version.txt >/dev/null 2>&1
+stage_output "BlackBuntu Version corrected successfully"
+
+## Final Notice
+## ------------
+echo -e "\n${TEXT_ENDED}[i]${TEXT_RESET} System Upgraded Successfully${TEXT_RESET}"
+sleep 3s

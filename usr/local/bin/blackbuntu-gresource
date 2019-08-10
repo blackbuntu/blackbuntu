@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# [Package]: blackbuntu-gresource
+# [Release]: Blackbuntu Revive v1.2 Alpha
+# [Website]: https://blackbuntu.org
+# [Version]: Revive v1.2 Alpha
+# [License]: http://www.gnu.org/licenses/gpl-3.0.html
+
+## Rebuild Gnome Shell Theme Resources
+## -----------------------------------
+sudo apt -y install libglib2.0-dev libxml2-utils
+sudo mkdir -p ./theme/
+sudo mkdir -p ./theme/icons/
+
+gs=/usr/share/gnome-shell/gnome-shell-theme.gresource
+for r in `gresource list $gs`; 
+do
+	gresource extract $gs $r > ${r/#\/org\/gnome\/shell/.}
+done
+
+sudo rm -rf theme*
+
+#glib-compile-resources gnome-shell-theme.gresource.xml
