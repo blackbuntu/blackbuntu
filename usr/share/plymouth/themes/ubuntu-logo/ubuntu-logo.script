@@ -176,13 +176,13 @@ Window.SetBackgroundBottomColor (0.0, 0.00, 0.0);  # an equally nice colour on t
 
 bits_per_pixel = Window.GetBitsPerPixel ();
 if (bits_per_pixel == 4) {
-    logo_filename = "bbu-logo16.png";
+    logo_filename = "blackbuntu-logo16.png";
     progress_dot_off_filename = "progress-dot-off16.png";
     progress_dot_on_filename = "progress-dot-on16.png";
     password_field_filename = "password-field16.png";
     question_field_filename = "password-field16.png";
 } else {
-    logo_filename = "bbu-logo.png";
+    logo_filename = "blackbuntu-logo.png";
     progress_dot_off_filename = "progress-dot-off.png";
     progress_dot_on_filename = "progress-dot-on.png";
     password_field_filename = "password-field.png";
