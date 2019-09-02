@@ -1,0 +1,8 @@
+2.0
+Refactoring to cut down on the amount of lines and excess code
+Migrated the two scripts into a single application
+Added better support for OSX
+Greater compatibility with the R2 release of backtrack 5
+
+1.0
+- Initial Release -

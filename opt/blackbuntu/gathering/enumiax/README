@@ -1,0 +1,127 @@
+                                  enumIAX 
+             Dustin D. Trammell <dtrammell (at) tippingpoint.com>
+
+==============================================================================
+
+enumIAX is an Inter Asterisk Exchange protocol username brute-force
+enumerator.
+
+                             Modes of Operation
+                             ==================
+
+enumIAX may operate in two distinct modes; Sequential Username Guessing or
+Dictionary Attack.
+
+Sequential Username Guessing
+------------------------------
+
+In Sequential Username Guessing mode, the tool will auto-construct
+usernames sequentially from a range of characters defined in the charmap.h
+file.  By default, the character map should be the following characters:
+
+  "0123456789abcdefghijklmnopqrstuvwxyz "
+
+This character map should be able to guess any alpha-numerically constructed
+username with or without space characters.  For a more exhaustive search,
+expand the character map to include other character sets already defined in
+charmap.h, or create your own entirely new and customized character map!
+Remember however that the more characters you include in your character map,
+the longer the session will take as you will be increasing the potential
+passphrase "keyspace" exponentially.
+
+NOTE: VoIP usernames, like email addresses, are usually case-insensitive.
+
+Dictionary Attack
+-----------------
+
+enumIAX may also use usernames from a dictionary file rather than construct
+usernames itself.  "Dict" files are generally just a long list of words or
+phrases, one word per line.  If you already have a favorite Dict file, you
+can use it here.
+
+                           Building and Installing
+                           =======================
+
+enumIAX should build without issue on most unix-like platforms.
+
+Once enumIAX is built, execute the following commands from the enumIAX
+source directory to install the binaries to your system:
+
+   make
+   make install  
+
+enumIAX will be installed /usr/local/bin for your use, however you will most
+likely want to create and run enumIAX from a working directory where it can
+save session state and result information.
+
+                         Executing a enumIAX Session
+                         ===========================
+
+Executing enumIAX
+-----------------
+
+enumIAX has many command-line options to tweak it's behavior, however normal
+execution can be accomplished with a command-line similar to the following:
+
+   enumiax <target>
+
+In the above example, <target> is the target hostname or IP address that you
+want to enumerate.
+
+Other command-line options you may include can be found with the "-h" command-
+line option:
+
+   enumiax -h
+
+   Usage: enumiax [options] target
+     options:
+       -d <dict>   Dictionary attack using <dict> file
+       -i <count>  Interval for auto-save (# of operations, default 1000)
+       -m #        Minimum username length (in characters)
+       -M #        Maximum username length (in characters)
+       -r #        Rate-limit calls (in microseconds)
+       -s <file>   Read session state from state file
+       -v          Increase verbosity (repeat for additional verbosity)
+       -V          Print version information and exit
+       -h          Print help/usage information and exit
+
+By default, enumIAX only prints it's title and version information, and any 
+successfully found usernames.  These results are also appended to a results
+file of the format <target>.results in the current working directory.  To
+make enumIAX more verbose at runtime, use the "-v" command-line option,
+which is repeatable for more verbosity.
+
+Resuming a Previous Session
+---------------------------
+
+If your session was stopped prematurely, you can resume the session from it's
+state file.  State files are saved at regular intervals as well as enumIAX
+receiving most signals which would cause it to terminate.  You can resume a
+previous session with commands similar to the following:
+
+   enumiax -s <target>.state <target>
+
+   enumiax -d <dictfile> -s <target>.state <target>
+
+Rate-Limiting
+-------------
+
+By using the -r command-line option, you can rate-limit enumIAX to prevent
+flooding of the server.  The default is 500000 microseconds, or a half
+of a second.
+
+If the server begins to send Lag Requests (LAGRQ packets), enumIAX will
+automatically increase it's rate-limit value by 100000 microseconds to
+compensate.  Conversely, inumIAX is always trying to speed up by decreasing
+it's rate-limit value by 1000 microseconds per transaction.
+
+
+                                   License
+                                   =======
+
+enumIAX is released under the GNU General Public License v.2, the text of
+which can be found at the following URL:
+
+	http://www.gnu.org/copyleft/gpl.html
+
+
