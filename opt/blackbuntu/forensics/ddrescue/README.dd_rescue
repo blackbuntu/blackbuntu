@@ -1,0 +1,271 @@
+README file for dd_rescue
+=========================
+(c) garloff@suse.de, 10/99, GNU GPL 
+(c) kurt@garloff.de  2011-2015, GNU GPL v2 or v3
+
+
+Description of dd_rescue
+------------------------
+Like dd, dd_rescue does copy data from one file or block device to another.
+You can specify file positions (called seek and Skip in dd).
+
+There are several differences:
+* dd_rescue does not provide character conversions.
+* The command syntax is different. Call dd_rescue -h.
+* dd_rescue does not abort on errors on the input file, unless you specify a
+  maximum error number. Then dd_rescue will abort when this number is
+  reached.
+* dd_rescue does not truncate the output file, unless asked to.
+* You can tell dd_rescue to start from the end of a file and move backwards.
+* It uses two block sizes, a large (soft) block size and a small (hard) block
+  size. In case of errors, the size falls back to the small one and is
+  promoted again after a while without errors.
+
+
+Purpose of dd_rescue
+--------------------
+The latter three features make it suitable for rescuing data from a medium
+with errors, i.e. a hard disk with some bad sectors.
+Why?
+* Imagine, one of your partitions is crashed, and as there are some hard
+  errors, you don't want to write to this hard disk any more. Just getting
+  all the data off it and retiring it seems to be suitable. However, you
+  can't access the files, because the file system is damaged.
+* Now, you want to copy the whole partition into a file. You burn it on
+  DVD, just to never lose it again.
+  You can setup a loop device, and repair (fsck) it and hopefully are able
+  to mount it.
+* Copying this partition with normal Un*x tools like cat or dd will fail, as
+  those tools abort on error. dd_rescue instead will try to read and if it
+  fails, it will go on with the next sectors. The output file naturally will
+  have holes in it, of course. You can write a log file, to see where all
+  these errors are located.
+* The data rate drops very low, when errors are encountered. If you
+  interrupt the process of copying, you don't lose anything. You can just
+  continue at any position later. The output file will just be filled in
+  further and not truncated as with other Un*x tools.
+* If you have one spot of bad sectors within the partition, it might be a
+  good idea, to approach this spot from both sides. Reverse direction copy
+  is helpful.
+  dd_rhelp (included in my builds of dd_rescue packages on Open Build
+  Service ) does automate this approach.
+  There is a GNU ddrescue tool that is a redesigned dd_rescue and also has 
+  automation for this built-in.
+* The two block sizes are a performance optimization. Large block sizes
+  result in superior performance, but in case of errors, you want to try
+  to salvage every single sector. So hardbs is best be set to the hardware
+  sector size (most often 512 bytes) and softbs to a large value, such as
+  the default 64k or even larger. (When doing buffered reads on Linux, you
+  might as well set the hardbs to 4k resp. page size, as the kernel will
+  read that much at a time anyway.)
+
+
+Does it actually work?
+----------------------
+Yes. I wrote a predecessor program (dw) and saved most of the data of two
+crashed hard disks. The current program also helped me secure the data of
+one beginning to have problems.
+
+A good approach is first to copy all those sectors which are working without
+problems. For this, you approach the critical regions from both sides.
+It is a good idea to take notes on which sectors are still missing.
+If you are lucky, you will be able to reconstruct your file system, already.
+Otherwise, you should try to fill in more of the critical sectors. Some of
+them might be readable and provide some more useful data. This will take a
+long time, however, depending on how hard your hard disk tries to read bad
+sectors.
+
+You can overwrite a disk or a partition with its own data -- the drive's
+reallocation procedure might result in the whole disk to be readable again
+afterwards (yet the replaced sectors will be filled with 0). If you want
+to use dd_rescue for this purpose, please use O_DIRECT and a block size of 
+4096. (Late 2.6 and 3.x kernels allow a block size of 512b as well, so you
+might be able to recover a few sectors more.)
+
+dd_rhelp from LAB Valentin does automate some of this, so you might want to
+give that a try.
+
+
+Warning
+-------
+If you have dropped your disk or the disk became mechanically damaged there
+is a risk that using a software imaging tool like dd_rescue (and dd_rhelp
+or GNU ddrescue) will cause more damage -- by continuing to use the disk,
+the head might hit and scratch the surface again and again.
+You may be able to observe this by quickly raising SMART error rates. Watch
+especially for the rates other than the normal reallocated sectors.[1] Another
+indicator may be a clicking noise.
+So if your data is very valuable and you consider sending your hard disk
+to a data recovery company, you might be better off NOT trying to use imaging
+tools before.
+[1] http://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes
+
+
+Limitations
+-----------
+The source code does use the 64bit functions provided by glibc for file
+positioning. However, your kernel might not support it, so you might be
+unable to copy partitions larger then 2GB into a file.
+This program has been written using Linux and only tested on a couple of
+Linux systems. It should be possible to port it easily to other Un*x
+platforms, and I occasionally get hints from users of other *nix like
+systems that I take into account. Still, my own testing is limited to Linux.
+Currently, the escape sequence for moving the cursor up is hard coded in the
+sources. It's fine for most terminal emulations (including vt100 and linux),
+but it should use the terminal description database instead.
+Since dd_rescue-1.10, non-seekable input or output files are supported,
+but there's of course limitations to recover errors in such cases.
+
+
+Goodies
+-------
+dd_rescue has a few nifty features:
+* A progress bar (since 1.17) and an estimated time to go.
+* Logging of bad blocks into a log file (-l) or for a file to be 
+  consumed by mke2fs (-b) when creating a file system.
+  Overall, dd_rescue keeps you well informed where it is ...
+* Optional use of fallocate -P to tell the target file system how much
+  space it should reserve. (Some file systems support this to avoid
+  fragmentation -- since 1.19.)
+* File copy without copying data into user space buffers using splice
+  on Linux) option -k, since 1.15).
+* Optionally, dd_rescue checks whether read blocks are empty and does
+  create sparse output files (option -a, since 1.0x, warns when target
+  is a block device or an existing file since 1.21 -- only ignore this
+  warning if your target device has been initialized with zeros 
+  previously.)
+* Support for direct I/O; this will circumvent kernel buffering and
+  thus will expose medium errors right away. With 
+  dd_rescue -d -D -A bdev bdev you will read a bdev and write
+  things back to itself -- if some unreadable blocks are found, those
+  will be filled with zeros -- the defect management of your hardware
+  might result in all of your disk to be usable again afterwards,
+  though you'll have lost a few sectors. (You should still look out
+  for a new disk: When it rains, it pours.)
+* When overwriting a file with itself (but with some offsets, i.e.
+  moving data inside a file), dd_rescue figures out whether it
+  needs to do this backwards (-r) to not end up destroying the data.
+* Since 1.29, it has a repeat mode (-R) that allows duplicating one
+  block (of softbs size) many times. This is turned on automatically
+  when infile is /dev/zero (performance optimization).
+* Since 1.29, you can overwrite files with random numbers from user space
+  PRNG (libc or included RC4 based frandom) which is 10x faster than 
+  urandom. Using -Z /dev/urandom gives decent quality PRNGs.
+* With option -M (new 1.29), the output file won't be extended.
+* Option -W (since 1.30) tries to avoid writes: If the block in the
+  target file/partition is already identical to the source, no actual
+  write operation is performed. This can be useful, when write are
+  very expensive or have other effects that you want to avoid (e.g.
+  reducing lifetime of SSDs).
+* The option -3 (new in 1.31) does overwrite a disk/partition/file/...
+  three times; the first time with frandom generated random numbers,
+  the second time with the bitwise inverted of the first pass and the
+  third time with zeros. (Zero in the final pass is good for SSDs...)
+  Overwriting a disk with -3 /dev/urandom should provide a very good
+  protection level against data being recoverable. When overwriting
+  files, the option -M will probably be handy -- please note however
+  that overwriting files this way may or may not be a safe deletion,
+  depending on how the file system handles overwrites. (And for flash
+  devices, the FTL may also do reallocations that prevents in place
+  overwriting of data. TRIM and SECURITY_ERASE (see man hdparm) should
+  be used instead or in addition there.)
+  There's also a variant with 3xrandom numbers and a final zeroing
+  (option -4); this option has been designed to meet the BSI GSDS 
+  M7.15 criteria for safe deletion of data.
+  https://www.bsi.bund.de/ContentBSI/grundschutz/baustein-datenschutz/html/m07015.html
+  Alternatively you can shorten it to just one frandom pass with -2 (since 1.33,).
+* Starting with 1.32, you can write the data to multiple output files
+  at once (option -Y); it can be used more than once.
+  Also, if you want to concatenate data from multiple input files,
+  the option -x (extend/append) may prove useful.
+* Since 1.35, the numbers are displayed in groups of 3 digits; rather
+  than adding spaces (or ,), the groups are separated by alternating bold
+  and non-bold type.
+* Since 1.35 we use optimized code to detect zero-filled blocks in -A
+  mode; with 1.36 optimized ARM asm was added, with 1.41 an even
+  faster AVX2 routine and with 1.43 an ARMv8 (64bit) optimized routine.
+  The runtime detection has been fixed in 1.40.
+* Version 1.40 added copying of extended attributes (xattrs) with -p.
+* Version 1.41 brought option -u, removing the output file and 
+  discarding (TRIMming) the file system. 1.41 also added support for 
+  compiling against Android's libc (bionic) using the Android NDK. 
+  Use 
+  autogen.sh; make -f Makefile.android config; make -f Makefile.android all
+  to build after editing first few lines of Makefile.android to point
+  to the location of your local NDK installation.
+* Version 1.42 brought a plugin interface (still evolving) that allows
+  to analyze or transform blocks prior to being written. 1.42 shipped with
+  an MD5 plugin.
+* Version 1.43 brought the lzo plugin, allowing data compression/
+  decompression using the fast lzo algorithm. It required the plugin interface
+  to be reworked -- further changes will likely come.
+  The lzo plugin supports a number of features that lzop does not; it supports
+  sparse files (using the lzop MULTIPART feature to stay compatible), various
+  lzo algorithms, continuation with broken blocks (fuzz_lzo has been developed
+  to test error recovery), and appending to existing .lzo files.
+* Version 1.44 renamed the MD5 plugin to the hash plugin, as we support the
+  SHA-2 family of cryptographic hashes now.
+* Version 1.45 added sha1 to ddr_hash as well as the chk_xattr:chknm=:check
+  and outnm:set_xattr parameters that allow to conveniently store and validate
+  hashes on files.
+* Version 1.46 added rdrand() to the PRNG initialization (if 0 seed is 
+  specified) if available and added the possibility to generate/check HMACs
+  instead of plain hashes.
+* Version 1.98 (following 1.46) brought a speed-up of the user space PRNG, so
+  if your storage subsystem writes several GB/s, you see better performance for
+  secure deletion.
+  More importantly, 1.98 introduced a crypt plugin, allowing to en/decrypt data
+  with various AES variants.
+  It also brought a fault injection framework, that allows for improving the
+  test suite for testing error resilience.
+* Version 1.99 added ARMv8 hardware encryption support and an openSSL compatible
+  pbkdf and Salted__ header processing. There was also an overhaul of the
+  Makefiles, a bug fix with the output of error positions in reverse direction
+  copies and the support of ranges in fault injection.
+  The write retry logic has been cleaned up.
+* Version 1.99.5 brought optional ratecontrol (-C).
+
+
+Copyright
+---------
+This program is protected by the GNU General Public License (GPL) 
+v2 or v3 - at your option.
+(See the file COPYING, which probably exists a few hundred times on your
+ computer. If not: I will send you one or you can ask the FSF to do so.)
+To summarize:
+* You are free to use this program for anything you like. (You are still
+  bound by the law of course, but the license does not put any additional
+  restrictions.)
+* You are allowed to distribute this program and e.g. put it on a CD or 
+  other media and charge a fee for copying and distributing it. You have 
+  to provide the source code (or a written offer to provide it) and the 
+  GPL text, too, then and provide the same rights to your recipients
+  that you received by the GNU GPL. (You redistribute under the terms
+  of the GNU GPL.)
+* You can study and/or modify the program to meet your desires.
+  You may distribute modified versions under the terms of the GNU GPL
+  again. (If you base any work on this program and you distribute
+  your work, you *must* do so under the terms of the GNU GPL.)
+* There is no warranty whatsoever for this program. If it crashes your
+  disks, it's at your risk.
+* This summary does not replace reading the GNU GPL itself.
+
+
+Feedback
+--------
+... is always welcome. Just send me an e-mail.
+The web page of this program, BTW, is 
+http://www.garloff.de/kurt/linux/ddrescue/
+frandom.c is adapted from the kernel module from Eli Billauer
+http://www.billauer.co.il
+dd_rhelp can be found at
+http://www.kalysto.org/utilities/dd_rhelp/index.en.html
+liblzo2 is from
+http://www.oberhumer.com/opensource/lzo/
+
+Have fun! 
+(Hopefully you don't need this program. But if you do: I wish it will be
+ of some help.)
+
+
+Kurt Garloff <kurt@garloff.de>, 2000-08-30

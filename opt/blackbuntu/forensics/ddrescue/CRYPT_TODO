@@ -1,0 +1,7 @@
+
+TODO for crypt/hash
+- More crypt algorithms, e.g. twofish, threefish, ...
+- More hash algs, e.g. SHA3 (Keccak), SKEIN,...
+- crypt with hash: GCM (and others?), XTS mode
+- ARMv8 asm for hash
+- Assym crypto support ???

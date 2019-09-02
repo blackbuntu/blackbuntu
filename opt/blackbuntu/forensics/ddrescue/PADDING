@@ -1,0 +1,17 @@
+A few options to deal with padding in ECB, CBC:
+1. Error out if length not dividable by blocksize.
+2. Just fill with zeros when encrypting, return full block when decrypting.
+3. Fill with PKCS7 pad, remove when decrypting (but prone to errors with 1/256 chance).
+4. Always pad, append 0x10 filled block for even sizes. Can be safely removed.
+
+	pad	pad	pkcs7	always	behavior
+OpenSSL	0	0	NA	NA	
+OpenSSL	1	0	NA	NA
+OpenSSL	0	1	NA	NA
+OpenSSL	1	1	NA	NA
+OWN	NA	NA	0	0
+OWN	NA	NA	1	0
+OWN	NA	NA	0	1
+OWN	NA	NA	1	1
+	
+
