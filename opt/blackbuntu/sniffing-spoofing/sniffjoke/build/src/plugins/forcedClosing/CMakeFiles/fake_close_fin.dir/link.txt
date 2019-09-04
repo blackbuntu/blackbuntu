@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_close_fin.so -o fake_close_fin.so CMakeFiles/fake_close_fin.dir/fake_close_fin.o 

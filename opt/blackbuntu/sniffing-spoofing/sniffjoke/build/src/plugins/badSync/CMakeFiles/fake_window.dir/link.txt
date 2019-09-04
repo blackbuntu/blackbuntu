@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_window.so -o fake_window.so CMakeFiles/fake_window.dir/fake_window.o 

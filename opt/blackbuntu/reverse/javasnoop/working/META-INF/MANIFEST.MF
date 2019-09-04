@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Premain-Class: com.aspect.snoop.agent.SnoopAgent
+Agent-Class: com.aspect.snoop.agent.SnoopAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Boot-Class-Path: ../lib/AbsoluteLayout.jar ../lib/javassist.jar ../lib
+ /log4j-1.2.16.jar ../lib/tools.jar 

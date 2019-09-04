@@ -1,0 +1,37 @@
+2012-01-25 14:02:58,105 SwingWorker-pool-3-thread-1 INFO  snoop.StartupView - Attaching to process ID 7896 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:04:21,737 SwingWorker-pool-3-thread-2 ERROR agent.AgentJarCreator - Warning - could not delete working directory!
+2012-01-25 14:04:21,737 SwingWorker-pool-3-thread-2 ERROR agent.AgentJarCreator - Could not create dir: C:\Tools\JavaSnoop\working
+2012-01-25 14:04:24,451 SwingWorker-pool-3-thread-2 INFO  snoop.StartupView - Attaching to process ID 7232 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:11:53,069 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:12:13,608 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:12:28,523 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:12:48,946 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:13:15,476 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:13:17,239 SwingWorker-pool-3-thread-3 ERROR agent.AgentJarCreator - Warning - could not delete working directory!
+2012-01-25 14:13:17,239 SwingWorker-pool-3-thread-3 ERROR agent.AgentJarCreator - Could not create dir: C:\Tools\JavaSnoop\working
+2012-01-25 14:13:20,172 SwingWorker-pool-3-thread-3 INFO  snoop.StartupView - Attaching to process ID 5416 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:20:54,776 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:21:17,355 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:21:31,380 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:22:16,963 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:22:22,742 SwingWorker-pool-3-thread-1 INFO  snoop.StartupView - Attaching to process ID 1760 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:23:55,492 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:24:13,743 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:24:28,609 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:24:30,513 SwingWorker-pool-3-thread-1 ERROR agent.AgentJarCreator - Warning - could not delete working directory!
+2012-01-25 14:24:30,513 SwingWorker-pool-3-thread-1 ERROR agent.AgentJarCreator - Could not create dir: C:\Tools\JavaSnoop\working
+2012-01-25 14:24:33,446 SwingWorker-pool-3-thread-1 INFO  snoop.StartupView - Attaching to process ID 7708 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:28:36,389 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:28:37,660 SwingWorker-pool-3-thread-2 ERROR agent.AgentJarCreator - Warning - could not delete working directory!
+2012-01-25 14:28:37,661 SwingWorker-pool-3-thread-2 ERROR agent.AgentJarCreator - Could not create dir: C:\Tools\JavaSnoop\working
+2012-01-25 14:28:40,560 SwingWorker-pool-3-thread-2 INFO  snoop.StartupView - Attaching to process ID 6708 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar
+2012-01-25 14:34:11,563 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:34:23,641 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:34:39,502 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:35:03,744 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:35:12,009 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:36:34,986 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:38:06,852 AWT-EventQueue-0 ERROR process.ChooseProcessView - sun.jvmstat.monitor.MonitorException: Could not synchronize with target
+2012-01-25 14:38:23,746 SwingWorker-pool-3-thread-1 ERROR agent.AgentJarCreator - Warning - could not delete working directory!
+2012-01-25 14:38:23,747 SwingWorker-pool-3-thread-1 ERROR agent.AgentJarCreator - Could not create dir: C:\Tools\JavaSnoop\working
+2012-01-25 14:38:27,277 SwingWorker-pool-3-thread-1 INFO  snoop.StartupView - Attaching to process ID 4604 with generated agent at C:\Tools\JavaSnoop\working\JavaSnoop.jar

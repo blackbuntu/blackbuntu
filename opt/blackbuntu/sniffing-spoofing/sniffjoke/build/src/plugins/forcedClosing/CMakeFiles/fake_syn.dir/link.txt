@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_syn.so -o fake_syn.so CMakeFiles/fake_syn.dir/fake_syn.o 

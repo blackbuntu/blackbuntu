@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_seq.so -o fake_seq.so CMakeFiles/fake_seq.dir/fake_seq.o 

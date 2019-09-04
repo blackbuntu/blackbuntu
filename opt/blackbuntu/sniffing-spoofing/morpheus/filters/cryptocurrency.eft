@@ -1,0 +1,733 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+#  use: http://string-functions.com/string-hex.aspx to decode tcp hex      #
+############################################################################
+
+
+##
+#  This filter will act like a firewall reporting and blocking crypto minning
+#  currencie connections inside Local Lan (selected target). If a connection
+#  its found on sellected machine (ip address) then this filter will warn
+#  framework users and drops/kill the minning connection (tcp/udp packets).
+##
+
+
+
+
+
+#
+# Report port 80/443 (tcp) traffic just to make displays
+# that shows to users that filter its working fine ..
+#
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
+}
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
+}
+
+
+
+#
+# REPORT MONERO MINING (and drop pakets)..
+# Scan all tcp/udp ports from my pc to outside ..
+#
+if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
+        if (search(DATA.data, "coinhive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coinhive connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coinhive.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-hive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin-hive connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-hive.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-have")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin-have connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2d 68 61 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-have.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible authedmine connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedmine.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "webmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible webmine connection (cryptomining)");
+          msg("[morpheus] |   hex  : 77 65 62 6d 69 6e 65 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: webmine.pro\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptoloot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible cryptoloot connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: cryptoloot.pro\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "crypto-loot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible crypto-loot connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 2d 6c 6f 6f 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: crypto-loot.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "load.jsecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible load.jsecoin connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 6f 61 64 2e 6a 73 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: load.jsecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "bitcoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible bitcoin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 62 69 74 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: bitcoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptocurrency")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible cryptocurrency.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 63 75 72 72 65 6e 63 79 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: cryptocurrency.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "mining")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible mining.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6d 69 6e 69 6e 67 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: mining.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "amazonethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible amazonethereum.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6d 61 7a 6f 6e 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: amazonethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ElegantCoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible ElegantCoin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 45 6c 65 67 61 6e 74 43 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ElegantCoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "2miners")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible 2miners.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 32 6d 69 6e 65 72 73 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: 2miners.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "58coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible 58coin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 35 38 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: 58coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "adminer")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible adminer.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 64 6d 69 6e 65 72 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: adminer.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedwebmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible authedwebmine.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 77 65 62 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedwebmine.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "slushpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible slushpool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 73 6c 75 73 68 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: slushpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "antpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible antpool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6e 74 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: antpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "pool.btc")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible pool.btc connection (cryptomining)");
+          msg("[morpheus] |   hex  : 70 6f 6f 6c 2e 62 74 63 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: pool.btc.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "f2pool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible f2pool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 66 32 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: f2pool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ripple")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible ripple connection (cryptomining)");
+          msg("[morpheus] |   hex  : 72 69 70 70 6c 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ripple.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible ethereum connection (cryptomining)");
+          msg("[morpheus] |   hex  : 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "atomicwallet")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible atomicwallet connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 74 6f 6d 69 63 77 61 6c 6c 65 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: atomicwallet.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "litecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible litecoin connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 69 74 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: litecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "getmonero")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible getmonero connection (cryptomining)");
+          msg("[morpheus] |   hex  : 67 65 74 6d 6f 6e 65 72 6f 2e 6f 72 67");
+          msg("[morpheus] |_  decoded: getmonero.org\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "digibyte")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible digibyte connection (cryptomining)");
+          msg("[morpheus] |   hex  : 64 69 67 69 62 79 74 65 2e 69 6f");
+          msg("[morpheus] |_  decoded: digibyte.io\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "chain")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible chain connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 68 61 69 6e 2e 6c 69 6e 6b");
+          msg("[morpheus] |_  decoded: chain.link\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "z.cash")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible z.cash connection (cryptomining)");
+          msg("[morpheus] |   hex  : 7a 2e 63 61 73 68");
+          msg("[morpheus] |_  decoded: z.cash\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "CrYpT")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: CrYpT\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+}
+
+
+
+#
+# scan all tcp/udp ports from outside to my pc ..
+#
+if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
+        if (search(DATA.data, "coinhive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coinhive connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coinhive.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-hive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coin-hive connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-hive.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-have")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coin-have connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2d 68 61 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-have.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible authedmine connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedmine.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "webmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible webmine connection (cryptomining)");
+          msg("[morpheus] |   hex  : 77 65 62 6d 69 6e 65 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: webmine.pro\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptoloot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible cryptoloot connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: cryptoloot.pro\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "crypto-loot.com")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible crypto-loot connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 2d 6c 6f 6f 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: crypto-loot.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "load.jsecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible load.jsecoin connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 6f 61 64 2e 6a 73 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: load.jsecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "bitcoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible bitcoin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 62 69 74 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: bitcoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptocurrency")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible cryptocurrency.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 63 75 72 72 65 6e 63 79 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: cryptocurrency.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "mining")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible mining.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6d 69 6e 69 6e 67 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: mining.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "amazonethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible amazonethereum.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6d 61 7a 6f 6e 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: amazonethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ElegantCoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible ElegantCoin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 45 6c 65 67 61 6e 74 43 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ElegantCoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "2miners")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible 2miners.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 32 6d 69 6e 65 72 73 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: 2miners.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "58coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible 58coin.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 35 38 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: 58coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "adminer")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible adminer.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 64 6d 69 6e 65 72 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: adminer.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedwebmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible authedwebmine.com connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 77 65 62 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedwebmine.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "slushpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible slushpool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 73 6c 75 73 68 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: slushpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "antpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible antpool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6e 74 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: antpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "pool.btc")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible pool.btc connection (cryptomining)");
+          msg("[morpheus] |   hex  : 70 6f 6f 6c 2e 62 74 63 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: pool.btc.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "f2pool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible f2pool connection (cryptomining)");
+          msg("[morpheus] |   hex  : 66 32 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: f2pool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ripple")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible ripple connection (cryptomining)");
+          msg("[morpheus] |   hex  : 72 69 70 70 6c 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ripple.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible ethereum connection (cryptomining)");
+          msg("[morpheus] |   hex  : 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "atomicwallet")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible atomicwallet connection (cryptomining)");
+          msg("[morpheus] |   hex  : 61 74 6f 6d 69 63 77 61 6c 6c 65 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: atomicwallet.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "litecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible litecoin connection (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 69 74 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: litecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "getmonero")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible getmonero connection (cryptomining)");
+          msg("[morpheus] |   hex  : 67 65 74 6d 6f 6e 65 72 6f 2e 6f 72 67");
+          msg("[morpheus] |_  decoded: getmonero.org\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "digibyte")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible digibyte connection (cryptomining)");
+          msg("[morpheus] |   hex  : 64 69 67 69 62 79 74 65 2e 69 6f");
+          msg("[morpheus] |_  decoded: digibyte.io\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "chain")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible chain connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 68 61 69 6e 2e 6c 69 6e 6b");
+          msg("[morpheus] |_  decoded: chain.link\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "z.cash")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible z.cash connection (cryptomining)");
+          msg("[morpheus] |   hex  : 7a 2e 63 61 73 68");
+          msg("[morpheus] |_  decoded: z.cash\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "CrYpT")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT connection (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: CrYpT\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+}
+

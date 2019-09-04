@@ -1,0 +1,116 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+# [ Simple traffic display filter (no actions taken) ]
+# Display ALL poisoned LAN devices connections to (dst)
+# or from (src) based on IARA assigned port numbers.
+# Port(s): 21, 22, 23, 25, 53, 67, 80, 110, 137, 138, 139
+# 143, 161, 194, 443, 445, 512, 513, 990, 992, 1025, 1080
+# 1433, 1900, 3389, 4444, 5900, 8080
+##
+
+
+#
+# TCP traffic [ ALL poisoned devices ]
+#
+if (ip.proto == TCP && tcp.dst == 21 || tcp.src == 21) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:21   [tcp] ftp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 22 || tcp.src == 22) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:22   [tcp] ssh ☆");
+}
+if (ip.proto == TCP && tcp.dst == 23 || tcp.src == 23) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:23   [tcp] telnet ☠");
+}
+if (ip.proto == TCP && tcp.dst == 25 || tcp.src == 25) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:25   [tcp] smtp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
+}
+if (ip.proto == TCP && tcp.dst == 110 || tcp.src == 110) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:110  [tcp] pop3 ☆");
+}
+if (ip.proto == TCP && tcp.dst == 137 || tcp.src == 137) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:137  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 138 || tcp.src == 138) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:138  [tcp] netbios-dgm ☠");
+}
+if (ip.proto == TCP && tcp.dst == 139 || tcp.src == 139) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:139  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 143 || tcp.src == 143) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:143  [tcp] imap ☆");
+}
+if (ip.proto == TCP && tcp.dst == 161 || tcp.src == 161) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:161  [tcp] snmp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 194 || tcp.src == 194) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:194  [tcp] irc ☆");
+}
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
+}
+if (ip.proto == TCP && tcp.dst == 445 || tcp.src == 445) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:445  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 512 || tcp.src == 512) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:512  [tcp] rlogin ☠");
+}
+if (ip.proto == TCP && tcp.dst == 513 || tcp.src == 513) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:513  [tcp] rlogin ☠");
+}
+if (ip.proto == TCP && tcp.dst == 990 || tcp.src == 990) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:990  [tcp] ftps ☆");
+}
+if (ip.proto == TCP && tcp.dst == 992 || tcp.src == 992) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:992  [tcp] telnets ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1025 || tcp.src == 1025) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1025 [tcp] win-rpc ☆");
+}
+if (ip.proto == TCP && tcp.dst == 1080 || tcp.src == 1080) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1080 [tcp] socks ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1433 || tcp.src == 1433) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1433 [tcp] ms-sql-s ☆");
+}
+if (ip.proto == TCP && tcp.dst == 1900 || tcp.src == 1900) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1900 [tcp] ssdp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 3389 || tcp.src == 3389) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:3389 [tcp] ms-term ☠");
+}
+if (ip.proto == TCP && tcp.dst == 4444 || tcp.src == 4444) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:4444 [tcp] metasploit ☠");
+}
+if (ip.proto == TCP && tcp.dst == 5900 || tcp.src == 5900) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:5900 [tcp] vnc ☆");
+}
+if (ip.proto == TCP && tcp.dst == 8080 || tcp.src == 8080) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:8080 [tcp] http-alt ☆");
+}
+
+
+
+#
+# UDP traffic [ ALL poisoned devices ]
+#
+if (ip.proto == UDP && udp.dst == 67 || udp.src == 67) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:67   [udp] bootp-DHCP ☆");
+}
+if (ip.proto == UDP && udp.dst == 53 || udp.src == 53) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:53   [udp] dns ☆");
+}

@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -rdynamic CMakeFiles/sniffjokectl.dir/main.o CMakeFiles/sniffjokectl.dir/SniffJokeCli.o  -o sniffjokectl 
