@@ -22,7 +22,7 @@ import os
 import shutil
 import string
 
-parser = argparse.ArgumentParser(prog='HashTag.py', usage='%(prog)s {-sh hash |-f file |-d directory} [-o output_filename] [-hc] [-n]')
+parser = argparse.ArgumentParser(prog='hashtag', usage='%(prog)s {-sh hash |-f file |-d directory} [-o output_filename] [-hc] [-n]')
 argGroup = parser.add_mutually_exclusive_group(required=True)
 argGroup.add_argument("-sh", "--singleHash", type=str, help="Identify a single hash")
 argGroup.add_argument("-f", "--file", type=str, help="Parse a single file for hashes and identify them")
