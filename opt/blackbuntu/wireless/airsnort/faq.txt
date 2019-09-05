@@ -1,0 +1,118 @@
+Frequently Asked Questions About AirSnort
+
+   1. I have 3000, 4500, you name it, interesting packets, why can't I crack the key?
+   2. I got 1000, 2500, you name it interesting packets really fast, then things slowed down considerably, what gives?
+   3. What is the difference betwen monitor and promiscuous mode?
+   4. How do I put my Cisco card into monitor mode?
+   5. What is the difference between PF_NETLINK and PF_PACKET?
+   6. Can I run AirSnort on cardFoo? Why or why not?
+   7. Can I compile AirSnort on my Windows/MacOS X/Handspring machine?
+   8. My card only works in 40 bit mode, but it is PrismII based. Will AirSnort still work?
+   9. About how long would it take to get the password for a network with AirSnort?
+  10. What kinds of wireless networks are vulnerable to this attack? Are mis-configured networks alone susceptible?
+  11. What can I do to secure my networks?
+  12. Your code crashes/doesn't work. What's the deal?
+  13. AirSnort is clearly a cracking tool. Why would you release such a thing?
+  14. Can AirSnort crack 803.2/Bluetooth/Etc. networks?
+  15. Can AirSnort be used with X technology to increase it's range?
+  16. Once I've broken a password, what kind of software can I use to do something evil?
+  17. D00d, how could you release this to the public, and not the HaX0R Underground?
+
+   1.
+      I have 3000, 4500, you name it, interesting packets, why can't I crack the key?
+      How the crack process works:
+
+      Weak IV's are collected and sorted according to which key byte they help to expose.  A weak IV can assist in exposing only one key byte.  The Fluher et al attack states that a weak IV has about a five percent chance of exposing the corresponding key byte.  When a sufficient number of weak IVs have been gathered for a particular key byte, statistical analysis will show a tendency towards a particular value for that key byte.  Each of the 256 possible values for a given key byte are scored as to their probability of being the correct value.  The crack process makes a key guess based on the highest ranking values in the statistical analysis phase.  The number of guesses that airsnort will make for each key byte is governed by the 'breadth' parameter in the preferences section of airsnort.  Remember that there is about a 95% chance that a weak IV will reveal nothing at all about a key byte.  It may require only a few packets before a key byte is revealed, or it may require a very large number of packets, therefore some keys will crack quickly while others will crack slowly.  In particular, I have seen cases where airsnort quickly hit on 12 of the 13 key bytes and took a very long time to zero in on the 13th.  Try increasing the breadth parameters under the preferences menu to examine more key possibilities during the crack phase.
+
+   2.
+      I got 1000, 2500, you name it interesting packets really fast, then things slowed down considerably, what gives?
+      Weak IVs are not distributed in a linear fashion across the entire IV space.  If we look at the third byte of the IV, we find IVs distributed roughly as follows
+
+IV[2]       approx #of weak IVs    # of IVs
+0x00-0x0C         3000               852K
+0x0D-0xEE         3000               14.8M
+0xEF-0xFF         3000               1.1M
+
+      Clearly you can be lucky or unlucky when collecting IVs depending on where your nic's IV counter's happen to be.
+
+   3.
+      What is the difference betwen monitor and promiscuous mode?
+      Monitor mode enables a wireless nic to capture packets without associating with an access point or ad-hoc network. This is desireable in that you can choose to "monitor" a specific channel, and you need never transmit any packets. In fact transmiting is sometimes not possible while in monitor mode (driver dependent). Another aspect of monitor mode is that the NIC does not care whether the CRC values are correct for packets captured in monitor mode, so some packets that you see may in fact be corrupted.
+
+      Promiscuous mode allows you to view all wireless packets on a network to which you have associated. The need to associate means that you must have some measn of authenticating yourself with an access point. In promiscuous mode, you will not see packets until you have associated. Not all wireless drivers support promiscuous mode.
+
+   4.
+      How do I put my Cisco card into monitor mode?
+      Airsnort does not put Cisco cards into monitor mode automatically. You can try running kismet_hopper available from the Kismet site, or use the following commands outside of airsnort:
+
+echo 'Mode: r' > /proc/driver/aironet/eth1/Config
+echo 'Mode: y' > /proc/driver/aironet/eth1/Config
+
+      Substitute your device name as appropriate.
+
+   5.
+      What is the difference between PF_NETLINK and PF_PACKET?
+      I am not an expert, but each provides a means for passing data, via sockets from kernel space to user space. They differ in how they do this however, with PF_PACKET being a somewhat more prefered method. The original monitor mode patch for the Prism2 drivers enabled monitor mode packets to be passed up using the NETLINK interface. This was the basis of airsnort 1.0. My first patch for Orinoco cards enabled Orinoco cards to be placed in monitor mode and used the NETLINK interface to pass the packets up (I simply ported the wlan-ng monitor code to the orinoco drivers).
+
+      PF_PACKET also provides a means for packets to be passed to user programs. This mechanism is relied upon by libpcap and all of its clients. The fact that you can see packets provided via a NETLINK socket does not mean you get to run tcpdump, you need PF_PACKET sockets. Early Prism2 capture utilities read packets via the NETLINK interface and saved them in files compatible with programs like ethereal for after the fact viewing. With PF_PACKET capability you can use tcpdump and ethereal on live 802.11 capture sessions. My latest patch for Orinoco cards provides monitor mode packets via the PF_PACKET interface (again ported over from the wlan-ng guys. See the Orinoco info page for more details. A patch to enable PF_PACKET sockets for Prism2 monitor mode is available here.
+
+   6.
+      Can I run AirSnort on cardFoo? Why or why not?
+      Maybe. AirSnort needs cards which can gather raw, unencrypted packets. Currently, this means PrismII cards. There are a number of cards based on this chipset available, see our homepage for a list. Tentative Orinoco support is now available.
+
+   7.
+      Can I compile AirSnort on my Windows/MacOS X/Handspring machine?
+      Yes and no. MacOS, with it's AirPort cards, probably won't be able to support the low-level packet capture. Windows, since it supports the PrismII cards, should in theory be able to do the necessary tricks. However, not being a Windows Guy, I can neither write this driver, nor speculate on it's difficulty.
+
+      Basically, we would be interested in having AirSnort ported to just about any platform, but we have neither the experience nor time currently to do it ourselves. Anyone who is interested in helping with a port is welcome to contact us, and we will help out in any way we can. Also, I really doubt the handspring will have AirSnort ported to it for a long time, but you never know.
+
+   8.
+      My card only works in 40 bit mode, but it is PrismII based. Will AirSnort still work?
+      As neither of us have a 40 bit card, we aren't sure. We've had a few reports of this working, but we haven't been able to verify it for ourselves. Snax says: I don't see why not, all you are doing is sniffing, not trying to associate.
+
+   9.
+      About how long would it take to get the password for a network with AirSnort?
+      To crack a WEP password, AirSnort needs a certain number of packets with weak keys. Out of the sixteen million keys which can be generated by WEP cards, about nine thousand are weak (for 128 bit encryption.) Call these packets with weak keys "interesting." Most passwords can be guessed with after about two thousand interesting packets.  Some as few as 1200-1500, others as many as 3500-4000.
+
+      To get an idea, assume that your business (it's not very big yet) has four employees, all using the same password. These employees surf the net pretty continuously throughout the day (they're not very good employees.) These employees will generate about a million packets a day. These employees will generate approximately a hundred and twenty interesting packets every day, so after sixteen days, the network will almost certainly be cracked.
+
+      However, this network is nowhere near being saturated. As networks approach saturation, the capture time approaches a single day. In some situations, different physical networks may use the same passwords. If this could be determined, this would usually linearly diminish the cracking time also.
+
+      We realize that some of our early numbers were much lower than this. The reason for this is simply that we were lucky in our initial tests, and we didn't actually calculate the average amount of time it would take. This can happen in the real world too, the best case and worst case are significantly different from the average case. All of the informal calculations performed here assume the average case. You should too.
+
+  10.
+      What kinds of wireless networks are vulnerable to this attack? Are mis-configured networks alone susceptible?
+      No, all 802.11b networks with 40/128 bit WEP encryption are vulnerable. As this is a passive attack, nothing can be done to detect to detect that this is being done, either.  Some nics no longer generate IVs that result in a resolved condition.  This renders current versions of airsnort ineffective.
+
+  11.
+      What can I do to secure my networks?
+      We suggest that you assume that every packet will be readable by the world. Protocols like SSL and SSH are trusted for a good reason; they've both withstood numerous attacks over the years, and emerged (mostly) unscathed. The latest versions of each allow users to protect data, even on totally public channels. This is what's referred to as end-to-end encryption. End-to-end protection measures are fundamentally more resistant to attacks like AirSnort's.  Also make use of RADIUS (or some such) authentication to keep users off your network should they crack your key.
+
+  12.
+      Your code crashes/doesn't work. What's the deal?
+      A number of bugs have been reported since our initial release. Most of these are fixed in version 0.1.0. If you find any more let us know. If you fix it yourself, send us the patch.
+
+  13.
+      AirSnort is clearly a cracking tool. Why would you release such a thing?
+      We both have our reasons, but we did agree that it be made public. We felt that the only proper thing to do was to release the project. It is not obvious to the layman or the average administrator how vulnerable 802.11b is to attack. With huge corporations pushing it, it's easy to trust WEP; conversely, it's hard to digest a mathematical paper describing intimate details of encryption algorithms.
+
+      Yes, AirSnort can be used as a cracking tool, but it can also be used to settle arguments over the safety of WEP. People with neither the inclination nor the ability to digest the papers about WEP's security can easily wrap their minds around a tool like WEP.
+
+      If it took us so little time to write AirSnort, it would take a determined adversary a similarly short amount of time to develop an attacking tool. The only sane assumption to make is that a malicious hacker would have developed a tool like this. The only thing AirSnort does is give the tool to system administrators and script kiddies.
+
+      While we are troubled by the fact that script kiddies can get their hands on this tool, we still figure that the benefits of full disclosure outweigh the risks. If you disagree, it's just an academic debate, since we cannot withdraw this program.
+
+  14.
+      Can AirSnort crack 803.2/Bluetooth/Etc. networks?
+      No.
+
+  15.
+      Can AirSnort be used with X technology to increase it's range?
+
+  16.
+      Once I've broken a password, what kind of software can I use to do something evil?
+      YGTBSM
+
+  17.
+      D00d, how could you release this to the public, and not the HaX0R Underground?
+      No comment.
