@@ -1,0 +1,19 @@
+{
+  "version": {
+    "number": "4.0",
+    "release_date": "2014-09-04",
+    "status": "latest",
+    "found_by": "rspec",
+    "confidence": 0,
+    "interesting_entries": [
+      "IE1",
+      "IE2"
+    ],
+    "confirmed_by": {
+
+    },
+    "vulnerabilities": [
+
+    ]
+  }
+}
