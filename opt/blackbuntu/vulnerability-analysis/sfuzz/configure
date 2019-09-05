@@ -1,0 +1,483 @@
+#!/bin/sh
+# GNU Autotools might not be available on all platforms
+# CONVERSELY, sh is available on most platforms (except windows)
+# So, just set everything up, and do the magic.
+# NOTE: use a configure.bat file for windows.
+
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+  echo Options:
+  echo "  --prefix=path              prefix path to install sfuzz and its datafiles"
+  echo "  --cross=                   set the cross-compiler prefix"
+  echo "  --cc=                      set the name of the compiler"
+  echo "  --cflags=                  set additional cflags for compilation"
+  echo "  --ldflags=                 set additional ldflags for compilation"
+  echo "  --enable-snoop             turn on snoop compilation"
+  echo "  --enable-plugin-samples    compile plugin samples as well"
+  echo "  --disable-plugins          compile without plugin support"
+  echo "  --force-symbols            compile sfuzz plugins with extra symbols"
+  echo "  --enable-profiling         compile sfuzz and plugins with profiling data"
+  echo "  --aux-search-path          Auxiliary search path for sfuzz plugins"
+  echo "  --help                     this message"
+  exit 0
+fi
+
+echo
+echo "Starting simple fuzzer auto configuration ..."
+
+WHICH=/usr/bin/which
+SED=`$WHICH sed 2> /dev/null`
+CAT=`$WHICH cat 2> /dev/null`
+UNAME=`$WHICH uname 2> /dev/null`
+DIRNAME=`$WHICH dirname 2> /dev/null`
+BASENAME=`$WHICH basename 2> /dev/null`
+CP=`$WHICH cp 2> /dev/null`
+LS=`$WHICH ls 2> /dev/null`
+GZIP=`$WHICH gzip 2> /dev/null`
+GREP=`$WHICH grep 2> /dev/null`
+RM=`$WHICH rm 2> /dev/null`
+MKDIR=`$WHICH mkdir 2> /dev/null`
+MV=`$WHICH mv 2> /dev/null`
+MKTEMP=`$WHICH mktemp 2> /dev/null`
+FIND=`$WHICH find 2> /dev/null`
+TAR=`$WHICH tar 2> /dev/null`
+CUT=`$WHICH cut 2> /dev/null`
+XARGS=`$WHICH xargs 2> /dev/null`
+MD5SUM=`$WHICH md5sum 2> /dev/null`
+
+GIT=`$WHICH git 2> /dev/null`
+
+if [ -e "$GIT" -a -e ".git/" ]; then
+   MAINT="$($GIT config user.name) <$($GIT config user.email)>"
+else
+   MAINT="Aaron Conole <apconole@yahoo.com>"
+fi
+
+ARCH=`$UNAME -m`
+
+if [ -e Makefile ]; then
+    echo "WARNING: You have a previous makefile. I'm moving it to Makefile.old"
+    echo "         If a Makefile.old already exists, it will be overwritten"
+    $MV -f Makefile Makefile.old
+fi
+
+PREFIX=""
+SSL_PATH=""
+SSL_IPATH=""
+CRYPTO_PATH=""
+SSL_PLUGIN_SUPPORT=""
+CROSS_COMPILE=""
+PLUGIN_SUPPORT=""
+SNOOP_SUPPORT=""
+CC_CHECK=""
+LIBDIRS=`$CAT /etc/ld.so.conf 2> /dev/null`
+OS_SYSTEM=`$UNAME -s 2> /dev/null`
+XCFLAGS="-g -O2 -Wall -Werror -I."
+XCFLAGS_EXTRA=""
+XLDFLAGS=""
+XSHARED_LIBS=""
+XSHARED_OPTS=""
+XSHARED_INC=""
+FORCE_SYMBOLS="N"
+PROFILING_DATA="N"
+HAS_INSTALL=`$WHICH install 2> /dev/null`
+
+if [ '!' "X" = "X$*" ]; then
+  while [ $# -gt 0 ];
+  do
+    if [ "X" = "X$PREFIX" ]; then
+  	  PREFIX_TMP=`echo "$1"|$SED 's/.*--prefix=//'`
+	  if [ "$PREFIX_TMP" != "$1" ]; then
+		  PREFIX=$PREFIX_TMP
+	  fi
+    fi
+    if [ "X" = "X$CROSS_COMPILE" ]; then
+        CROSS_COMPILE_TMP=`echo "$1"|$SED 's/.*--cross=//'`
+        if [ "$CROSS_COMPILE_TMP" != "$1" ]; then
+            CROSS_COMPILE=${CROSS_COMPILE_TMP}-
+        fi
+    fi
+    if [ "X" = "X$CC_CHECK" ]; then
+        CC_CHECK_TMP=`echo "$1"|$SED 's/.*--cc=//'`
+        if [ "$CC_CHECK_TMP" != "$1" ]; then
+            CC_CHECK=$CC_CHECK_TMP
+        fi
+    fi
+    if [ "X" = "X$XCFLAGS_EXTRA" ]; then
+        XCFLAGS_EXTRA_TMP=`echo "$1"|$SED 's/.*--cflags=//'`
+        if [ "$XCFLAGS_EXTRA_TMP" != "$1" ]; then
+            XCFLAGS_EXTRA=$XCFLAGS_EXTRA_TMP
+        fi
+    fi
+    if [ "X" = "X$AUX_SEARCH_PATH" ]; then
+        XAUXSEARCH=`echo "$1"|$SED 's/.*--aux-search-path=//'`
+        if [ "$XAUXSEARCH" != "$1" ]; then
+            AUX_SEARCH_PATH="-DAUXSEARCHPATH=\\\":$XAUXSEARCH\\\""
+        fi
+    fi
+    if [ "X" = "X$XLDFLAGS" ]; then
+        LDFLAGS_EXTRA_TMP=`echo "$1"|$SED 's/.*--ldflags=//'`
+        if [ "$LDFLAGS_EXTRA_TMP" != "$1" ]; then
+            XLDFLAGS=$LDFLAGS_EXTRA_TMP
+        fi
+    fi
+    if [ "X" = "X$SSL_PLUGIN_SUPPORT" ]; then
+       SSL_PLUGIN_SUPPORT_TMP=`echo "$1"|$SED 's/.*--enable-plugin-samples//'`
+       if [ -z "$SSL_PLUGIN_SUPPORT_TMP" ]; then
+	     SSL_PLUGIN_SUPPORT="enable"
+       fi
+    fi
+    if [ "X" = "X$SNOOP_SUPPORT" ]; then
+        SNOOP_SUPPORT_TMP=`echo "$1"|$SED 's/.*--enable-snoop//'`
+        if [ -z "$SNOOP_SUPPORT_TMP" ]; then
+            SNOOP_SUPPORT="enable"
+        fi
+    fi
+    if [ "X" = "X$PLUGIN_SUPPORT" ]; then
+        PLUGIN_SUPPORT_TMP=`echo "$1"|$SED 's/.*--disable-plugins//'`
+        if [ -z $PLUGIN_SUPPORT_TMP ]; then
+            echo "ahahaha"
+            PLUGIN_SUPPORT="disable"
+            SSL_PLUGIN_SUPPORT="disable"
+        fi
+    fi
+    if [ "XN" = "X$FORCE_SYMBOLS" ]; then
+        FORCE_TMP=`echo "$1"|$SED 's/.*--force-symbols//'`
+        if [ -z $FORCE_TMP ]; then
+            FORCE_SYMBOLS="Y"
+        fi
+    fi
+    if [ "XN" = "X$PROFILING_DATA" ]; then
+        FORCE_TMP=`echo "$1"|$SED 's/.*--enable-profiling//'`
+        if [ -z $FORCE_TMP ]; then
+            PROFILING_DATA="Y"
+        fi
+    fi
+    shift
+  done
+fi
+
+if [ "X" = "X$PREFIX" ]; then
+    PREFIX="/usr/local"
+fi
+
+if [ "X" = "X$CC_CHECK" ]; then
+    CC_CHECK="gcc"
+fi
+
+if [ "X" = "X$PLUGIN_SUPPORT" ]; then
+    PLUGIN_SUPPORT="enable"
+fi
+
+CC_LOCATION=`$WHICH ${CROSS_COMPILE}${CC_CHECK} 2> /dev/null`
+
+XCFLAGS="$XCFLAGS -DPREFIX=\\\"$PREFIX\\\" $AUX_SEARCH_PATH"
+
+if [ "X" = "X$HAS_INSTALL" ]; then
+    HAS_INSTALL="$CP"
+    HAS_INSTALL_DIR="$MKDIR -p"
+else
+    HAS_INSTALL_DIR="$HAS_INSTALL -d"
+fi
+
+if [ "X" = "X$OS_SYSTEM" ]; then
+    echo "WARN: unable to determine OS type using uname - defaulting to linux"
+    echo "      ... this could be bad. Ensure uname is available."
+    OS_SYSTEM="Linux"
+fi
+
+echo -n "Checking for $CC_CHECK ..."
+if [ "X" = "X$CC_LOCATION" ]; then
+    echo "                                         ... NOT found"
+    if [ "${CROSS_COMPILE}gcc" != "${CROSS_COMPILE}${CC_CHECK}" ]; then
+        echo -n "Checking for gcc ..."
+        CC_LOCATION=`$WHICH ${CROSS_COMPILE}gcc 2> /dev/null`
+        if [ "X" = "X$CC_LOCATION" ]; then
+            echo "                                     ... NOT found"
+        fi
+    fi
+    if [ "X" = "X$CC_LOCATION" ]; then
+
+        echo -n "Checking for cc ..."
+        CC_LOCATION=`$WHICH ${CROSS_COMPILE}cc 2> /dev/null`
+        if [ "X" = "X$CC_LOCATION" ]; then
+            echo "                                     ... NOT found"
+            echo " ERROR: No C compiler available. If you think this is in error, manually edit the configure script and set the CC_LOCATION value"
+            exit 1
+        fi
+    fi
+fi
+
+echo "                                         ... found"
+
+CC_LOCATION_VAL=`$DIRNAME $CC_LOCATION`
+CC_COMPILER_VAL=`$BASENAME $CC_LOCATION`
+AR_VAL=`$WHICH ${CROSS_COMPILE}ar`
+
+echo -n "Checking for libssl (openssl/ssl.h) ..."
+for i in  $LIBDIRS /lib  /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu /opt/local/lib \
+/*ssl /usr/*ssl /opt/*ssl /usr/local/*ssl /opt/local/*ssl \
+/*ssl/lib /usr/*ssl/lib /opt/*ssl/lib /usr/local/*ssl/lib /opt/local/*ssl/lib .
+do
+    if [ "X" = "X$SSL_PATH" ]; then
+        if [ -f "$i/libssl.so" -o -f "$i/libssl.dylib" ]; then
+            SSL_PATH="$i"
+        fi
+    fi
+    if [ "X" = "X$SSL_PATH" ]; then
+        TMP_LIB=`$LS $i/libssl.so* /bin/cygssl*.dll 2> /dev/null | $GREP ssl`
+        if [ -n "$TMP_LIB" ]; then
+          SSL_PATH="$i"
+        fi
+    fi
+    if [ "X" = "X$CRYPTO_PATH" ]; then
+        if [ -f "$i/libcrypto.so" -o -f "$i/libcrypto.dylib" ]; then
+            CRYPTO_PATH="$i"
+        fi
+    fi
+    if [ "X" = "X$CRYPTO_PATH" ]; then
+        TMP_LIB=`$LS $i/libcrypto.so* /bin/cygcrypto*.dll 2> /dev/null | $GREP crypto`
+        if [ -n "$TMP_LIB" ]; then
+          CRYPTO_PATH="$i"
+        fi
+    fi
+done
+
+for i in /usr/local/include /*ssl/include /usr/include \
+/opt/*ssl/include /usr/*ssl/include /usr/local/*ssl/include .
+do
+    if [ "X" = "X$SSL_IPATH" ]; then
+        if [ -f "$i/openssl/ssl.h" ]; then
+            SSL_IPATH="$i"
+        fi
+    fi
+done
+
+if [ "X" = "X$SSL_PATH" ]; then
+    SSL_IPATH=""
+    CRYPTO_PATH=""
+fi
+if [ "X" = "X$SSL_IPATH" ]; then
+    SSL_PATH=""
+    CRYPTO_PATH=""
+fi
+if [ -n "$SSL_PATH" ]; then
+    echo "                      ... found"
+    
+fi
+if [ "X" = "X$SSL_PATH" ]; then
+    echo "                      ... NOT found, support disabled"
+    echo "*** for the sample ssl plugin get it from http://www.openssl.org ***"
+    if [ "X" != "X$SSL_PLUGIN_SUPPORT" ]; then
+        echo "WARN: Disabled ssl plugin building support."
+        SSL_PLUGIN_SUPPORT="disable"
+    fi
+fi
+
+# to test for features
+TESTC=`${MKTEMP} -d /tmp/sfuzz-feattest.XXXXXX`
+
+echo -n "Checking for libdl support ..."
+if [ -e "$TESTC" ]; then
+$CAT > ${TESTC}/dltest.c <<EOF
+#include <stdio.h>
+#include <dlfcn.h>
+
+int main()
+{
+    void *foo = dlopen("/var/log/asdf.so", 0);
+    if( foo )
+        printf("Found!!\n");
+    return 0;   
+}
+
+EOF
+
+${CROSS_COMPILE}${CC_CHECK} -o ${TESTC}/test ${TESTC}/dltest.c -ldl 2>/dev/null >/dev/null
+
+if [ $? -eq 0 ]; then
+    echo "                               ... found"
+    HAVE_LIBDL="YES"
+else
+    HAVE_LIBDL=""
+    echo "                               ... NOT found, support disabled"
+fi
+
+
+echo -n "Platform provides memmem ..."
+$CAT > ${TESTC}/memmemtest.c <<EOF
+#define _GNU_SOURCE 1
+
+#include <string.h>
+
+int main(int argc, char *argv[])
+{
+   if( argc < 1 )
+     return -1;
+
+   void *p = memmem( argv[0], strlen(argv[0]),
+                     "memmem", strlen("memmem") );
+
+   if( !p )
+     return -2;
+
+   return 0;
+}
+
+EOF
+
+${CROSS_COMPILE}${CC_CHECK} -o ${TESTC}/memmem ${TESTC}/memmemtest.c 2>/dev/null >/dev/null
+
+if [ $? -eq 0 ]; then
+    echo "                                 ... found"
+    HAVE_MEMMEM="YES"
+else
+    echo "                                 ... NOT found, using sfuzz's"
+    HAVE_MEMMEM=""
+fi
+
+###
+# end feature check
+###
+${RM} -rf ${TESTC}
+
+else
+echo "WARNING: Unable to test for features - assuming the worst"
+HAVE_LIBDL=""
+HAVE_MEMMEM=""
+fi
+
+LIBS=""
+
+#####
+# First do generic platform stuff...
+#####
+if [ "Darwin" = "$OS_SYSTEM" ]; then
+    XCFLAGS="$XCFLAGS "
+    SFO_PLATFORM=" sfuzz_oracle_null.o"
+    SNOOP_SUPPORT="disable"
+elif [ "Linux" = "$OS_SYSTEM" ]; then
+    SFO_PLATFORM=" sfuzz_oracle_ptrace.o"
+    XCFLAGS="$XCFLAGS -D_GNU_SOURCE"
+        XSHARED_OPTS="$XSHARED_OPTS"
+fi
+
+if [ "X$HAVE_LIBDL" != "X" ]; then
+    XCFLAGS="$XCFLAGS -fPIC"
+    XSHARED_LIBS="$XSHARED_LIBS -ldl"
+    LIBS="$XSHARED_LIBS"
+    if [ "Darwin" = "$OS_SYSTEM" ]; then
+        XCFLAGS="$XCFLAGS "
+        XSHARED_OPTS="$XSHARED_OPTS -dynamiclib -undefined dynamic_lookup -single_module"
+    elif [ "Linux" = "$OS_SYSTEM" ]; then
+        XCFLAGS="$XCFLAGS -rdynamic"
+        XSHARED_OPTS="$XSHARED_OPTS -shared -rdynamic"
+    fi
+    if [ "$FORCE_SYMBOLS" = "Y" ]; then
+        XSHARED_INC=" os-abs.o "
+    fi
+fi
+
+if [ "XY" = "X$PROFILING_DATA" ]; then
+   XCFLAGS="$XCFLAGS -fprofile-arcs -ftest-coverage"
+   XLDFLAGS="$XLDFLAGS -fprofile-arcs -ftest-coverage"
+fi
+
+if [ "X${HAVE_MEMMEM}" != "X" ]; then
+   XCFLAGS="$XCFLAGS -DHAVE_MEMMEM=1 "
+fi
+
+if [ $PLUGIN_SUPPORT = "disable" ]; then
+    XCFLAGS_EXTRA="-DNOPLUGIN"
+fi
+
+SFUZZ_VERSION=`$GREP define\ VERSION version.h | $CUT -d" " -f3 | $SED 's/"//g'`
+
+echo "Done configuring ... writing Makefile"
+
+$CAT > Makefile <<__MAKEFILE_EOF__
+# This file was automatically built by the simple fuzzer configuration process
+# Manual edits will not be saved if you run configure again
+# you have been warned.
+
+### Variables for building
+MKTEMP=$MKTEMP
+CCPATH=$CC_LOCATION_VAL
+CC=$CC_COMPILER_VAL
+AR=$AR_VAL
+FIND=$FIND
+GZIP=$GZIP
+TAR=$TAR
+MAINT=$MAINT
+ARCH=$ARCH
+XARGS=$XARGS
+VERSION=$SFUZZ_VERSION
+MD5SUM=$MD5SUM
+INSTALL=$HAS_INSTALL
+INSTALL_DIR=$HAS_INSTALL_DIR
+CFLAGS=$XCFLAGS $XCFLAGS_EXTRA
+LDFLAGS=$XLDFLAGS
+TARGET_PLAT=$OS_SYSTEM
+CP=$CP
+SED=$SED
+CAT=$CAT
+UNAME=$UNAME
+DIRNAME=$DIRNAME
+BASENAME=$BASENAME
+LS=$LS
+GREP=$GREP
+PREFIX=$PREFIX
+RM=$RM
+MKDIR=$MKDIR
+SHARED_INC=$XSHARED_INC
+SHARED_OPTS=$XSHARED_OPTS
+
+SF_OBJS=file-utils.o sfuzz.o os-abs.o sfo_interface.o
+SNOOP_OBJS=snoop.o os-abs.o
+SFO_OBJS=sfuzz_oracle.o $SFO_PLATFORM
+PLUGIN_EXAMPLE_OBJS=sfuzz-plugin-example.o sfuzz-plugin-ssl-transport.o sfuzz-server-plugin.o
+
+LIBS=$LIBS
+
+BIN_DIR=$PREFIX/bin/
+SHARE_DIR=$PREFIX/share/
+MAN_DIR=$PREFIX/share/man/man1/
+SFUZZ_SAMPLE=sfuzz-sample/
+
+__MAKEFILE_EOF__
+
+# now to determine targets (ie: sfuzz is obvious, but snoop and plugins are
+# also required
+PROGS="sfuzz sfo sfuzz.1.gz sfo.1.gz"
+
+if [ $PLUGIN_SUPPORT = "enable" ]; then
+    PROGS="$PROGS sfuzz-plugin-example.so sfuzz-server-plugin.so "
+    if [ "$SSL_PLUGIN_SUPPORT" = "enable" ]; then
+        PROGS="$PROGS sfuzz-plugin-ssl-transport.so"
+    fi
+fi
+
+if [ "$SNOOP_SUPPORT" = "enable" ]; then
+    PROGS="$PROGS snoop"
+fi
+
+$CAT >> Makefile <<__MAKEFILE_EOF__
+PROGS=$PROGS
+
+all: $PROGS
+	@echo Finished building.
+
+__MAKEFILE_EOF__
+
+$CAT ./Makefile.in >> Makefile
+
+echo "Writing spec file"
+
+SFUZZ_MAINVERSION=`echo $SFUZZ_VERSION | $SED -e 's/"//g' | $SED -re 's/^([0-9]+)\.([0-9]+)\.[0-9]+$/\1.\2/g'`
+SFUZZ_RELEASE=`echo $SFUZZ_VERSION | $CUT -d"." -f3`
+
+echo "Wrote $SFUZZ_MAINVERSION : $SFUZZ_RELEASE"
+
+$SED -e "s@VERSION@$SFUZZ_MAINVERSION\.$SFUZZ_RELEASE@g" < ./simple-fuzzer.spec.in | $SED -e "s@MAINVER@$SFUZZ_MAINVERSION@g" | $SED -e "s@RELEASE@$SFUZZ_RELEASE@g" > ./simple-fuzzer.spec
+
+echo "Finished. Now run 'make'"
+exit 0

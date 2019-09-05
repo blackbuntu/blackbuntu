@@ -1,0 +1,12 @@
+ork.plugins.EnumerateSids
+ork.plugins.CheckCommonPasswords
+ork.plugins.CheckUserSuppliedPasswords
+ork.plugins.CheckOracleVersion
+ork.plugins.GetPrivilegesForAccounts
+ork.plugins.GetRoles
+ork.plugins.GetDatabaseLinks
+ork.plugins.GetPasswordPolicy
+ork.plugins.GetPasswordPolicyForAccounts
+ork.plugins.GetAccountHashes
+ork.plugins.GetPrivilegesForRoles
+ork.plugins.GetAuditInfo
