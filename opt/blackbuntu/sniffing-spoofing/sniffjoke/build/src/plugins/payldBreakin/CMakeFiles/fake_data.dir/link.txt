@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_data.so -o fake_data.so CMakeFiles/fake_data.dir/fake_data.o 

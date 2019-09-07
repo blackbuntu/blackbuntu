@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,fake_close_rst.so -o fake_close_rst.so CMakeFiles/fake_close_rst.dir/fake_close_rst.o 

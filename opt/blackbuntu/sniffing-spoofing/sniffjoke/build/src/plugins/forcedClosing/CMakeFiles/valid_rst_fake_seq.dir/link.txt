@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,valid_rst_fake_seq.so -o valid_rst_fake_seq.so CMakeFiles/valid_rst_fake_seq.dir/valid_rst_fake_seq.o 

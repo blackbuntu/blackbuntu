@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -ansi -pedantic -Wall -Wno-variadic-macros   -shared -Wl,-soname,segmentation.so -o segmentation.so CMakeFiles/segmentation.dir/segmentation.o 
