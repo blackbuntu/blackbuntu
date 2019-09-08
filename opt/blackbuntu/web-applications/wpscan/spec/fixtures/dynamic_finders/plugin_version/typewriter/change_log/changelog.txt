@@ -1,4 +1,0 @@
-*** Typewriter WordPress Plugin Changelog ***
-
-2013.09.25 - version 1.0
- * Initial release

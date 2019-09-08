@@ -1,4 +1,0 @@
-*** LivePreview - Digital Product Demo Bar for WordPress Changelog ***
-
-= 1.0.0 =
- * Initial release

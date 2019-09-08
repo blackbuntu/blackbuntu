@@ -1,7 +1,0 @@
-Plugin Name: Easy Speech 2 Text
-Author: Muneeb Ali
-
-Change Log:
-----------------------------------------------------------------------
-
-Initial upload 1.0.0
