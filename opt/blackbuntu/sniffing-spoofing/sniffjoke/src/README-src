@@ -1,0 +1,32 @@
+/service:
+        contains the main sources for the sniffjoke software
+
+/client:
+        contains sources for a command line interface written to manage
+        sniffjoke service;
+        in doc/ you will find the file SJ-PROTOCOL.txt, ad document that
+        describe the protocol used for service-client communication.
+        if you want to write a QT or other cool-GUI sniffjoke manager,
+        we are glad to import it.
+
+/plugins:
+        sniffjoke is an "anti sniffing SDK" or a "framework for userspace
+        connection mangling" and the plugins are in fact the funny little
+        code able to crumble to dust the thousand-dollar IDS apparatus
+        your boss has buyed.
+
+        at the moment not documentation are provided, but if you are capable
+        to develop a plugin, I'll suggest to read in this order:
+
+        fake_close_rst (simple injection of a packet)
+        fake_close_fin (usage of cache and logging)
+        fake_data      (generation of two packets)
+        segmentation   (packet removed and substituted)
+
+        use a lot of tcpdump and let us know, we have some ideas to develop
+        and few time.
+
+/autotest:
+        scripts used during autotest analysis, sniffjoke-autotest check the
+        plugins + scramble combinations, and sj-iptcpopt-probe check the
+        IP/TCP options header supports provided by your ISP/gateway

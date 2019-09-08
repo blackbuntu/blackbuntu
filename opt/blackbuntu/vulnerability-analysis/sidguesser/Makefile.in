@@ -1,0 +1,19 @@
+
+
+
+CC=@CC@
+CFLAGS=-O2
+GUESS_SID_OBJS=log.o SIDGuesser.o
+LDFLAGS=-pthread
+
+all: sidguess
+
+
+sidguess: $(GUESS_SID_OBJS)
+	$(CC) -o sidguess $(GUESS_SID_OBJS) $(LDFLAGS)
+
+clean:
+	rm -f *~ *.o sidguess sidguess.exe
+
+distclean: clean
+	rm -f Makefile config.h

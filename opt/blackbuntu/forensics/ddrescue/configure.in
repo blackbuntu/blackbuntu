@@ -1,0 +1,63 @@
+AC_INIT(dd_rescue, 1.99, kurt@garloff.de)
+AC_CONFIG_HEADER(config.h)
+AC_PROG_CC
+AC_C_CONST
+AC_C_INLINE
+AC_HEADER_STDC
+#AC_PROG_INSTALL
+#CFLAGS="$CFLAGS -DHAVE_CONFIG_H"
+AC_CHECK_HEADERS([fallocate.h dlfcn.h unistd.h attr/xattr.h sys/acl.h sys/ioctl.h endian.h linux/fs.h linux/fiemap.h stdint.h lzo/lzo1x.h openssl/evp.h linux/random.h malloc.h sched.h sys/statvfs.h])
+AC_CHECK_FUNCS([ffs ffsl basename fallocate64 splice getopt_long open64 pread pread64 lseek64 stat64 posix_fadvise posix_fadvise64 __builtin_prefetch htobe64 feof_unlocked getline getentropy getrandom posix_memalign valloc sched_yield fstatvfs __builtin_cpu_supports])
+AC_CHECK_LIB(dl,dlsym)
+AC_CHECK_LIB(fallocate,linux_fallocate64)
+AC_CHECK_LIB(lzo2,lzo1x_1_compress)
+AC_CHECK_LIB(crypto,EVP_aes_192_ctr)
+
+dnl @synopsis CC_FLAGS_CHECK [compiler flags] 
+dnl @summary check whether compiler supports given C flags or not 
+AC_DEFUN([CC_FLAGS_CHECK],
+[dnl 
+  AC_MSG_CHECKING([if $CC supports $1]) 
+  dnl AC_LANG_PUSH([C]) 
+  ac_saved_cflags="$CFLAGS" 
+  CFLAGS="-Werror $1" 
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])], 
+    [AC_MSG_RESULT([yes])
+     AC_DEFINE_UNQUOTED([CC_FLAGS_$2], $1,
+	[Check whether compiler supports $1])
+    ],
+    [AC_MSG_RESULT([no])
+     dnl AC_MSG_ERROR([no])
+     dnl AC_DEFINE_UNQUOTED([CC_FLAGS_$2], , [No compiler support for $1])
+    ] )
+  CFLAGS="$ac_saved_cflags" 
+  dnl AC_LANG_POP([C]) 
+])
+
+CC_FLAGS_CHECK(-msse4.2,SSE42)
+CC_FLAGS_CHECK(-mavx2,AVX2)
+CC_FLAGS_CHECK(-mrdrnd,RDRND)
+CC_FLAGS_CHECK(-maes,AES)
+
+CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2 -fPIE -pie -rdynamic"
+dnl ***************************************************************************
+dnl Check for support of rep nop
+AC_MSG_CHECKING(whether asm rep nop is supported)
+AC_TRY_RUN([
+	int main() {
+	int err = 0;
+	asm volatile ("rep nop":::"memory");
+	return err;
+	}
+],[
+	AC_MSG_RESULT(yes)
+	AC_DEFINE_UNQUOTED([HAVE_REP_NOP], 1,
+		[check whether asm rep nop works])
+],[
+	AC_MSG_RESULT(no)
+],[
+	AC_MSG_RESULT(no -- cross compiling)
+])
+
+AC_OUTPUT
+dnl link (if needed) Makefile configure.in test_crypt.sh test_lzo_fuzz.sh

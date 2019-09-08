@@ -1,0 +1,129 @@
+.\"
+.\" Copyright (c) 2002 Snax <snax@shmoo.com>
+.\"
+.\" $Id: airsnort.1,v 1.1 2002/08/21 04:36:12 snaks Exp $
+.\"
+.Dd August 18, 2002
+.Dt AIRSNORT 1
+.Os Linux
+.Sh NAME
+.Nm airsnort
+.Nd WEP key cracking tool
+.Sh SYNOPSIS
+.Nm 
+.Sh DESCRIPTION
+.Nm airsnort
+is a WEP key cracking tool designed to exploit the RC4 scheduling weakness
+discussed by Fluhrer, Mantin, and Shamir (FMS) and first exploited by 
+Stubblefield et al.
+
+.Nm - Running AirSnort
+
+Once launched, airsnort must be configured to work with your wireless nic 
+and to make crack attempts according to your desires. In order to properly
+capture packets, first indicate the name of your wireless networking device
+in the "Network device" field.  This will be something like "wlanX" for 
+cards that use the wlan-ng drivers and "ethX" for other cards. Next select
+the type of card that you are using in the "Card type" drop down box. 
+Available choices are Prism2, Orinoco, and other.  Cisco cards fall into 
+the other category.  The purpose if this field is primarily to inform 
+airsnort how to place your nic into monitor mode. In monitor mode a wireless
+nic gathers all packets indiscriminately, and no association with an access
+point is required. For wlan-ng and orinoco_cs based nics, monitor mode is 
+entered automatically when the 'Start' button is clicked to initiate a 
+capture session. Other card types must be put into monitor mode outside of
+airsnort, prior to clicking Start.
+
+Choose between "scan" mode to scan through all 11 802.11b channels at a 
+regular interval, or "channel mode to monitor a specific channel. Note that 
+in either case it is quite possible to receive packets that bleed through 
+from neighboring channels.
+
+.Nm - Capture Details
+
+Capture uses the pcap library to receive monitor mode packets.
+The packets go through two filters. First, non-encrypted packets are
+filtered out. Then, if they are encrypted, useless packets (those without
+a weak IV) are discarded. All non-data packets are discarded with the 
+exception of 802.11b Beacon and probe response packets which are examined 
+in order to obtain access point SSID data.
+
+To distinguish encrypted and non-encrypted packets, capture examines
+the first two bytes of the output. Since unencrypted IP packets have a 
+first pair value of 0xAAAA (part of the SNAP), all of these packets get
+dropped. 
+
+For a description of what constitutes an interesting packet please refer
+to the FMS paper and its discussion of "weak IVs"
+
+.Nm - Cracking Details
+
+Cracking attempts are made in parallel with packet capture.  Currently, the
+cracker attempts to crack the captured packets for both a 40 bit and 128 bit
+key each time 10 new weak IVs are seen for a given access point. Airsnort uses
+a probabalistic attack, so, the best guess may not be the right one. With 
+limited captured data and enough CPU power, you can perform more exaustive 
+searches. The search for a key involves a depth first traversal of an n-ary 
+tree. The depth of tree is 5 for 40 bit key attempts and 13 for 128 bit key 
+attempts. The breadth of the trees is governed by the 40 and 128 bit crack 
+depth fields in the airsnort gui. A breadth parameter of 'n' instructs airsnort
+to try the n most likely values at each key position using statistics derived 
+from the IVs that have been collected. Large breadth setting can result in very
+slow processing time for crack attempts default values of 3 for 40 bit cracks
+and 2 for 128 bit cracks are recommended for starters. If a large number of
+weak IVs have been gathered (> 1500 if a 40 bit key is suspected, > 3000 if
+a 128 bit key is suspected), you may want to try increasing the breadth 
+values.
+
+The number of interesting packets needed to perform a successful crack
+depends on two things; luck and key length. Assuming that luck is on
+your side, the key length is the only important factor. For a key
+length of 128 bits, this translates to about 1500 packets. For other
+key lengths, assume 115 packets per byte of the key. Some keys are more
+resistant to this technique than others and may require far more packets.
+If you have a lot of packets and no key, either wait for more packets or
+try a larger breadth.
+
+In any case, if the cracker believes it has a correct password,
+it checks the checksum of a random packet. If this is successful, the
+correct password is printed in ASCII and Hex, and the successful crack is
+indicated by an 'X' in the leftmost column of the display. 
+
+When executing the cracking operation, crack operates with a partial
+key search from the given data. Since it is a probabalistic attack, 
+The best guess may not be the right one, so, with limited captured 
+data and enough CPU power, you can perform more exaustive searches. 
+By setting the breadth parameter, you can specify to search "worse" 
+guesses. It is not suggested that you specify a breadth of more than 
+three or four.
+
+.Nm - Save and Restore
+
+Airsnort saves data in two formats. All packets captured by aisrnort
+can be saved in pcap dump file format by selecting the "Log to file"
+option from the File menu.  This must be done before a capture session
+is initiated. Airsnort can also save a much smaller amount of data of 
+data about a capture session in the form of "crack" files.  These files
+represent the minimum amount of data that airsnort maintains for each
+access point that it discovers.  Crack files contain summary data of
+those packets that airsnort has seen that actually use weak IVs. Airsnort
+will always ask the user to save data to a crack file whenever the program
+is terminated.  By using save files, airsnort session can effectively be
+paused and resumed at a later time by first loading the save file, then
+starting a capture session. Restoration of data from a pcap dump file
+amounts to replaying the entire capture session from which the dump file
+was created, all statistics will reflect what was seen during the live
+capture session. Restoration of data from a crack file will only display
+statistics about packets that use weak IVs, thus packet counts are likely
+to be much smaller than seen during the live capture.  It is possible to
+load a pcap dump file and create a corresponding crack file in order to
+reduce the amount of stored data.
+.Sh SEE ALSO
+.Xr gencases 1
+.Xr decrypt 1
+.Sh AUTHORS
+.Bd 
+.An Jeremy Bruestle  <melvin@melvin.net>
+.An Blake Hegerle    <blake@melvin.net>
+.An Snax             <snax@shmoo.com>
+.Ed
