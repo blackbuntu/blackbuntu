@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [Package]: DDRescue Compiler
+# [Package]: DDRescue
 # [Release]: Blackbuntu Revive v1.0.1 Alpha
 # [Website]: https://blackbuntu.org
 # [Version]: Revive v1.0.1 Alpha
@@ -38,7 +38,7 @@ function set_banner
 	echo -e "${TEXT_ERROR}                                                         ${TEXT_RESET}"
 	echo -e "${TEXT_ERROR}                                      Blackbuntu v1.0.1  ${TEXT_RESET}"         
 	echo
-	echo -e "${TEXT_VALID} [i] [Package]: ddrescue-compiler${TEXT_RESET}"
+	echo -e "${TEXT_VALID} [i] [Package]: ddrescue${TEXT_RESET}"
 	echo -e "${TEXT_VALID} [i] [Website]: https://blackbuntu.org${TEXT_RESET}"
 
   	echo
