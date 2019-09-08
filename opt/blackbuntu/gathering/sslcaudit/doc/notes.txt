@@ -1,1 +1,0 @@
-git svn clone -s http://optparse-gui.googlecode.com/svn optparse-gui
