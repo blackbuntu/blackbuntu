@@ -53,6 +53,7 @@ function check_username
 	    sleep 1s
 	else
 		cd /tmp/
+		echo
 		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system${TEXT_RESET}"
 		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ...${TEXT_RESET}"
 		echo -e "\n"
@@ -72,7 +73,8 @@ function check_internet
 	if [[ "$?" -ne 0 ]]; 
 	then
 		cd /tmp/
-		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues${TEXT_RESET}"
+		echo
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues or no Internet connection${TEXT_RESET}"
 		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
 		echo -e "\n"
 		exit 1
@@ -101,8 +103,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	echo
 	read -p " Please enter your username : " USERNAME
-	echo
 	check_username $USERNAME
+	check_internet
+
 	echo -e " Please wait while compiling EapMd5pass ...${TEXT_RESET}"
 	sleep 5s
 
@@ -112,6 +115,7 @@ then
 	sudo ln -s /opt/blackbuntu/wireless/eapmd5pass/eapmd5pass /usr/bin/eapmd5pass
 	cd /tmp/
 
+	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} EapMd5pass has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open EapMd5pass"
 	echo -e "\n"
