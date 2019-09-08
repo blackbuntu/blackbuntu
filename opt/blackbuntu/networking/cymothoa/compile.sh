@@ -111,6 +111,7 @@ then
 	sudo make >/dev/null 2>&1
 	sudo ln -s /opt/blackbuntu/networking/cymothoa/bgrep /usr/bin/bgrep
 	sudo ln -s /opt/blackbuntu/networking/cymothoa/cymothoa /usr/bin/cymothoa
+	cd /tmp/
 
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Cymothoa has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Cymothoa"

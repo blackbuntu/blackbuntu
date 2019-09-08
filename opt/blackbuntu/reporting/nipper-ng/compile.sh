@@ -110,6 +110,7 @@ then
 	cd /opt/blackbuntu/reporting/nipper-ng/
 	sudo make >/dev/null 2>&1
 	sudo make install >/dev/null 2>&1
+	cd /tmp/
 
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Nipper-NG has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Nipper-NG"

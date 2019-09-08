@@ -111,6 +111,7 @@ then
 	sudo make >/dev/null 2>&1
 	sudo mv /opt/blackbuntu/forensics/ddrescue/dd_rescue /opt/blackbuntu/forensics/ddrescue/ddrescue
 	sudo ln -s /opt/blackbuntu/forensics/ddrescue/ddrescue /usr/bin/ddrescue
+	cd /tmp/
 
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} DDRescue has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open DDRescue"

@@ -110,7 +110,8 @@ then
 	cd /opt/blackbuntu/gathering/enumiax/
 	sudo make >/dev/null 2>&1
 	sudo ln -s /opt/blackbuntu/gathering/enumiax/enumiax /usr/bin/enumiax
-
+	cd /tmp/
+	
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Enumiax has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Enumiax"
 	echo -e "\n"

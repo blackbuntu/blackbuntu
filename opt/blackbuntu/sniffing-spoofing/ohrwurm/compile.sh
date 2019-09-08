@@ -110,6 +110,7 @@ then
 	cd /opt/blackbuntu/sniffing-spoofing/ohrwurm/
 	sudo make >/dev/null 2>&1
 	sudo ln -s /opt/blackbuntu/sniffing-spoofing/ohrwurm/ohrwurm /usr/bin/ohrwurm
+	cd /tmp/
 
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Ohrwurm has been compiled successfully${TEXT_RESET}"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Ohrwurm"

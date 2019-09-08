@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [Package]: Truecrack
+# [Package]: Airsnort
 # [Release]: Blackbuntu Revive v1.0.1 Alpha
 # [Website]: https://blackbuntu.org
 # [Version]: Revive v1.0.1 Alpha
@@ -38,7 +38,7 @@ function set_banner
 	echo -e "${TEXT_ERROR}                                                         ${TEXT_RESET}"
 	echo -e "${TEXT_ERROR}                                      Blackbuntu v1.0.1  ${TEXT_RESET}"         
 	echo
-	echo -e "${TEXT_VALID} [i] [Package]: truecrack${TEXT_RESET}"
+	echo -e "${TEXT_VALID} [i] [Package]: airsnort${TEXT_RESET}"
 	echo -e "${TEXT_VALID} [i] [Website]: https://blackbuntu.org${TEXT_RESET}"
 
   	echo
@@ -94,7 +94,7 @@ set_banner
 
 ## Prompt User for Confirmation
 ## ----------------------------
-echo -e " Truecrack is not yet compiled."
+echo -e " Airsnort is not yet compiled."
 read -p " Do you want to compile it now [Y/n] ? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -103,18 +103,18 @@ then
 	read -p " Please enter your username : " USERNAME
 	echo
 	check_username $USERNAME
-	echo -e " Please wait while compiling Truecrack ...${TEXT_RESET}"
+	echo -e " Please wait while compiling Airsnort ...${TEXT_RESET}"
 	sleep 5s
 
-	sudo rm -f /usr/bin/truecrack
-	cd /opt/blackbuntu/cracking/truecrack/
-	sudo ./configure --enable-cpu >/dev/null 2>&1
+	sudo rm -f /usr/bin/airsnort
+	cd /opt/blackbuntu/wireless/airsnort/
+	sudo ./configure >/dev/null 2>&1
 	sudo make >/dev/null 2>&1
 	sudo make install >/dev/null 2>&1
 	cd /tmp/
-	
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Truecrack has been compiled successfully${TEXT_RESET}"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Truecrack"
+
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Airsnort has been compiled successfully${TEXT_RESET}"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Airsnort"
 	echo -e "\n"
 else
 	echo
