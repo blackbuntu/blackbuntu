@@ -1,5 +1,0 @@
-base
-bootstrapbase
-canvas
-clean
-more
