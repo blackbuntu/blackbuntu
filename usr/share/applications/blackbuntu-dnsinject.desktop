@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Utilities Tools;
+Exec=bash -c 'dnsinject --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dnsinject
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-dnsinject.desktop

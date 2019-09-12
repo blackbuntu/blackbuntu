@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+Exec=bash -c 'responder --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Responder
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-responder.desktop

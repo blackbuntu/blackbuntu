@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+Exec=bash -c 'zaproxy;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-zaproxy.png
+Name=Zaproxy
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-zaproxy.desktop

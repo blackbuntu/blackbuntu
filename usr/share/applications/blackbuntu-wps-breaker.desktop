@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Wireless Attacks;
+Exec=bash -c 'sudo wps-breaker;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=WPS Breaker
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-wps-breaker.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking Tools;
+Exec=bash -c 'dns2tcpc;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dns2TCPc
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-dns2tcpc.desktop

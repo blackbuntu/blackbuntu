@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking Tools;
+Exec=bash -c 'hydra;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Hydra
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-hydra.desktop

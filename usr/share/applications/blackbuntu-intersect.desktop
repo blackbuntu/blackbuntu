@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking Tools;
+Exec=bash -c 'intersect;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Intersect
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-intersect.desktop

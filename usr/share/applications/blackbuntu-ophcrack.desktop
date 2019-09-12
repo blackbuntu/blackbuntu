@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking Tools;
+Exec=bash -c 'ophcrack;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-ophcrack.png
+Name=OphCrack
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-ophcrack.desktop

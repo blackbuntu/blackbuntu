@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Reverse Engineering;
+Exec=bash -c 'androarsc --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Androarsc
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-androarsc.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Reverse Engineering;
+Exec=bash -c 'radare2 -h;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Radare2
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-radare2.desktop

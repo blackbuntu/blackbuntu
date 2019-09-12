@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications Analysis;
+Exec=bash -c 'plecost;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Plecost
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-plecost.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Stress Testing;
+Exec=bash -c 'rtpflood --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Rtpflood
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-rtpflood.desktop

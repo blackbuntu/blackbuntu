@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+TryExec=wireshark
+Exec=wireshark %f
+Icon=/usr/share/icons/blackbuntu/bbu-wireshark.png
+Name=Wireshark
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-wireshark.desktop

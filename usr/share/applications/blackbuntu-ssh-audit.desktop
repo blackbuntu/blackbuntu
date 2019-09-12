@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking Tools;
+Exec=bash -c 'ssh-audit --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=SSH Audit
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-ssh-audit.desktop

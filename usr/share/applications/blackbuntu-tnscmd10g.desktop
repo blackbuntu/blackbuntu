@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Vulnerability Analysis;
+Exec=bash -c 'tnscmd10g --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Tnscmd10g
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-tnscmd10g.desktop

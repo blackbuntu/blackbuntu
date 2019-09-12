@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications Analysis;
+Exec=bash -c 'vega;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-vega.png
+Name=Vega
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-vega.desktop

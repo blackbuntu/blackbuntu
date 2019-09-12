@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=EDB Debugger
+GenericName=edb debugger
+Comment=edb debugger 
+Exec=edb
+Icon=/usr/share/icons/blackbuntu/bbu-edb-debugger.png
+Terminal=false
+Type=Application
+Categories=Reverse Engineering;
+
+Name[en_US]=blackbuntu-edb-debugger.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'lbd;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Load Balancing Checker
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-lbd.desktop

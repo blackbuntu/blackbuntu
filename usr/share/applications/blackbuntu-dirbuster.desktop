@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications Analysis;
+Exec=/usr/bin/java -jar /opt/pentest/webapps-analysis/dirbuster/dirbuster.jar
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dirbuster
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-dirbuster.desktop

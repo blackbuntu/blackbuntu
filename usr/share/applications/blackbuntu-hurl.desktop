@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications Analysis;
+Exec=bash -c 'hurl --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=hUrl
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-hurl.desktop

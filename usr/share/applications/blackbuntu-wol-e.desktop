@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'wol-e -h;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Wol-E
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-wol-e.desktop

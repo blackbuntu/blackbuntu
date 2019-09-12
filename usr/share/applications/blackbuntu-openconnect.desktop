@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking Tools;
+Exec=bash -c 'openconnect --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=OpenConnect
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-openconnect.desktop

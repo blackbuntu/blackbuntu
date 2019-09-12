@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Exploitation Tools;
+Exec=bash -c 'sudo msfconsole;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-metasploit.png
+Name=Metasploit
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-metasploit.desktop

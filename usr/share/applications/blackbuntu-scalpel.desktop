@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Digital Forensics;
+Exec=bash -c 'scalpel;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Scalpel
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-scalpel.desktop

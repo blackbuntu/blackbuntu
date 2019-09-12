@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Hardwares Tools;
+Exec=bash -c 'u3-pwn;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=U3-Pwn
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-u3-pwn.desktop

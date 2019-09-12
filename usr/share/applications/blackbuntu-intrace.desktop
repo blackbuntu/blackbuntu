@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'intrace;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=InTrace
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-intrace.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Reporting Tools;
+Exec=bash -c 'magictree;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Magictree
+Terminal=false
+Type=Application
+Name[en_US]=blackbuntu-magictree.desktop

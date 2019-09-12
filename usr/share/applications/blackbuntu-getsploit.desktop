@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Exploitation Tools;
+Exec=bash -c 'getsploit --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=GetSploit
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-getsploit.desktop

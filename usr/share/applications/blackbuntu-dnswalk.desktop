@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'dnswalk;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dnswalk
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-dnswalk.desktop

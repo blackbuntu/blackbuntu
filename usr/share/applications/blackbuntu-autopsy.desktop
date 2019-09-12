@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Digital Forensics;
+Exec=bash -c 'sudo autopsy;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Autopsy
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-autopsy.desktop

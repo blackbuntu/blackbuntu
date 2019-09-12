@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking Tools;
+Exec=bash -c 'john;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-john.png
+Name=John the Ripper
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-john.desktop

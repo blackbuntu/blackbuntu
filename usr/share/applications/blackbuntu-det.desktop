@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking Tools;
+Exec=bash -c 'det --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=DET Toolkit
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-det.desktop

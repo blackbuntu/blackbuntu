@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+Exec=bash -c 'svreport --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Svreport
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-svreport.desktop

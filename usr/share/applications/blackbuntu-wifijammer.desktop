@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Wireless Attacks;
+Exec=bash -c 'sudo wifijammer --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=WifiJammer
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-wifijammer.desktop

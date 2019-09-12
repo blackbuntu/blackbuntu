@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Utilities Tools;
+Exec=bash -c 'dnsreverser --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dnsreverser
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-dnsreverser.desktop

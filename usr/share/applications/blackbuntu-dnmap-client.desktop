@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'dnmap-client --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Dnmap Client
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-dnmap-client.desktop

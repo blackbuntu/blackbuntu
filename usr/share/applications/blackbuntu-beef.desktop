@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Exploitation Tools;
+Exec=bash -c 'beef;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-beef.png
+Name=BeEF
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-beef.desktop

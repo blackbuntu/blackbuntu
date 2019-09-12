@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Vulnerability Analysis;
+Exec=bash -c 'sidguess;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Sidguess
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-sidguess.desktop

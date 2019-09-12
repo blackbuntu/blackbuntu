@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Wireless Attacks;
+Exec=bash -c 'eapmd5pass -h;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=Eapmd5pass
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-eapmd5pass.desktop

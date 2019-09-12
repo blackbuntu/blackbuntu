@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Information Gathering;
+Exec=bash -c 'nmap --help;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-nmap.png
+Name=Nmap
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-nmap.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking Tools;
+Exec=bash -c 'rcrack;$SHELL'
+Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Name=RainbowCrack
+Terminal=true
+Type=Application
+Name[en_US]=blackbuntu-rcrack.desktop
