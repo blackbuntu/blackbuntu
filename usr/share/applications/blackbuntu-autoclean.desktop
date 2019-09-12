@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=System Services;
-Exec=sh -c 'blackbuntu-clean; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-clean.png
+Exec=sh -c 'blackbuntu-autoclean; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-autoclean.png
 Name=BlackBuntu Clean
 Terminal=true
 Type=Application

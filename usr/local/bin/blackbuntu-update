@@ -112,7 +112,7 @@ then
 	sudo apt -y clean && sudo apt -y autoclean
 
 	cd /tmp/
-	sudo wget -q -O /tmp/update.sh "http://192.168.1.105/repositories/tor-browser-v8.5.5.tar.xz"
+	sudo wget -q -O /tmp/update.sh "https://raw.githubusercontent.com/blackbuntu/blackbuntu/master/update.sh"
 	if [ -f "/tmp/upgrade.sh" ];
 	then
 		sudo chmod +x /tmp/update.sh
