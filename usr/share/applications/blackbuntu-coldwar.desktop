@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Utilities Tools;
-Exec=bash -c 'coldwar --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Utilities;
+Exec=sh -c 'coldwar --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Coldwar
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-coldwar.desktop

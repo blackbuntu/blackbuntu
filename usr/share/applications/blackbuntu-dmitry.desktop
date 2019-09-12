@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Information Gathering;
-Exec=bash -c 'dmitry;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Gathering;
+Exec=sh -c 'dmitry; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Dmitry
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-dmitry.desktop

@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Reporting Tools;
-Exec=bash -c 'keepnote;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Reporting;
+Exec=sh -c 'keepnote; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=KeepNote
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-keepnote.desktop

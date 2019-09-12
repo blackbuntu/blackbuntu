@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Exploitation Tools;
-Exec=bash -c 'empire;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-empire.png
+Categories=Exploitation;
+Exec=sh -c 'empire; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-empire.png
 Name=Empire
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-empire.desktop

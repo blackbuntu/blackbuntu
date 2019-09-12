@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Digital Forensics;
-Exec=bash -c 'extundelete --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'extundelete --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Extundelete
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-extundelete.desktop

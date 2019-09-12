@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Networking Tools;
-Exec=bash -c 'sudo tcpreplay --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Networking;
+Exec=sh -c 'sudo tcpreplay --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=TCP-Replay
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-tcpreplay.desktop

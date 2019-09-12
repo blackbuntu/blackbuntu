@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Vulnerability Analysis;
-Exec=bash -c 'doona -h;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'doona -h; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Doona
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-doona.desktop

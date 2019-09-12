@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Reporting Tools;
-Exec=bash -c 'nipper --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Reporting;
+Exec=sh -c 'nipper --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Nipper NG
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-nipper.desktop

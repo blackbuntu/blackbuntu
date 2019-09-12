@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Information Gathering;
+Categories=Gathering;
 Exec=/usr/bin/java -jar /opt/pentest/information-gathering/cookie-cadger/cookie-cadger.jar
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Cookie Cadger
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-cookie-cadger.desktop

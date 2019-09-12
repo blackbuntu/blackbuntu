@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Social Engineering;
-Exec=bash -c 'httrack --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'httrack --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Httrack
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-httrack.desktop

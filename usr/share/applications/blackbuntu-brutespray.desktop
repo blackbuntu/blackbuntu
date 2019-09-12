@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Cracking Tools;
-Exec=bash -c 'brutespray --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-brutespray.png
+Categories=Cracking;
+Exec=sh -c 'brutespray --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-brutespray.png
 Name=Brutespray
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-brutespray.desktop

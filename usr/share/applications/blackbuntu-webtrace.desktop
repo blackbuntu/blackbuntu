@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Utilities Tools;
-Exec=bash -c 'webtrace --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Utilities;
+Exec=sh -c 'webtrace --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Webtrace
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-webtrace.desktop

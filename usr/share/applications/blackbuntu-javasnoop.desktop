@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Reverse Engineering;
-Exec=bash -c 'javasnoop;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'javasnoop; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Javasnoop
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-javasnoop.desktop

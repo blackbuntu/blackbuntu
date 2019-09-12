@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Utilities Tools;
-Exec=bash -c 'sudo dracnmap;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Utilities;
+Exec=sh -c 'sudo dracnmap; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Dracnmap
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-dracnmap.desktop

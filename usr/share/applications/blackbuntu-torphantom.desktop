@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Utilities Tools;
-Exec=bash -c 'torphantom;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Utilities;
+Exec=sh -c 'torphantom; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Torphantom
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-torphantom.desktop

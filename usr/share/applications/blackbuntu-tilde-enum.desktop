@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Web Applications Analysis;
-Exec=bash -c 'tilde-enum --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Web Applications;
+Exec=sh -c 'tilde-enum --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Tilde Enum
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-tilde-enum.desktop

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Reverse Engineering;
-Exec=bash -c 'androaxml --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
-Name=Androaxml
-Terminal=true
-Type=Application
-Name[en_US]=blackbuntu-androaxml.desktop

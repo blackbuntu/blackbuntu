@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Stress Testing;
-Exec=bash -c 'dhcpig --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'dhcpig --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Dhcpig
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-dhcpig.desktop

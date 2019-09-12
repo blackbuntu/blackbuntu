@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Stress Testing;
-Exec=bash -c 'sudo mdk3 --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'sudo mdk3 --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Mdk3
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-mdk3.desktop

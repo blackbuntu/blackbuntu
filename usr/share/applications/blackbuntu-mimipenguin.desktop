@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Cracking Tools;
-Exec=bash -c 'sudo mimipenguin;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Cracking;
+Exec=sh -c 'sudo mimipenguin; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Mimipenguin
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-mimipenguin.desktop

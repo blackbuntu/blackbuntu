@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Digital Forensics;
-Exec=bash -c 'dc3dd --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'dc3dd --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Dc3dd
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-dc3dd.desktop

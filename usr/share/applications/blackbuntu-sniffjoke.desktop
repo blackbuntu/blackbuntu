@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Sniffing / Spoofing;
-Exec=bash -c 'sudo sniffjoke -h;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'sudo sniffjoke -h; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Sniffjoke
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-sniffjoke.desktop

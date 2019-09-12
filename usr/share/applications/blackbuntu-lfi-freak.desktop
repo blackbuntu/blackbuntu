@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Web Applications Analysis;
-Exec=bash -c 'lfi-freak;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Web Applications;
+Exec=sh -c 'lfi-freak; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=LFI-Freak
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-lfi-freak.desktop

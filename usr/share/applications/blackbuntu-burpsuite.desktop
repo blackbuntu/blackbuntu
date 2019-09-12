@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Web Applications Analysis;
+Categories=Web Applications;
 Exec=/usr/bin/java -jar /opt/pentest/webapps-analysis/burpsuite/burpsuite.jar
-Icon=/usr/share/icons/blackbuntu/bbu-burpsuite.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-burpsuite.png
 Name=Burpsuite
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-burpsuite.desktop

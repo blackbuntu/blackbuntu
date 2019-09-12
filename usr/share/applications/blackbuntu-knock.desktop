@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Information Gathering;
-Exec=bash -c 'knock --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Gathering;
+Exec=sh -c 'knock --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Knock
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-knock.desktop

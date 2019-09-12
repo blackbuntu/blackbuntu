@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Sniffing / Spoofing;
-Exec=bash -c 'lnav --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'lnav --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Lnav
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-lnav.desktop

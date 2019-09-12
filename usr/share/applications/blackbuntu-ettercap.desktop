@@ -2,8 +2,7 @@
 Version=1.0
 Categories=Sniffing / Spoofing;
 Exec=ettercap-pkexec -G
-Icon=/usr/share/icons/blackbuntu/bbu-ettercap.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-ettercap.png
 Name=Ettercap
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-ettercap.desktop

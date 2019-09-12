@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=System Services;
-Exec=bash -c 'blackbuntu-upgrade;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-upgrade.png
+Exec=sh -c 'blackbuntu-upgrade; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-upgrade.png
 Name=BlackBuntu Upgrade
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-upgrade.desktop

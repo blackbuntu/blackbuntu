@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Networking Tools;
-Exec=bash -c 'socat -h;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Networking;
+Exec=sh -c 'socat -h; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Socat
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-socat.desktop

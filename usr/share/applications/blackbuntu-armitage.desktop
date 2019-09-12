@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Exploitation Tools;
+Categories=Exploitation;
 Exec=/usr/bin/java -jar /opt/pentest/exploitation/armitage/armitage.jar
-Icon=/usr/share/icons/blackbuntu/bbu-armitage.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-armitage.png
 Name=Armitage
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-armitage.desktop

@@ -1,12 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Categories=Information Gathering;
+Categories=Gathering;
 Encoding=UTF-8
 Exec=/usr/bin/ipscan
-Icon=/usr/share/icons/blackbuntu/bbu-ipscan.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-ipscan.png
 Name=Angry IP
 StartupNotify=true
 StartupWMClass=Angry IP Scanner
 Terminal=false
 Type=Application
-Name[en_US]=blackbuntu-ipscan.desktop

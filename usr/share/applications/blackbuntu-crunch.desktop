@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Cracking Tools;
-Exec=bash -c 'crunch --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Categories=Cracking;
+Exec=sh -c 'crunch --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Crunch
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-crunch.desktop

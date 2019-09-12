@@ -4,10 +4,8 @@ GenericName=GUI Port Scanner
 TryExec=zenmap
 Exec=zenmap %F
 Terminal=false
-Icon=/usr/share/icons/blackbuntu/bbu-zenmap.png
+Icon=/usr/share/icons/blackbuntu/blackbuntu-zenmap.png
 Type=Application
-Categories=Information Gathering;
+Categories=Gathering;
 Comment=A cross-platform GUI for the Nmap Security Scanner.
 Keywords=network;scan;scanner;IP;security;
-
-Name[en_US]=blackbuntu-zenmap.desktop

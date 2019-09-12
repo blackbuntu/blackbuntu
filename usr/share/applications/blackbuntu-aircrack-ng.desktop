@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Wireless Attacks;
-Exec=bash -c 'aircrack-ng;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'aircrack-ng; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Aircrack NG
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-aircrack-ng.desktop

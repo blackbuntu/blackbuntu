@@ -1,9 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Reverse Engineering;
-Exec=bash -c 'valgrind --help;$SHELL'
-Icon=/usr/share/icons/blackbuntu/bbu-menu-default.png
+Exec=sh -c 'valgrind --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Valgrind
 Terminal=true
 Type=Application
-Name[en_US]=blackbuntu-valgrind.desktop
