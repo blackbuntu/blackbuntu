@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [Package]: blackbuntu-update
+# [Package]: blackbuntu-updater
 # [Release]: Blackbuntu Revive v1.0.1 Alpha
 # [Website]: https://blackbuntu.org
 # [Version]: Revive v1.0.1 Alpha
@@ -36,9 +36,9 @@ function set_banner
 	echo -e "${TEXT_ERROR}  | |_) | | (_| | (__|   <| |_) | |_| | | | | |_| |_| |  ${TEXT_RESET}"
 	echo -e "${TEXT_ERROR}  |_'__/|_|\__'_|\___|_|\_\_'__/ \__'_|_| |_|\__|\__'_|  ${TEXT_RESET}"
 	echo -e "${TEXT_ERROR}                                                         ${TEXT_RESET}"
-	echo -e "${TEXT_ERROR}                                      Blackbuntu v1.0.1  ${TEXT_RESET}"        
+	echo -e "${TEXT_ERROR}                                      Blackbuntu v1.0.1  ${TEXT_RESET}"         
 	echo
-	echo -e "${TEXT_VALID} [i] [Package]: blackbuntu-clean${TEXT_RESET}"
+	echo -e "${TEXT_VALID} [i] [Package]: blackbuntu-updater${TEXT_RESET}"
 	echo -e "${TEXT_VALID} [i] [Website]: https://blackbuntu.org${TEXT_RESET}"
 
   	echo
@@ -52,9 +52,10 @@ function check_username
 	if id "$1" >/dev/null 2>&1; then
 	    sleep 1s
 	else
-		cd /home/$USERNAME/
-		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system${TEXT_RESET}"
-		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} Quitting ...${TEXT_RESET}"
+		cd /tmp/
+		echo
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system"
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
 		echo -e "\n"
 		exit 1
 	fi
@@ -71,79 +72,67 @@ function check_internet
 	
 	if [[ "$?" -ne 0 ]]; 
 	then
-		cd /home/$USERNAME/
-		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues${TEXT_RESET}"
-		echo -e "${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
+		cd /tmp/
+		echo
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues or no Internet connection"
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
+		echo -e "\n"
 		exit 1
 	fi
-}
-
-## Return stage title
-## ------------------
-function stage_title
-{
-	echo -e "\n${TEXT_TITLE}[+]${TEXT_RESET} (${1}/${2}) ${TEXT_TITLE}${3^^}${TEXT_RESET}"
-	sleep 1s
-}
-
-## Return stage output
-## -------------------
-function stage_output
-{
-	cd /home/$USERNAME/
-	echo -e "${TEXT_VALID}[i] ${1^^}${TEXT_RESET}"
-	sleep 1s
 }
 
 ## ------------ ##
 ## Start Script ##
 ## ------------ ##
 
+## Prompt for SUDO Password
+## ------------------------
+clear
+sudo -v
+
 ## Display Header
 ## --------------
 set_banner
 
-## Get Username
-## ------------
-read -p " Please enter your username : " USERNAME
+## Prompt User for Confirmation
+## ----------------------------
+echo -e " BlackBuntu System Updater"
+read -p " Do you want to update your system now [Y/n] ? " -n 1 -r
 echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	echo
+	read -p " Please enter your username : " USERNAME
+	check_username $USERNAME
+	check_internet
 
-## Stage counter start
-## -------------------
-STAGE=0
-TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
-clear
+	sudo -v
+	sudo apt -y update && sudo apt -y upgrade && sudo apt -y dist-upgrade
+	sudo apt -y remove && sudo apt -y autoremove
+	sudo apt -y clean && sudo apt -y autoclean
 
-## ------------------------------- ##
-## Check User Level and Permission ##
-## ------------------------------- ##
+	cd /tmp/
+	sudo wget -q -O /tmp/update.sh "http://192.168.1.105/repositories/tor-browser-v8.5.5.tar.xz"
+	if [ -f "/tmp/upgrade.sh" ];
+	then
+		sudo chmod +x /tmp/update.sh
+		sudo bash /tmp/update.sh
+		sudo rm -f /tmp/update.sh
+	else
+		echo -e "Cannot retrieve the remote 'upgrade.sh' file required by the system"
+		echo -e "Quitting ..."
+		echo -e "\n"
+		exit 1
+	fi
 
-## Checking Username
-## -----------------
-check_username $USERNAME
-
-## Switch to Root
-## --------------
-(( STAGE++ ))
-stage_title $STAGE $TOTAL "Switch to Root"
-sudo ls -la /tmp/ >/dev/null 2>&1
-stage_output "Switched to Root successfully"
-
-## ------------- ##
-## Update System ##
-## ------------- ##
-
-## Process Core Updates
-## --------------------
-(( STAGE++ ))
-stage_title $STAGE $TOTAL "Process Core Updates"
-sudo apt -y update && sudo apt -y upgrade && sudo apt -y dist-upgrade
-sudo apt -y remove && sudo apt -y autoremove
-sudo apt -y clean && sudo apt -y autoclean
-stage_output "Processing Core Updates"
-
-## Final Notice
-## ------------
-echo -e "\n${TEXT_SUCCES}[i]${TEXT_CLEAR} System Updated Successfully${TEXT_CLEAR}"
-sleep 1s
-exit
+	echo
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} BlackBuntu has been updated successfully"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows at anytime"
+	echo -e "\n"
+else
+	echo
+	echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Operation aborted by user"
+	echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
+	echo -e "\n"
+	exit 1
+fi

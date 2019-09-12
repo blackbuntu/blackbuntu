@@ -54,8 +54,8 @@ function check_username
 	else
 		cd /tmp/
 		echo
-		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system${TEXT_RESET}"
-		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ...${TEXT_RESET}"
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} The username $USERNAME has not been found in the system"
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
 		echo -e "\n"
 		exit 1
 	fi
@@ -74,7 +74,7 @@ function check_internet
 	then
 		cd /tmp/
 		echo
-		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues or no Internet connection${TEXT_RESET}"
+		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} An unknown error occured ~ Possible DNS issues or no Internet connection"
 		echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
 		echo -e "\n"
 		exit 1
@@ -106,7 +106,7 @@ then
 	check_username $USERNAME
 	check_internet
 
-	echo -e " Please wait while compiling Sniffjoke ...${TEXT_RESET}"
+	echo -e " Please wait while compiling Sniffjoke ..."
 	sleep 5s
 
 	sudo rm -f /usr/bin/sniffjoke
@@ -118,12 +118,12 @@ then
 	cd /tmp/
 	
 	echo
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Sniffjoke has been compiled successfully${TEXT_RESET}"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Sniffjoke has been compiled successfully"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Sniffjoke"
 	echo -e "\n"
 else
 	echo
-	echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Operation aborted by user${TEXT_RESET}"
+	echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Operation aborted by user"
 	echo -e " ${TEXT_ERROR}[!]${TEXT_RESET} Quitting ..."
 	echo -e "\n"
 	exit 1
