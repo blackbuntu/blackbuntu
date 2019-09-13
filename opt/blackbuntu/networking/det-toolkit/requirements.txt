@@ -1,6 +1,0 @@
-tweepy
-scapy
-pysocks
-dnslib
-pycrypto
-slackclient

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Gathering;
-Exec=sh -c 'dnmap-server --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Dnmap Server
-Terminal=true
-Type=Application

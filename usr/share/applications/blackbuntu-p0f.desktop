@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Gathering;
-Exec=sh -c 'sudo p0f; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=P0f Framework
-Terminal=true
-Type=Application

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Sniffing / Spoofing;
-Exec=/usr/bin/java -jar /opt/pentest/sniffing-spoofing/webscarab/webscarab.jar
-Icon=/usr/share/icons/blackbuntu/blackbuntu-webscarab.png
-Name=Webscarab
-Terminal=false
-Type=Application

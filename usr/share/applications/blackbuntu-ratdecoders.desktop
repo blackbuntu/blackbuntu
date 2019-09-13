@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Utilities;
-Exec=sh -c 'ratdecoders --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Ratdecoders
-Terminal=true
-Type=Application

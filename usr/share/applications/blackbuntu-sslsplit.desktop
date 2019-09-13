@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Gathering;
-Exec=sh -c 'sslsplit -h; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=SSLsplit
-Terminal=true
-Type=Application

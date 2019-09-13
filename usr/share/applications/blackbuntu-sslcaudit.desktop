@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Gathering;
-Exec=sh -c 'sslcaudit --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Sslcaudit
-Terminal=true
-Type=Application

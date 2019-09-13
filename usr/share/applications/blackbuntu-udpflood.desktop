@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Stress Testing;
-Exec=sh -c 'udpflood --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Udpflood
-Terminal=true
-Type=Application

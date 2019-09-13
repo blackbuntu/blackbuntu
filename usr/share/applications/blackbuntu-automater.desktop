@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Gathering;
-Exec=sh -c 'automater --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Automater
-Terminal=true
-Type=Application

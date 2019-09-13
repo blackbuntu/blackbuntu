@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Networking;
-Exec=sh -c 'sudo macchanger --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=MacChanger
-Terminal=true
-Type=Application

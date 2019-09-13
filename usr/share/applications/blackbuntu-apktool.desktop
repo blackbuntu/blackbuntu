@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Hardwares;
-Exec=sh -c 'apktool --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=ApkTool
-Terminal=true
-Type=Application

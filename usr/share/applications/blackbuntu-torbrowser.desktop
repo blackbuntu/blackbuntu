@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Utilities;
-Exec=sh -c '/opt/blackbuntu/utilities/torbrowser/Browser/start-tor-browser --detach || ([ ! -x /opt/blackbuntu/utilities/torbrowser/Browser/start-tor-browser ] && /opt/blackbuntu/utilities/torbrowser/Browser/start-tor-browser --detach)' dummy %k
-Icon=/usr/share/icons/blackbuntu/blackbuntu-torbrowser.png
-Name=Tor Browser
-Terminal=false
-Type=Application

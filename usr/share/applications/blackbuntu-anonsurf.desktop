@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Utilities;
-Exec=sh -c 'anonsurf; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Anonsurf
-Terminal=true
-Type=Application

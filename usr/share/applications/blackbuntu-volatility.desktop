@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Digital Forensics;
-Exec=sh -c 'volatility -h; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Volatility
-Terminal=true
-Type=Application

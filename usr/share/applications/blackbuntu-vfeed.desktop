@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Exploitation;
-Exec=sh -c 'vfeed --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=vFeed
-Terminal=true
-Type=Application

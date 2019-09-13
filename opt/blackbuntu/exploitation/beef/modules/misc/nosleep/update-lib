@@ -1,2 +1,0 @@
-#!/bin/sh
-wget 'https://raw.githubusercontent.com/richtr/NoSleep.js/master/NoSleep.min.js' -O NoSleep.min.js

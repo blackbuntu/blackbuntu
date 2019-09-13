@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Wireless;
-Exec=sh -c 'pyrit; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Pyrit
-Terminal=true
-Type=Application

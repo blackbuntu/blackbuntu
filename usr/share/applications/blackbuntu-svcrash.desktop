@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Sniffing / Spoofing;
-Exec=sh -c 'svcrash --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Svcrash
-Terminal=true
-Type=Application

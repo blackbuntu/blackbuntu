@@ -1,1 +1,0 @@
-dir \\RePlAcE\ShAr3

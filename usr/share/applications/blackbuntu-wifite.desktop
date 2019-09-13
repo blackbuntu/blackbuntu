@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Wireless;
-Exec=sh -c 'sudo wifite; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Wifite
-Terminal=true
-Type=Application

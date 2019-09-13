@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Vulnerability Analysis;
-Exec=sh -c 'jsql-injection; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=jSQL Injection
-Terminal=false
-Type=Application

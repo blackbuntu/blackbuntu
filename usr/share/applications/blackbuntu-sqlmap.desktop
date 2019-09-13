@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Vulnerabilities Analysis;
-Exec=sh -c 'sqlmap --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Sqlmap
-Terminal=true
-Type=Application

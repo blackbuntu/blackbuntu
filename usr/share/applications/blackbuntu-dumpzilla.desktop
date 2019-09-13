@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Digital Forensics;
-Exec=sh -c 'dumpzilla --help; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-dumpzilla.png
-Name=Dumpzilla
-Terminal=true
-Type=Application

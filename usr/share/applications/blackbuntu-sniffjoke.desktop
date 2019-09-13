@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=Sniffing / Spoofing;
-Exec=sh -c 'sudo sniffjoke -h; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Sniffjoke
-Terminal=true
-Type=Application
