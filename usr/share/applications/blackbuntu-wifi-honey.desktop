@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Wireless Attacks;
+Categories=Wireless;
 Exec=sh -c 'wifi-honey -h; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Wifi-Honey

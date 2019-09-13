@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Wireless Attacks;
+Categories=Wireless;
 Exec=sh -c 'wifresti --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Wifresti
