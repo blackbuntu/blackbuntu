@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+Exec=sh -c 'sudo ohrwurm; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Ohrwurm
+Terminal=true
+Type=Application

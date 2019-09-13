@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking;
+Exec=sh -c 'webshells; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Webshells
+Terminal=true
+Type=Application

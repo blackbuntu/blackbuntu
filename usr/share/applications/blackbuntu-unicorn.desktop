@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Exploitation;
+Exec=sh -c 'unicorn; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Unicorn
+Terminal=true
+Type=Application

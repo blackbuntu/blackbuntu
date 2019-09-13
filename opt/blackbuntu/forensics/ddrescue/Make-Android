@@ -1,0 +1,16 @@
+#!/bin/sh
+FILES="dd_rescue libddr_crypt.so  libddr_lzo.so  libddr_null.so libddr_hash.so file_zblock fmt_no sha1 sha256 sha512 md5 test_aes fiemap find_nonzero fuzz_lzo"
+
+make_and()
+{
+	mkdir -p $2
+	make clean
+	make -f $1 config && make -f $1 all -j4 || exit
+	for name in $FILES; do mv $name $2/; done
+}
+
+make_and Makefile.android.arm32 android.arm32
+make_and Makefile.android.arm32pie android.arm32pie
+make_and Makefile.android.arm64 android.arm64
+make clean
+

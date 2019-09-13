@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Wireless;
+Exec=sh -c 'blueranger --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Blueranger
+Terminal=true
+Type=Application

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Digital Forensics;
+Exec=sh -c 'ddrescue --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Ddrescue
+Terminal=true
+Type=Application

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Vulnerability Analysis;
+Exec=sh -c 'inguma; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Inguma
+Terminal=true
+Type=Application

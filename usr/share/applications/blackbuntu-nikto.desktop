@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Gathering;
+Exec=sh -c 'sudo nikto -Help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-nikto.png
+Name=Nikto
+Terminal=true
+Type=Application

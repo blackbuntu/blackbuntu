@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Exploitation;
+Exec=sh -c 'backdoor-factory --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=BD Factory
+Terminal=true
+Type=Application

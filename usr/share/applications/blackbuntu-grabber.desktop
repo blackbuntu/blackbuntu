@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications;
+Exec=sh -c 'sudo grabber --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Grabber
+Terminal=true
+Type=Application

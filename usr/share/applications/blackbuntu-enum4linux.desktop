@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Gathering;
+Exec=sh -c 'enum4linux; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Enum4Linux
+Terminal=true
+Type=Application

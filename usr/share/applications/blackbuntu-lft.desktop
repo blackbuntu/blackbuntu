@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking;
+Exec=sh -c 'lft; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=LFT Network
+Terminal=true
+Type=Application

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking;
+Exec=sh -c 'acccheck; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=AccCheck
+Terminal=true
+Type=Application

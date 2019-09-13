@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Vulnerability Analysis;
+Exec=sh -c 'sslscan --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Sslscan
+Terminal=true
+Type=Application

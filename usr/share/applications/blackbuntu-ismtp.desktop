@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Gathering;
+Exec=sh -c 'ismtp; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Ismtp
+Terminal=true
+Type=Application

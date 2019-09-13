@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Reporting;
+Exec=sh -c 'cherrytree; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Cherrytree
+Terminal=false
+Type=Application

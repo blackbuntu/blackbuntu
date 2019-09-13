@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Utilities;
+Exec=sh -c 'sudo dedsploit; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Dedsploit
+Terminal=true
+Type=Application

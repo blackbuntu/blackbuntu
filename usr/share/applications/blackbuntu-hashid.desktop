@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Cracking;
+Exec=sh -c 'hashid; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=HashID
+Terminal=true
+Type=Application

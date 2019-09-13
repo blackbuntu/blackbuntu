@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Reporting;
+Exec=sh -c 'pipal --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Pipal
+Terminal=true
+Type=Application

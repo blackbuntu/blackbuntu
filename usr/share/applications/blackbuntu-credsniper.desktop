@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Social Engineering;
+Exec=sh -c 'credsniper --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=CredSniper
+Terminal=true
+Type=Application

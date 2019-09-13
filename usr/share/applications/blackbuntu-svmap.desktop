@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Sniffing / Spoofing;
+Exec=sh -c 'svmap --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Svmap
+Terminal=true
+Type=Application

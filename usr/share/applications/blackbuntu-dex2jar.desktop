@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Hardwares;
+Exec=sh -c 'dex2jar --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Dex2Jar
+Terminal=true
+Type=Application

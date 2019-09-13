@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Networking;
+Exec=sh -c 'sudo tcpdump --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=TCP-Dump
+Terminal=true
+Type=Application

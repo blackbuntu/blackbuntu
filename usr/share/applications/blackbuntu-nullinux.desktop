@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Gathering;
+Exec=sh -c 'nullinux --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Nullinux
+Terminal=true
+Type=Application

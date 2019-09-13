@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Hardwares;
+Exec=sh -c 'rom-decoder; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Rom Decoder
+Terminal=true
+Type=Application
