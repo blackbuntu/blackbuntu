@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=4.2.7
+Type=Application
+Name=Maltego
+Exec=/usr/bin/maltego
+Icon=/usr/share/icons/blackbuntu/blackbuntu-maltego.png
+Terminal=false
+Actions=ConfigureMemory;ShowWebsite;
+Categories=Gathering;
+
+[Desktop Action ConfigureMemory]
+Name=Configure Memory
+Exec=/usr/bin/maltego_memory_config

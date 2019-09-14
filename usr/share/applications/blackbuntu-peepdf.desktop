@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Digital Forensics;
+Categories=Forensics;
 Exec=sh -c 'peepdf --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=PeePDF

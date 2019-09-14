@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=4.2.7
+Type=Application
+Name=Maltego Memory Config
+GenericName=Maltego Memory Config
+Comment=Configure Memory for Maltego
+Exec=/usr/bin/maltego_memory_config
+Icon=/usr/share/icons/blackbuntu/blackbuntu-maltego.png
+Terminal=false
+Categories=Gathering;

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Gathering;
-Exec=sh -c 'spiderfoot -h; $SHELL'
+Exec=sh -c 'spiderfootcli; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=SpiderFoot
+Name=SpiderFoot CLI
 Terminal=true
 Type=Application

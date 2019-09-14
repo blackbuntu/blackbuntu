@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Forensics;
-Exec=sh -c 'scalpel; $SHELL'
+Categories=Gathering;
+Exec=sh -c 'ghost-eye; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Scalpel
+Name=Ghost Eye
 Terminal=true
 Type=Application

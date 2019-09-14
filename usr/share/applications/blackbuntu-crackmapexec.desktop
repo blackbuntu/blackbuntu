@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Forensics;
-Exec=sh -c 'scalpel; $SHELL'
+Categories=Cracking;
+Exec=sh -c 'crackmapexec -h; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Scalpel
+Name=CrackmapExec
 Terminal=true
 Type=Application

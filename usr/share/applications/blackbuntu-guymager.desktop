@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Digital Forensics;
+Categories=Forensics;
 Exec=pkexec guymager
 Icon=/usr/share/icons/blackbuntu/blackbuntu-guymager.png
 Name=Guymager

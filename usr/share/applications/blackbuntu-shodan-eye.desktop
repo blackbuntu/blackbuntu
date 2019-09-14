@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Forensics;
-Exec=sh -c 'scalpel; $SHELL'
+Categories=Gathering;
+Exec=sh -c 'shodan-eye; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Scalpel
+Name=Shodan Eye
 Terminal=true
 Type=Application
