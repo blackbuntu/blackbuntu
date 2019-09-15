@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Categories=Exploitation;
-Exec=sh -c 'sudo msfconsole; $SHELL'
+Exec=sh -c 'msfconsole; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-metasploit.png
 Name=Metasploit
 Terminal=true
