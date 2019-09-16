@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Hardwares;
+Exec=arduino
+Icon=/usr/share/icons/blackbuntu/blackbuntu-arduino.png
+Name=Arduino IDE
+Terminal=false
+Type=Application

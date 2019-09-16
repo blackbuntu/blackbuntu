@@ -1,0 +1,18 @@
+[kdeglobals][KDE]
+widgetStyle=kvantum
+
+[kdeglobals][General]
+ColorScheme=Materia Dark
+
+[kdeglobals][Icons]
+Theme=Papirus-Dark
+
+[plasmarc][Theme]
+name=Materia
+
+[kwinrc][org.kde.kdecoration2]
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Materia-Dark
+
+[kcminputrc][Mouse]
+cursorTheme=breeze_cursors
