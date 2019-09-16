@@ -4,24 +4,24 @@
   'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
 <Menu>
 	<Name>Applications</Name>
-	<MergeFile type="parent">/etc/xdg/menus/gnome-applications.menu</MergeFile>
+	<MergeFile type="parent">/etc/xdg/menus/kde4-applications.menu</MergeFile>
 	<Layout>
 		<Merge type="menus"/>
-		<Menuname>01 - Cracking Tools</Menuname>
-		<Menuname>02 - Exploitation Tools</Menuname>
-		<Menuname>03 - Digital Forensics</Menuname>		
-		<Menuname>04 - Hardwares Tools</Menuname>
-		<Menuname>05 - Information Gathering</Menuname>
-		<Menuname>06 - Networking Tools</Menuname>
-		<Menuname>07 - Reporting Tools</Menuname>
+		<Menuname>01 - Cracking</Menuname>
+		<Menuname>02 - Exploitation</Menuname>
+		<Menuname>03 - Forensics</Menuname>		
+		<Menuname>04 - Hardwares</Menuname>
+		<Menuname>05 - Gathering</Menuname>
+		<Menuname>06 - Networking</Menuname>
+		<Menuname>07 - Reporting</Menuname>
 		<Menuname>08 - Reverse Engineering</Menuname>
 		<Menuname>09 - Sniffing / Spoofing</Menuname>
 		<Menuname>10 - Social Engineering</Menuname>
 		<Menuname>11 - Stress Testing</Menuname>
-		<Menuname>12 - Utilities Tools</Menuname>
+		<Menuname>12 - Utilities</Menuname>
 		<Menuname>13 - Vulnerability Analysis</Menuname>
-		<Menuname>14 - Web Applications Analysis</Menuname>
-		<Menuname>15 - Wireless Attacks</Menuname>
+		<Menuname>14 - Web Applications</Menuname>
+		<Menuname>15 - Wireless</Menuname>
 		<Menuname>16 - System Services</Menuname>
 		<Separator/>
 		<Menuname>Accessories</Menuname>
@@ -44,8 +44,4 @@
 		<Filename>org.gnome.Software.desktop</Filename>
 		<Merge type="files"/>
 	</Layout>
-	<Menu>
-		<Name>System Settings</Name>
-		<DirectoryDir>~/.local/share/desktop-directories</DirectoryDir>
-	</Menu>
 </Menu>
