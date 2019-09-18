@@ -1,0 +1,29 @@
+[General]
+screenCount=1
+
+[LegacySession: saved at previous logout]
+clientMachine1=localhost
+command1=conky,-q,-c,/home/backtest/.config/conky/conky.conf
+count=1
+
+[Session: saved at previous logout]
+clientId1=10d6c6d6df000156876587200000018900005
+clientId2=10d6c6d6df000156876587200000018900006
+clientId3=10d6c6d6df000156876587200000018900009
+count=3
+discardCommand1[$e]=rm,$HOME/.config/session/kwin_10d6c6d6df000156876587200000018900005_1568766322_235382
+program1=kwin_x11
+program2=pulseaudio
+program3=/usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil
+restartCommand1=kwin_x11,-session,10d6c6d6df000156876587200000018900005_1568766322_235382
+restartCommand2=
+restartCommand3=/usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil,-session,10d6c6d6df000156876587200000018900009_1568766322_230323
+restartStyleHint1=0
+restartStyleHint2=0
+restartStyleHint3=0
+userId1=backtest
+userId2=backtest
+userId3=backtest
+wasWm1=true
+wasWm2=false
+wasWm3=false
