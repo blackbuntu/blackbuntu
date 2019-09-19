@@ -1,8 +1,0 @@
-[$Version]
-update_info=kscreenlocker.upd:0.1-autolock
-
-[Greeter]
-Theme=com.github.varlesh.materia
-
-[Greeter][Wallpaper][org.kde.color][General]
-Color=25,25,25
