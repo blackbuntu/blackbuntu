@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} UdpFlood has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open UdpFlood"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open UdpFlood"
 	echo -e "\n"
 else
 	echo

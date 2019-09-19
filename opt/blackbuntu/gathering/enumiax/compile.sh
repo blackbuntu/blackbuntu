@@ -117,7 +117,7 @@ then
 	
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Enumiax has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Enumiax"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Enumiax"
 	echo -e "\n"
 else
 	echo

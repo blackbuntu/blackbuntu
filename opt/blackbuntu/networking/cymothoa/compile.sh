@@ -118,7 +118,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Cymothoa has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Cymothoa"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Cymothoa"
 	echo -e "\n"
 else
 	echo

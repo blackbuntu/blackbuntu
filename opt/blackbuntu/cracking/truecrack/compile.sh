@@ -118,7 +118,7 @@ then
 	
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Truecrack has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Truecrack"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Truecrack"
 	echo -e "\n"
 else
 	echo

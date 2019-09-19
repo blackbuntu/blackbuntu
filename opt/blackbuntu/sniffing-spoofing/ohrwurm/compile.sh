@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Ohrwurm has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Ohrwurm"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Ohrwurm"
 	echo -e "\n"
 else
 	echo

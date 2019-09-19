@@ -52,9 +52,9 @@ def usage():
 	logo()
 	print """
 	USAGE:
-        torphantom start -----(start torphantom)
-	torphantom start -i <interface(s)> -----(start with macchanger)
-        torphantom stop  -----(stop torphantom)
+        sudo torphantom start -----(start torphantom)
+	sudo torphantom start -i <interface(s)> -----(start with macchanger)
+        sudo torphantom stop  -----(stop torphantom)
     """
 	sys.exit()
 

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Categories=Stress Testing;
-Exec=sh -c 'thc-ssl-dos --help; $SHELL'
+Exec=sh -c 'thc-ssl-dos -h; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=THC SSL-dos
 Terminal=true

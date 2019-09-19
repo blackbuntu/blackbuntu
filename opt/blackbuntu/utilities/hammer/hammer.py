@@ -117,7 +117,7 @@ def get_parameters():
 
 # reading headers
 global data
-headers = open("/opt/pentest/utilities/hammer/headers.txt", "r")
+headers = open("/opt/blackbuntu/utilities/hammer/headers.txt", "r")
 data = headers.read()
 headers.close()
 #task queue are q,w

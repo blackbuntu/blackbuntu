@@ -119,7 +119,7 @@ then
 	
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Sniffjoke has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Sniffjoke"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Sniffjoke"
 	echo -e "\n"
 else
 	echo

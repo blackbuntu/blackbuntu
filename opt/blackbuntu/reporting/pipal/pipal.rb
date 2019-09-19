@@ -18,8 +18,8 @@
 #
 
 require 'getoptlong'
-require '/opt/pentest/reporting/pipal/horizbar.rb'
-require '/opt/pentest/reporting/pipal/progressbar'
+require '/opt/blackbuntu/reporting/pipal/horizbar.rb'
+require '/opt/blackbuntu/reporting/pipal/progressbar'
 
 if RUBY_VERSION =~ /1\.8/
 	puts "Sorry, Pipal only works correctly on Ruby 1.9.x."

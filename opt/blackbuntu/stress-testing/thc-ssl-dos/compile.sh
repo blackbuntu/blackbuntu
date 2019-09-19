@@ -118,7 +118,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} THC SSL-Dos has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open THC SSL-Dos"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open THC SSL-Dos"
 	echo -e "\n"
 else
 	echo

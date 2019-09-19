@@ -15,7 +15,7 @@ except IndexError:
     print "#####################################################################\n"
     print "[*] ERROR: Please provide a file containing IPs to be uniqued \
         and sorted!\n".replace('    ', '')
-    print "Example: ./IPSorter.py ips.txt"
+    print "Example: ipsorter ips.txt"
     sys.exit()
 
 # Read in all IPs from user specified file

@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} EapMd5pass has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open EapMd5pass"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open EapMd5pass"
 	echo -e "\n"
 else
 	echo

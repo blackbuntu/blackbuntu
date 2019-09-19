@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Reporting;
-Exec=sh -c 'nipper; $SHELL'
+Categories=Reverse Engineering;
+Exec=sh -c 'androlyze --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Nipper NG
+Name=Androlyze
 Terminal=true
 Type=Application

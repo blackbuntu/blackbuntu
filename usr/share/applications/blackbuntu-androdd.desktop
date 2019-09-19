@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Stress Testing;
-Exec=sh -c 'inviteflood --help; $SHELL'
+Categories=Reverse Engineering;
+Exec=sh -c 'androdd --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Inviteflood
+Name=Androdd
 Terminal=true
 Type=Application

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Categories=Utilities;
-Exec=sh -c 'sudo dedsploit; $SHELL'
+Categories=Reverse Engineering;
+Exec=sh -c 'androarsc --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
-Name=Dedsploit
+Name=Androarsc
 Terminal=true
 Type=Application

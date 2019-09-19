@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Pwnat has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Pwnat"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Pwnat"
 	echo -e "\n"
 else
 	echo

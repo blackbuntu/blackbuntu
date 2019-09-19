@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} RtpFlood has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open RtpFlood"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open RtpFlood"
 	echo -e "\n"
 else
 	echo

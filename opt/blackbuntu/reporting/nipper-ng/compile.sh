@@ -117,7 +117,7 @@ then
 
 	echo
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Nipper-NG has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows and re-open Nipper-NG"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Nipper-NG"
 	echo -e "\n"
 else
 	echo
