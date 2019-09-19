@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Categories=Gathering;
-Exec=sh -c 'knock --help; $SHELL'
+Exec=sh -c 'knockpy --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Knock
 Terminal=true

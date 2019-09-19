@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=Zenmap
-GenericName=GUI Port Scanner
 TryExec=zenmap
 Exec=zenmap %F
 Terminal=false
