@@ -6,5 +6,4 @@ Terminal=false
 Icon=/usr/share/icons/blackbuntu/blackbuntu-zenmap.png
 Type=Application
 Categories=Gathering;
-Comment=A cross-platform GUI for the Nmap Security Scanner.
 Keywords=network;scan;scanner;IP;security;
