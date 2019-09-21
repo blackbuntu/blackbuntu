@@ -8,4 +8,4 @@
 # 
 # Ascii Art : https://www.askapache.com/online-tools/figlet-ascii/
 
-echo -e "No update available"
+echo -e "No more update available"

@@ -113,13 +113,13 @@ then
 
 	cd /tmp/
 	sudo wget -q -O /tmp/update.sh "https://raw.githubusercontent.com/blackbuntu/blackbuntu/master/update.sh"
-	if [ -f "/tmp/upgrade.sh" ];
+	if [ -f "/tmp/update.sh" ];
 	then
 		sudo chmod +x /tmp/update.sh
 		sudo bash /tmp/update.sh
 		sudo rm -f /tmp/update.sh
 	else
-		echo -e "Cannot retrieve the remote 'upgrade.sh' file required by the system"
+		echo -e "Cannot retrieve the remote 'update.sh' file required by the system"
 		echo -e "Quitting ..."
 		echo -e "\n"
 		exit 1
