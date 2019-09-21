@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Sniffing / Spoofing;
+Categories=Sniffing / SpoofingSniffing - Spoofing;
 TryExec=wireshark
 Exec=wireshark %f
 Icon=/usr/share/icons/blackbuntu/blackbuntu-wireshark.png

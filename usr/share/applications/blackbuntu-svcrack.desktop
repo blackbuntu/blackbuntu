@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Categories=Sniffing / Spoofing;
+Categories=Sniffing - Spoofing;
 Exec=sh -c 'svcrack --help; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
 Name=Svcrack

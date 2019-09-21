@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [Package]: Sniffjoke
+# [Package]: XSPY
 # [Release]: Blackbuntu Revive v1.0.1 Alpha
 # [Website]: https://blackbuntu.org
 # [Version]: Revive v1.0.1 Alpha
@@ -38,7 +38,7 @@ function set_banner
 	echo -e "${TEXT_ERROR}                                                         ${TEXT_RESET}"
 	echo -e "${TEXT_ERROR}                                      Blackbuntu v1.0.1  ${TEXT_RESET}"         
 	echo
-	echo -e "${TEXT_VALID} [i] [Package]: sniffjoke${TEXT_RESET}"
+	echo -e "${TEXT_VALID} [i] [Package]: xspy${TEXT_RESET}"
 	echo -e "${TEXT_VALID} [i] [Website]: https://blackbuntu.org${TEXT_RESET}"
 
   	echo
@@ -96,7 +96,7 @@ set_banner
 
 ## Prompt User for Confirmation
 ## ----------------------------
-echo -e " Sniffjoke is not yet compiled."
+echo -e " XSPY is not yet compiled."
 read -p " Do you want to compile it now [Y/n] ? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -106,20 +106,18 @@ then
 	check_username $USERNAME
 	check_internet
 
-	echo -e " Please wait while compiling Sniffjoke ..."
+	echo -e " Please wait while compiling XSPY ..."
 	sleep 5s
 
-	sudo rm -f /usr/bin/sniffjoke
-	sudo mkdir -p /opt/blackbuntu/sniffing-spoofing/sniffjoke/build
-	cd /opt/blackbuntu/sniffing-spoofing/sniffjoke/build/
-	sudo cmake .. >/dev/null 2>&1
-	sudo make >/dev/null 2>&1
+	sudo rm -f /usr/bin/xspy
+	cd /opt/blackbuntu/sniffing-spoofing/xspy/
 	sudo make install >/dev/null 2>&1
+	sudo ln -s /opt/blackbuntu/sniffing-spoofing/xspy/xspy /usr/bin/xspy
 	cd /tmp/
 	
 	echo
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Sniffjoke has been compiled successfully"
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open Sniffjoke"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} XSPY has been compiled successfully"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal and re-open XSPY"
 	echo -e "\n"
 else
 	echo

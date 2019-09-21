@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Categories=Web Applications;
-Exec=/usr/bin/java -jar /opt/pentest/webapps-analysis/burpsuite/burpsuite.jar
+Exec=/usr/lib/jvm/java-11-openjdk-amd64/bin/java -jar /opt/blackbuntu/web-applications/burpsuite/burpsuite.jar
 Icon=/usr/share/icons/blackbuntu/blackbuntu-burpsuite.png
 Name=Burpsuite
 Terminal=false
