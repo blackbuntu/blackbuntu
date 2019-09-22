@@ -78,11 +78,11 @@
         </Include>
     </Menu>
     <Menu>
-        <Name>09 - Sniffing / Spoofing</Name>
+        <Name>09 - Sniffing - Spoofing</Name>
         <Directory>blackbuntu-sniffing-spoofing.directory</Directory>
         <Include>
             <And>
-                <Category>Sniffing / Spoofing</Category>
+                <Category>Sniffing - Spoofing</Category>
             </And>
         </Include>
     </Menu>
