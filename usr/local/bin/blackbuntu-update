@@ -81,6 +81,23 @@ function check_internet
 	fi
 }
 
+## Return stage title
+## ------------------
+function stage_title
+{
+	echo -e "\n${TEXT_TITLE}[+]${TEXT_RESET} (${1}/${2}) ${TEXT_TITLE}${3^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+## Return stage output
+## -------------------
+function stage_output
+{
+	cd /tmp/
+	echo -e "${TEXT_VALID}[i] ${1^^}${TEXT_RESET}"
+	sleep 1s
+}
+
 ## ------------ ##
 ## Start Script ##
 ## ------------ ##
@@ -106,11 +123,37 @@ then
 	check_username $USERNAME
 	check_internet
 
-	sudo -v
-	sudo apt -y update && sudo apt -y upgrade && sudo apt -y dist-upgrade
-	sudo apt -y remove && sudo apt -y autoremove
-	sudo apt -y clean && sudo apt -y autoclean
+	## Stage counter start
+	## -------------------
+	STAGE=0
+	TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
+	clear
 
+	## Update / Upgrade
+	## ----------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Core System Update/Upgrade"
+	sudo apt -y update && sudo apt -y upgrade && sudo apt -y dist-upgrade
+	stage_output "Core system updated and upgraded successfully"
+	
+	## Remove Unnecessary Packages
+	## ---------------------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Core System Remove Unnecessary Packages"
+	sudo apt -y remove && sudo apt -y autoremove
+	stage_output "Core system unnecessary packages removed successfully"
+	
+	## Core System Clean
+	## -----------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Core System Clean"
+	sudo apt -y clean && sudo apt -y autoclean
+	stage_output "Core system cleaned successfully"
+	
+	## BlackBuntu Update
+	## -----------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "BlackBuntu Update"
 	cd /tmp/
 	sudo wget -q -O /tmp/update.sh "https://raw.githubusercontent.com/blackbuntu/blackbuntu/master/update.sh"
 	if [ -f "/tmp/update.sh" ];
@@ -118,6 +161,7 @@ then
 		sudo chmod +x /tmp/update.sh
 		sudo bash /tmp/update.sh
 		sudo rm -f /tmp/update.sh
+		stage_output "BlackBuntu updated successfully"
 	else
 		echo -e "Cannot retrieve the remote 'update.sh' file required by the system"
 		echo -e "Quitting ..."
@@ -126,7 +170,7 @@ then
 	fi
 
 	echo
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} BlackBuntu has been updated successfully"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Updater executed successfully"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows at anytime"
 	echo -e "\n"
 else

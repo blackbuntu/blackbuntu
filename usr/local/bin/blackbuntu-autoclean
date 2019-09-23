@@ -81,6 +81,23 @@ function check_internet
 	fi
 }
 
+## Return stage title
+## ------------------
+function stage_title
+{
+	echo -e "\n${TEXT_TITLE}[+]${TEXT_RESET} (${1}/${2}) ${TEXT_TITLE}${3^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+## Return stage output
+## -------------------
+function stage_output
+{
+	cd /tmp/
+	echo -e "${TEXT_VALID}[i] ${1^^}${TEXT_RESET}"
+	sleep 1s
+}
+
 ## ------------ ##
 ## Start Script ##
 ## ------------ ##
@@ -106,101 +123,114 @@ then
 	check_username $USERNAME
 	check_internet
 
+	## Stage counter start
+	## -------------------
+	STAGE=0
+	TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
+	clear
+
 	## Delete Firefox Logs
 	## -------------------
-	sudo rm -rf /home/$USERNAME/.mozilla/firefox/backup/
-	sudo rm -rf /home/$USERNAME/.cache/mozilla/firefox/backup/
-	sudo mkdir -p /home/$USERNAME/.mozilla/firefox/backup/ /home/$USERNAME/.cache/mozilla/firefox/backup/
-	sudo mv /home/$USERNAME/.mozilla/firefox/*.default/*.sqlite  /home/$USERNAME/.mozilla/firefox/backup/ >/dev/null 2>&1
-	sudo mv /home/$USERNAME/.mozilla/firefox/*.default/sessionstore.js /home/$USERNAME/.mozilla/firefox/backup/ >/dev/null 2>&1
-	sudo mv /home/$USERNAME/.cache/mozilla/firefox/*.default/* /home/$USERNAME/.cache/mozilla/firefox/backup/ >/dev/null 2>&1
-	sudo rm -f /home/$USERNAME/.mozilla/firefox/*.default/cookies.sqlite
-	sudo rm -f /home/$USERNAME/.mozilla/firefox/*.default/*.sqlite
-	sudo rm -f /home/$USERNAME/.mozilla/firefox/*default/sessionstore.js
-	sudo rm -rf /home/$USERNAME/.cache/mozilla/firefox/*.default/*
-	
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete Firefox Logs"
+	sudo rm -rf /home/$USER/.mozilla/firefox/backup/
+	sudo rm -rf /home/$USER/.cache/mozilla/firefox/backup/
+	sudo mkdir -p /home/$USER/.mozilla/firefox/backup/ /home/$USER/.cache/mozilla/firefox/backup/
+	sudo mv /home/$USER/.mozilla/firefox/*.default/*.sqlite  /home/$USER/.mozilla/firefox/backup/ >/dev/null 2>&1
+	sudo mv /home/$USER/.mozilla/firefox/*.default/sessionstore.js /home/$USER/.mozilla/firefox/backup/ >/dev/null 2>&1
+	sudo mv /home/$USER/.cache/mozilla/firefox/*.default/* /home/$USER/.cache/mozilla/firefox/backup/ >/dev/null 2>&1
+	sudo rm -f /home/$USER/.mozilla/firefox/*.default/cookies.sqlite
+	sudo rm -f /home/$USER/.mozilla/firefox/*.default/*.sqlite
+	sudo rm -f /home/$USER/.mozilla/firefox/*default/sessionstore.js
+	sudo rm -rf /home/$USER/.cache/mozilla/firefox/*.default/*
+	stage_output "Firefox logs cleaned successfully"
+
 	## Delete Chromium Logs
 	## --------------------
-	sudo rm -rf /home/$USERNAME/.cache/chromium/* >/dev/null 2>&1
-	sudo rm -rf /home/$USERNAME/.config/chromium/Default/* >/dev/null 2>&1
-	
-	## Delete Sublime-Text Logs
-	## ------------------------
-	sudo rm -rf /home/$USERNAME/.config/sublime-text-3/Local/Session.sublime_session >/dev/null 2>&1
-	
-	## Delete Filezilla Logs
-	## ---------------------
-	sudo rm -rf /home/$USERNAME/.config/filezilla/queue.sqlite3 >/dev/null 2>&1
-	sudo rm -rf /home/$USERNAME/.config/filezilla/recentservers.xml >/dev/null 2>&1
-	sudo rm -rf /home/$USERNAME/.config/filezilla/trustedcerts.xml >/dev/null 2>&1
-	
-	## Delete Machine Logs
-	## -------------------
-	sudo rm -f /home/$USERNAME/*.backup
-	sudo rm -f /home/$USERNAME/*.cap
-	sudo rm -f /home/$USERNAME/*.csv
-	sudo rm -f /home/$USERNAME/*.log
-	sudo rm -f /home/$USERNAME/*.netxml
-	sudo rm -f /home/$USERNAME/*.old
-	sudo rm -f /home/$USERNAME/*.xml
-	sudo rm -f /home/$USERNAME/.google-cookie
-	sudo rm -f /home/$USERNAME/.rsf_history
-	sudo rm -f /home/$USERNAME/.selected_editor
-	sudo rm -f /home/$USERNAME/.wget-hsts
-	sudo rm -f /home/$USERNAME/paused.conf
-	sudo rm -rf /home/$USERNAME/.arduino15
-	sudo rm -rf /home/$USERNAME/.binwalk
-	sudo rm -rf /home/$USERNAME/.BurpSuite
-	sudo rm -rf /home/$USERNAME/.golismero
-	sudo rm -rf /home/$USERNAME/.JavaSnoop
-	sudo rm -rf /home/$USERNAME/.john
-	sudo rm -rf /home/$USERNAME/.kismet
-	sudo rm -rf /home/$USERNAME/.magictree
-	sudo rm -rf /home/$USERNAME/.maltego
-	sudo rm -rf /home/$USERNAME/.ngrok2
-	sudo rm -rf /home/$USERNAME/.oracle_jre_usage
-	sudo rm -rf /home/$USERNAME/.pocsuite
-	sudo rm -rf /home/$USERNAME/.pocsuiterc
-	sudo rm -rf /home/$USERNAME/.pyrit
-	sudo rm -rf /home/$USERNAME/.set
-	sudo rm -rf /home/$USERNAME/.sqlmap
-	sudo rm -rf /home/$USERNAME/.wget-hsts
-	sudo rm -rf /home/$USERNAME/.ZAP
-	sudo rm -rf /home/$USERNAME/Arduino
-	sudo rm -rf /home/$USERNAME/global-groovy.log
-	sudo rm -rf /home/$USERNAME/JavaSnoop.properties
-	sudo rm -rf /home/$USERNAME/js.log
-	sudo rm -rf /home/$USERNAME/linset_rev-35.backup
-	sudo rm -rf /home/$USERNAME/magictree.log
-	sudo rm -rf /home/$USERNAME/soapui-errors.log
-	sudo rm -rf /home/$USERNAME/soapui.log
-	sudo rm -rf /home/$USERNAME/wsattacker_config.xml
-	sudo rm -rf /home/$USERNAME/yersinia.log
-	sudo rm -rf /home/$USERNAME/.cache/thumbnails/fail
-	sudo rm -rf /home/$USERNAME/.cache/thumbnails/large
-	sudo rm -rf /home/$USERNAME/.cache/thumbnails/normal
-	sudo rm -f /home/$USERNAME/config/nautilus/servers
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete Chromium Logs"
+	sudo rm -rf /home/$USER/.cache/chromium/* >/dev/null 2>&1
+	sudo rm -rf /home/$USER/.config/chromium/Default/* >/dev/null 2>&1
+	stage_output "Chromium logs cleaned successfully"
+
+	## Delete System Logs
+	## ------------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete System Logs"
+	sudo rm -f /home/$USER/*.backup
+	sudo rm -f /home/$USER/*.cap
+	sudo rm -f /home/$USER/*.csv
+	sudo rm -f /home/$USER/*.log
+	sudo rm -f /home/$USER/*.netxml
+	sudo rm -f /home/$USER/*.old
+	sudo rm -f /home/$USER/*.xml
+	sudo rm -f /home/$USER/.google-cookie
+	sudo rm -f /home/$USER/.rsf_history
+	sudo rm -f /home/$USER/.selected_editor
+	sudo rm -f /home/$USER/.wget-hsts
+	sudo rm -f /home/$USER/paused.conf
+	sudo rm -rf /home/$USER/.arduino15
+	sudo rm -rf /home/$USER/.binwalk
+	sudo rm -rf /home/$USER/.BurpSuite
+	sudo rm -rf /home/$USER/.golismero
+	sudo rm -rf /home/$USER/.JavaSnoop
+	sudo rm -rf /home/$USER/.john
+	sudo rm -rf /home/$USER/.kismet
+	sudo rm -rf /home/$USER/.magictree
+	sudo rm -rf /home/$USER/.maltego
+	sudo rm -rf /home/$USER/.ngrok2
+	sudo rm -rf /home/$USER/.oracle_jre_usage
+	sudo rm -rf /home/$USER/.pocsuite
+	sudo rm -rf /home/$USER/.pocsuiterc
+	sudo rm -rf /home/$USER/.pyrit
+	sudo rm -rf /home/$USER/.set
+	sudo rm -rf /home/$USER/.sqlmap
+	sudo rm -rf /home/$USER/.wget-hsts
+	sudo rm -rf /home/$USER/.ZAP
+	sudo rm -rf /home/$USER/Arduino
+	sudo rm -rf /home/$USER/global-groovy.log
+	sudo rm -rf /home/$USER/JavaSnoop.properties
+	sudo rm -rf /home/$USER/js.log
+	sudo rm -rf /home/$USER/linset_rev-35.backup
+	sudo rm -rf /home/$USER/magictree.log
+	sudo rm -rf /home/$USER/soapui-errors.log
+	sudo rm -rf /home/$USER/soapui.log
+	sudo rm -rf /home/$USER/wsattacker_config.xml
+	sudo rm -rf /home/$USER/yersinia.log
+	sudo rm -rf /home/$USER/.cache/thumbnails/fail
+	sudo rm -rf /home/$USER/.cache/thumbnails/large
+	sudo rm -rf /home/$USER/.cache/thumbnails/normal
+	sudo rm -f /home/$USER/config/nautilus/servers
 	sudo find /opt/pentest/exploitation/ -type f -name '*.log' -exec rm -f {} \; >/dev/null 2>&1
 	sudo find /var/log/ -type f -name '*.gz' -exec rm -f {} \; >/dev/null 2>&1
 	sudo find /var/log/ -type f -name '*.old' -exec rm -f {} \; >/dev/null 2>&1
 	sudo find /var/log/ -type f -name '*.1' -exec rm -f {} \; >/dev/null 2>&1
 	sudo find /var/log/ -type f -name '*.log' -exec rm -f {} \; >/dev/null 2>&1
-	
+	stage_output "System logs cleaned successfully"
+
 	## Delete Files History
 	## --------------------
-	sudo rm -f /home/$USERNAME/.local/share/recently-used.xbel
-	
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete Files History"
+	sudo rm -f /home/$USER/.local/share/recently-used.xbel
+	stage_output "Files history cleaned successfully"
+
 	## Delete SSH Keys
 	## ---------------
-	sudo rm -rf /home/$USERNAME/.ssh/authorized_keys
-	sudo rm -rf /home/$USERNAME/.ssh/known_hosts
-	sudo rm -rf /home/$USERNAME/.ssh/known_hosts.old
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete SSH Keys"
+	sudo rm -rf /home/$USER/.ssh/authorized_keys
+	sudo rm -rf /home/$USER/.ssh/known_hosts
+	sudo rm -rf /home/$USER/.ssh/known_hosts.old
 	sudo rm -rf /root/.ssh/authorized_keys
 	sudo rm -rf /root/.ssh/known_hosts
 	sudo rm -rf /root/.ssh/known_hosts.old
-	
+	stage_output "SSH Keys cleaned successfully"
+
 	## Remove Unnecessary Documentations
 	## ---------------------------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Remove Unnecessary Documentations"
 	sudo find /usr/share/doc -depth -type f ! -name copyright -exec rm -rf {} \; >/dev/null 2>&1
 	sudo find /usr/share/doc -empty -exec rm -rf {} \; >/dev/null 2>&1
 	sudo rm -rf /usr/share/man >/dev/null 2>&1
@@ -210,32 +240,48 @@ then
 	sudo rm -rf /usr/share/linda >/dev/null 2>&1
 	sudo rm -rf /var/cache/man >/dev/null 2>&1
 	sudo find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'en' -exec rm -rf {} \; >/dev/null 2>&1
+	stage_output "Unnecessary Documentations cleaned successfully"
 
-	## Clean Bash History
-	## ------------------
-	history -c && history -w
-	
 	## Delete Persistents Files
 	## ------------------------
-	sudo rm -rf /home/$USERNAME/.local/share/Trash/*
-	
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Delete Persistents Files"
+	sudo rm -rf /home/$USER/.local/share/Trash/*
+	stage_output "Persistents files cleaned successfully"
+
 	## Remove APT cache
 	## ----------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Remove APT cache"
 	sudo rm -rf /var/cache/apt/*
-	
+	stage_output "APT cache cleaned successfully"
+
 	## Correct Folders Permissions
 	## ---------------------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Correct Folders Permissions"
 	sudo chown -R $USERNAME:$USERNAME /opt/blackbuntu/
 	sudo chown -R $USERNAME:$USERNAME /var/www
-	
-	## Erase Bash History
-	## ------------------
-	true > /home/$USERNAME/.bash_history
+	stage_output "Folders permissions corrected successfully"
+
+	## Clean History
+	## -------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Clean History"
+	history -c && history -w
+	stage_output "History cleaned successfully"
+
+	## Erase Bash Logs
+	## ---------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "Erase Bash Logs"
+	true > /home/$USER/.bash_history
+	stage_output "Bash logs cleaned successfully"
 
 	## Final Notice
 	## ------------
 	echo
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} BlackBuntu has been cleaned successfully"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Autocleaner executed successfully"
 	echo -e " ${TEXT_ALERT}[i]${TEXT_RESET} Your computer will shutdown within 10 seconds"
 	echo -e "\n"
 
@@ -248,195 +294,3 @@ else
 	echo -e "\n"
 	exit 1
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#!/bin/bash
-#
-# [Package]: blackbuntu-clean
-# [Release]: Blackbuntu 18.04 Revive v1.0 Alpha
-# [Website]: https://blackbuntu.org
-# [Version]: Revive v1.0 Alpha
-# [License]: http://www.gnu.org/licenses/gpl-3.0.html
-# 
-# Ascii Art : https://www.askapache.com/online-tools/figlet-ascii/
-
-#######################
-## ----------------- ##
-## DEFINE PARAMETERS ##
-## ----------------- ##
-#######################
-
-## Colour output
-## -------------
-TEXT_FAILED="\033[01;31m"	# Issues/Errors
-TEXT_SUCCES="\033[01;32m"	# Success
-TEXT_NOTICE="\033[01;33m"	# Warnings/Information
-TEXT_HEADER="\033[01;34m"	# Heading
-TEXT_CLEAR="\033[00m"		# Normal
-
-######################
-## ---------------- ##
-## DEFINE FUNCTIONS ##
-## ---------------- ##
-######################
-
-## Display Header
-## --------------
-function set_banner
-{
-	clear
-	echo -e "${TEXT_FAILED}   _     _            _    _                 _           ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}  | |   | |          | |  | |               | |          ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}  | |__ | | __ _  ___| | _| |__  _   _ _ __ | |_ _   _   ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}  | '_ \| |/ _' |/ __| |/ / '_ \| | | | '_ \| __| | | |  ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}  | |_) | | (_| | (__|   <| |_) | |_| | | | | |_| |_| |  ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}  |_'__/|_|\__'_|\___|_|\_\_'__/ \__'_|_| |_|\__|\__'_|  ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}                                                         ${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}                                        Blackbuntu v1.1  ${TEXT_CLEAR}"         
-	echo
-	echo -e "${TEXT_SUCCES} [i] [Package]: blackbuntu-clean${TEXT_CLEAR}"
-	echo -e "${TEXT_SUCCES} [i] [Website]: https://blackbuntu.org${TEXT_CLEAR}"
-
-  	echo
-  	sleep 3s
-}
-
-## Error file not found
-## --------------------
-function set_notice_404
-{
-	cd /home/$USERNAME/
-	echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} An unknown error occured ~ Remote file not found (Error 404)${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} Quitting ..."
-	exit 1
-}
-
-## Error DNS issues
-## ----------------
-function set_notice_dns
-{
-	cd /home/$USERNAME/
-	echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} An unknown error occured ~ Possible DNS issues${TEXT_CLEAR}"
-	echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} Quitting ..."
-	exit 1
-}
-
-## Error Notice
-## ------------
-function set_notice_error
-{
-	cd /home/$USERNAME/
-	echo -e "${TEXT_FAILED}[!] ${1^^}${TEXT_CLEAR}"
-	sleep 1s
-}
-
-## Check if provided username exist
-## --------------------------------
-function check_username
-{
-	if id "$1" >/dev/null 2>&1; then
-	    sleep 1s
-	else
-		echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} The username $USERNAME has not been found in the system${TEXT_CLEAR}"
-		echo -e "${TEXT_FAILED}[!]${TEXT_CLEAR} Quitting ...${TEXT_CLEAR}"
-		echo -e "\n"
-		exit 1
-	fi
-}
-
-## Check Internet status
-## ---------------------
-function check_internet
-{
-	for i in {1..10};
-	do 
-		ping -c 1 -W ${i} www.google.com &>/dev/null && break; 
-	done
-	
-	if [[ "$?" -ne 0 ]]; 
-	then
-		set_notice_dns
-	fi
-
-	stage_output "Internet connection detected"
-}
-
-## Return stage title
-## ------------------
-function stage_title
-{
-	echo -e "\n${TEXT_HEADER}[+]${TEXT_CLEAR} (${1}/${2}) ${TEXT_HEADER}${3^^}${TEXT_CLEAR}"
-	sleep 1s
-}
-
-## Return stage output
-## -------------------
-function stage_output
-{
-	cd /home/$USERNAME/
-	echo -e "${TEXT_SUCCES}[i] ${1^^}${TEXT_CLEAR}"
-	sleep 1s
-}
-
-################
-## ---------- ##
-## START BASH ##
-## ---------- ##
-################
-
-## Display Header
-## --------------
-set_banner
-
-## Get Username
-## ------------
-read -p " Please enter your username : " USERNAME
-echo
-
-## Stage counter start
-## -------------------
-STAGE=0
-TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
-clear
-
-#####################################
-## ------------------------------- ##
-## CHECK USER LEVEL AND PERMISSION ##
-## ------------------------------- ##
-#####################################
-
-## Checking Username
-## -----------------
-check_username $USERNAME
-
-## Switch to Root
-## --------------
-(( STAGE++ ))
-stage_title $STAGE $TOTAL "Switch to Root"
-sudo ls -la /tmp/ >/dev/null 2>&1
-stage_output "Switched to Root successfully"
-
-##################################
-## ---------------------------- ##
-## REMOVE JUNK AND CLEAN SYSTEM ##
-## ---------------------------- ##
-##################################
-
-

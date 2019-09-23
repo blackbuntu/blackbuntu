@@ -81,6 +81,23 @@ function check_internet
 	fi
 }
 
+## Return stage title
+## ------------------
+function stage_title
+{
+	echo -e "\n${TEXT_TITLE}[+]${TEXT_RESET} (${1}/${2}) ${TEXT_TITLE}${3^^}${TEXT_RESET}"
+	sleep 1s
+}
+
+## Return stage output
+## -------------------
+function stage_output
+{
+	cd /tmp/
+	echo -e "${TEXT_VALID}[i] ${1^^}${TEXT_RESET}"
+	sleep 1s
+}
+
 ## ------------ ##
 ## Start Script ##
 ## ------------ ##
@@ -106,6 +123,16 @@ then
 	check_username $USERNAME
 	check_internet
 
+	## Stage counter start
+	## -------------------
+	STAGE=0
+	TOTAL=$(grep '(( STAGE++ ))' $0 | wc -l);(( TOTAL-- ))
+	clear
+
+	## BlackBuntu Upgrade
+	## ------------------
+	(( STAGE++ ))
+	stage_title $STAGE $TOTAL "BlackBuntu Upgrade"
 	cd /tmp/
 	sudo wget -q -O /tmp/upgrade.sh "https://raw.githubusercontent.com/blackbuntu/blackbuntu/master/upgrade.sh"
 	if [ -f "/tmp/upgrade.sh" ];
@@ -113,6 +140,7 @@ then
 		sudo chmod +x /tmp/upgrade.sh
 		sudo bash /tmp/upgrade.sh
 		sudo rm -f /tmp/upgrade.sh
+		stage_output "BlackBuntu upgraded successfully"
 	else
 		echo -e "Cannot retrieve the remote 'upgrade.sh' file required by the system"
 		echo -e "Quitting ..."
@@ -121,7 +149,7 @@ then
 	fi
 
 	echo
-	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} BlackBuntu has been updated successfully"
+	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Upgrader executed successfully"
 	echo -e " ${TEXT_VALID}[i]${TEXT_RESET} Close this terminal windows at anytime"
 	echo -e "\n"
 else
