@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
+<Menu>
+	<Name>Applications</Name>
+	<MergeFile type="parent">/etc/xdg/menus/gnome-applications.menu</MergeFile>
+	<Layout>
+		<Merge type="menus"/>
+		<Menuname>01 - Cracking</Menuname>
+		<Menuname>02 - Exploitation</Menuname>
+		<Menuname>03 - Forensics</Menuname>		
+		<Menuname>04 - Hardwares</Menuname>
+		<Menuname>05 - Gathering</Menuname>
+		<Menuname>06 - Networking</Menuname>
+		<Menuname>07 - Reporting</Menuname>
+		<Menuname>08 - Reverse Engineering</Menuname>
+		<Menuname>09 - Sniffing - Spoofing</Menuname>
+		<Menuname>10 - Social Engineering</Menuname>
+		<Menuname>11 - Stress Testing</Menuname>
+		<Menuname>12 - Utilities</Menuname>
+		<Menuname>13 - Vulnerability Analysis</Menuname>
+		<Menuname>14 - Web Applications</Menuname>
+		<Menuname>15 - Wireless</Menuname>
+		<Menuname>16 - System Services</Menuname>
+		<Separator/>
+		<Menuname>Accessories</Menuname>
+		<Menuname>Education</Menuname>
+		<Menuname>Games</Menuname>
+		<Menuname>Graphics</Menuname>
+		<Menuname>Internet</Menuname>
+		<Menuname>Office</Menuname>
+		<Menuname>Other</Menuname>
+		<Menuname>Development</Menuname>
+		<Menuname>Science</Menuname>
+		<Menuname>Multimedia</Menuname>
+		<Menuname>Sundry</Menuname>
+		<Menuname>System Settings</Menuname>
+		<Menuname>System</Menuname>
+		<Menuname>Universal Access</Menuname>
+		<Menuname>Utilities</Menuname>
+		<Menuname>Web Applications</Menuname>
+		<Separator/>
+		<Filename>org.gnome.Software.desktop</Filename>
+		<Merge type="files"/>
+	</Layout>
+	<Menu>
+		<Name>System Settings</Name>
+		<DirectoryDir>~/.local/share/desktop-directories</DirectoryDir>
+	</Menu>
+</Menu>
