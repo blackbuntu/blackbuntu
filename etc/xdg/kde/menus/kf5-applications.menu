@@ -188,15 +188,6 @@
             </And>
         </Include>
     </Menu>
-    <Menu>
-        <Name>16 - System Services</Name>
-        <Directory>blackbuntu-system-services.directory</Directory>
-        <Include>
-            <And>
-                <Category>System Services</Category>
-            </And>
-        </Include>
-    </Menu>
 	<Menu>
 		<Name>Development</Name>
 		<Directory>kf5-development.directory</Directory>

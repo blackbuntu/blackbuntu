@@ -335,21 +335,11 @@
             </And>
         </Include>
     </Menu>
-    <Menu>
-        <Name>16 - System Services</Name>
-        <Directory>blackbuntu-system-services.directory</Directory>
-        <Include>
-            <And>
-                <Category>System Services</Category>
-            </And>
-        </Include>
-    </Menu>
     <Layout>
         <Merge type="menus" />
         <Menuname>Other</Menuname>
         <Merge type="files" />
     </Layout>
-
     <Include>
         <Filename>org.gnome.Software.desktop</Filename>
     </Include>

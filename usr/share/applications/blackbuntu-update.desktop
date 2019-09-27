@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=System Services;
-Exec=sh -c 'blackbuntu-update; $SHELL'
-Icon=/usr/share/icons/blackbuntu/blackbuntu-update.png
-Name=BlackBuntu Update
-Terminal=true
-Type=Application

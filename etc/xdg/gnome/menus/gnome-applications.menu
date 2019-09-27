@@ -722,25 +722,14 @@
             </And>
         </Include>
     </Menu>
-    <Menu>
-        <Name>16 - System Services</Name>
-        <Directory>blackbuntu-system-services.directory</Directory>
-        <Include>
-            <And>
-                <Category>System Services</Category>
-            </And>
-        </Include>
-    </Menu>
     <Layout>
         <Merge type="menus" />
         <Menuname>Other</Menuname>
         <Merge type="files" />
     </Layout>
-
     <Include>
         <Filename>org.gnome.Software.desktop</Filename>
     </Include>
-
     <!-- Separator between menus and gnome-app-install -->
     <Layout>
         <Merge type="menus" />
@@ -748,6 +737,5 @@
         <Separator/>
         <Filename>org.gnome.Software.desktop</Filename>
     </Layout>
-
 </Menu>
 <!-- End Applications -->

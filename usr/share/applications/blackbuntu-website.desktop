@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Categories=System Services;
-Exec=/usr/bin/firefox --new-window https://blackbuntu.org/
-Icon=/usr/share/icons/blackbuntu/blackbuntu-website.png
-Name=BlackBuntu Website
-Terminal=false
-Type=Application
