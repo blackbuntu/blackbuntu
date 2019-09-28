@@ -111,7 +111,7 @@ then
 
 	sudo rm -f /usr/bin/xspy
 	cd /opt/blackbuntu/sniffing-spoofing/xspy/
-	sudo make install >/dev/null 2>&1
+	sudo make >/dev/null 2>&1
 	sudo ln -s /opt/blackbuntu/sniffing-spoofing/xspy/xspy /usr/bin/xspy
 	cd /tmp/
 	
