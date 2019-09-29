@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Categories=Web Applications;
-Exec="/opt/blackbuntu/web-applications/burpsuite/BurpSuiteCommunity/BurpSuiteCommunity"
+Exec=sh -c 'burpsuite; $SHELL'
 Icon=/usr/share/icons/blackbuntu/blackbuntu-burpsuite.png
 Name=Burpsuite
-Terminal=false
+Terminal=true
 Type=Application
