@@ -114,6 +114,7 @@ then
 	sudo ./configure >/dev/null 2>&1
 	sudo make >/dev/null 2>&1
 	sudo make install >/dev/null 2>&1
+	sudo sed -i 's/Terminal=true/Terminal=false/g' /usr/share/applications/blackbuntu-airsnort.desktop
 	cd /tmp/
 
 	echo

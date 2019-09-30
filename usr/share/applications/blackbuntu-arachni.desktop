@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Categories=Web Applications;
+Exec=sh -c 'arachni --help; $SHELL'
+Icon=/usr/share/icons/blackbuntu/blackbuntu-menu-default.png
+Name=Arachni
+Terminal=true
+Type=Application
